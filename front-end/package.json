@@ -1,0 +1,38 @@
+{
+  "name": "golden_hour_photography",
+  "version": "1.0.0",
+  "description": "Photography site",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production"
+  },
+  "author": "Sofa Kolodizner",
+  "license": "ISC",
+  "dependencies": {
+    "google-map-react": "^2.1.9",
+    "leaflet": "^1.7.1",
+    "react": "^17.0.1",
+    "react-calendar": "^3.2.1",
+    "react-dom": "^17.0.1",
+    "react-leaflet": "^3.0.2",
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^5.0.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^4.5.0",
+    "mini-css-extract-plugin": "^1.3.1",
+    "react-dev-utils": "^11.0.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.9.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}

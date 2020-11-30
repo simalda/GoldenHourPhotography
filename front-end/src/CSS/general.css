@@ -1,0 +1,153 @@
+ @font-face {
+  font-family: Heebo-Medium;
+  src: url(../static/fonts/heebo/Heebo-Medium.ttf);
+}
+@font-face {
+  font-family: Heebo-Bold;
+  src: url(../static/fonts/heebo/Heebo-Bold.ttf);
+} 
+
+body {
+  margin: 0;
+  padding: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, "Heebo" ,
+    sans-serif; */
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+} 
+
+
+/*main*/
+#container-main{
+  text-align: center;
+  padding-top:7vh;
+}
+.happyMoments{
+  height: 7vh;
+  padding-top: 6vh;
+}
+.about{
+  padding-top: 2vh;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.aboutText{
+  display: grid;
+  grid-template-rows: 60% 20% 20%;
+  justify-items: end;
+  margin-right: 1vw;
+}
+.buttonArea{
+  background-color: #f8f8f8;
+    padding: 1vh;
+}
+
+/*nav bar*/
+ .navbar-text {
+  color: #515151;
+  display: inline-block;
+  width: 10vh;
+  text-align: center;
+  font-size: 1.4vh;
+  padding-top: 1.7vh;    
+  font-family: "Heebo-Medium", sans-serif;
+  text-decoration: none;
+  }
+ 
+.nav {
+    background-color: #F1DDDC;
+    height: 5vh;
+    text-align: center;
+}
+
+.links{
+  width: 70vh;
+  margin: auto;
+  display: inline-block;
+}
+
+.connectionDetails{
+  float: right;
+  padding-right: 1vh;
+  padding-top: 1.7vh;
+   font-size: 1.4vh;
+}
+.heebo-Bold{
+  font-family: "Heebo-Bold", sans-serif;
+  color: #515151;
+}
+.tel{
+  padding-right: 2vh;
+  font-family: "Heebo-Medium", sans-serif;
+  color: #515151;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.logo{
+  float: left;
+  margin-left: 2vw;
+  padding-top: 0.7vh;
+}
+.watzap{
+  float: right;
+  padding-top: 1.7vh;
+  padding-right: 3vw;
+}
+
+.watzapAbout{
+  float: right;
+  padding-top: 1.7vh;
+}
+/*buttons*/
+.button{
+  border:0px;
+  background-color: #62909A;
+  border-radius: 3vh;
+  width: 17vw;
+  height: 5vh;
+  color: white;
+  font-size: 2vh;
+  font-family: "Heebo-Medium", sans-serif;
+}
+.zilum{
+  color: #62909A;
+  font-family: "Heebo-Bold", sans-serif;
+  font-size: 3vh;
+}
+.greenText{
+  color: #62909A;
+  font-family: "Heebo-Medium", sans-serif;
+  margin-bottom: 2vh;
+}
+
+/*photos*/
+.galery{
+  height: 40vh;
+  padding:0.5vw;
+
+}
+
+.aboutPhoto{
+  height: 23vh;
+}
+
+/*footer*/
+.icon{
+padding:1vw;
+}
+.footer{
+  background-color: #f8f8f8;
+    text-align: center;
+    margin-top: 2vh;
+}
+/*map*/
+#mapid { 
+  height: 180px; 
+width: 500px;
+padding-top: 7vh;}
