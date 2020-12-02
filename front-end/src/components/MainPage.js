@@ -23,7 +23,7 @@ class MainPage extends React.Component {
    }
 
    clicked2(){
-     history.push("/calendar")
+     history.push("/location")
    }
 
   render() {
@@ -36,7 +36,7 @@ class MainPage extends React.Component {
       <div className="zilum">צילומים בטבע <img className="" src={locationIcon}/> </div>
       <div className="greenText">באיזור חיפה והסביבה | צילומי משפחה, ילדים, הריון, תדמית ועוד</div>
       <Button buttonText = {this.buttonText} clicked={() => this.clicked()} />
-      <Button buttonText = "ToCalendar" clicked={() => this.clicked2()} />
+      <Button buttonText = "location" clicked={() => this.clicked2()} />
       </div>
 
      
