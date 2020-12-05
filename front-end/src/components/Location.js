@@ -2,6 +2,7 @@ import React from "react";
 
 import Button from "./Button";
 import Slider from "./Slider"
+import D3images from './D3images'
 
 import history from "../JS/history";
  
@@ -23,7 +24,7 @@ class Location extends React.Component {
     return (<div className="mainDiv"> 
       <div className="locationName">פארק קישון</div>
       <div className ='3d' style={{"height": "40hv"}}>
-          
+      <D3images/>
       </div>
       <div className="photosFromThere" ><div className="diagonaled">Photos from there</div></div>
       <Slider/>

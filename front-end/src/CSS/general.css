@@ -1,66 +1,90 @@
- @font-face {
+@font-face {
   font-family: Heebo-Medium;
   src: url(../static/fonts/heebo/Heebo-Medium.ttf);
 }
 @font-face {
   font-family: Heebo-Bold;
   src: url(../static/fonts/heebo/Heebo-Bold.ttf);
-} 
+}
 @font-face {
   font-family: blackjack;
   src: url(../static/fonts/blackjack/blackjack.otf);
-} 
+}
 
-body {
+@import "./calendar.css";
+
+.body {
   margin: 0;
   padding: 0;
   /* font-family: -apple-system, BlinkMacSystemFont, "Heebo" ,
     sans-serif; */
   /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
-} 
-.mainDiv{
-  padding-top:6vh;
+}
+input {
+  height: 4vh;
+  border-radius: 30px;
+  width: 20vw;
+  text-align: right;
+  font-size: 2vh;
+  font-family: "Heebo-Medium";
+  color: #515151;
+}
+label {
+  align-self: end;
+  justify-self: center;
+}
+
+.mainDiv {
+  padding-top: 6vh;
   text-align: center;
 }
-.diagonaled{
+.diagonaled {
   transform: rotate(-5deg);
   font-family: blackjack;
   font-size: 2vh;
-    display: inline-block;
-    padding-top: 1vh;
+  display: inline-block;
+  padding-top: 1vh;
 }
 
 /*main*/
-#container-main{
+#container-main {
   text-align: center;
-  padding-top:7vh;
+  padding-top: 7vh;
 }
-.happyMoments{
+.happyMoments {
   height: 7vh;
   padding-top: 6vh;
 }
-.about{
+.about {
   padding-top: 2vh;
   display: grid;
   grid-template-columns: 50% 50%;
 }
 
-.aboutText{
+.aboutText {
   display: grid;
   grid-template-rows: 60% 20% 20%;
   justify-items: end;
   margin-right: 1vw;
 }
-.buttonArea{
+.buttonArea {
   background-color: #f8f8f8;
-    padding: 1vh;
+  padding: 1vh;
 }
 
+/*admin*/
+#adminLogin {
+  padding-top: 7vh;
+  display: grid;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+  height: 25vh;
+  justify-content: center;
+}
 /*buttons*/
-.button{
-  border:0px;
-  background-color: #62909A;
+.button {
+  border: 0px;
+  background-color: #62909a;
   border-radius: 3vh;
   width: 17vw;
   height: 6vh;
@@ -68,122 +92,40 @@ body {
   font-size: 2vh;
   font-family: "Heebo-Medium", sans-serif;
 }
-.zilum{
-  color: #62909A;
+.zilum {
+  color: #62909a;
   font-family: "Heebo-Bold", sans-serif;
   font-size: 3vh;
 }
-.greenText{
-  color: #62909A;
+.greenText {
+  color: #62909a;
   font-family: "Heebo-Medium", sans-serif;
   margin-bottom: 2vh;
 }
-/*calendar*/
-.calendar{
-  text-align: center;
-  }
-  
-  .calendarInner{
-    display: inline-block;
-  }
-  .timeslot{
-    border-radius: 10px;
-    height: 4vh;
-    width: 10vw;
-    background-color: white;
-    font-size: 1vh;
-    font-family: 'Heebo-Medium';
-    border: aliceblue;
-      }
-  .calendarHeader{
-    height: 7vh;
-    background-color: #F1DDDC;
-    width: 350px;
-    border-radius:10px;
-}
-  .calendarHeaderYear{
-    padding-top: 1vh;
-    font-size: 1.5vh;
-    font-family: 'Heebo-Medium';
-    color:#515151;
-  }
 
-  .calendarHeaderDate{
-    font-size: 2vh;
-    font-family: 'Heebo-Bold';
-    padding-bottom: 1vh;
-    color:#515151;
-  }
-    .calendarWrap{
-    width: 350px;
-    border-radius: 10px;
-    background-color: rgb(248, 239, 239);
-    display: inline-block;
-  }
-.miniButton1{
-  height: 4vh;
-  width: 6vw;
-  border-radius: 100px;
-  background-color: rgb(170, 165, 165);
-  font-family: "Heebo-Medium", sans-serif;
-  color:white;
-  border:none;
-}
-.miniButton2{
-  height: 4vh;
-  width: 6vw;
-  border-radius: 100px;
-  color:white;
-  background-color: #62909A;
-  font-family: "blackjack";
-  border:none;
-
-}
-.calendarFooter{    padding: 1vh;
-  background-color: white;
-  border-radius: 10px;}
-
-  .react-calendar__tile--active{
-    background:    #62909A;
-    color: white;
-    border-radius: 50%;
-}
-
-.react-calendar {
-  width: 350px;
-  max-width: 100%;
-  background: white;
-  /* border: 1px solid #a0a096; */
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.125em;
-}
-
-.timeSl
 /*footer*/
-.icon{
-padding:1vw;
+.icon {
+  padding: 1vw;
 }
-.footer{
+.footer {
   background-color: #f8f8f8;
-    text-align: center;
-    margin-top: 2vh;
+  text-align: center;
+  margin-top: 2vh;
 }
-
 
 /*location*/
 
-.photosFromThere{
+.photosFromThere {
   height: 5vh;
   text-align: center;
   color: #515151;
 }
 /*map*/
-#mapid { 
-  height: 180px; 
-width: 500px;
-padding-top: 7vh;}
-
-
+#mapid {
+  height: 180px;
+  width: 500px;
+  padding-top: 7vh;
+}
 
 /*nav bar*/
 .navbar-text {
@@ -192,34 +134,34 @@ padding-top: 7vh;}
   width: 10vh;
   text-align: center;
   font-size: 1.4vh;
-  padding-top: 1.7vh;    
+  padding-top: 1.7vh;
   font-family: "Heebo-Medium", sans-serif;
   text-decoration: none;
-  }
- 
-.nav {
-    background-color: #F1DDDC;
-    height: 5vh;
-    text-align: center;
 }
 
-.links{
+.nav {
+  background-color: #f1dddc;
+  height: 5vh;
+  text-align: center;
+}
+
+.links {
   width: 70vh;
   margin: auto;
   display: inline-block;
 }
 
-.connectionDetails{
+.connectionDetails {
   float: right;
   padding-right: 1vh;
   padding-top: 1.7vh;
-   font-size: 1.4vh;
+  font-size: 1.4vh;
 }
-.heebo-Bold{
+.heebo-Bold {
   font-family: "Heebo-Bold", sans-serif;
   color: #515151;
 }
-.tel{
+.tel {
   padding-right: 2vh;
   font-family: "Heebo-Medium", sans-serif;
   color: #515151;
@@ -231,41 +173,81 @@ padding-top: 7vh;}
   width: 100%;
 }
 
-.logo{
+.logo {
   float: left;
   margin-left: 2vw;
   padding-top: 0.7vh;
   height: 4vh;
 }
-.watzap{
+.watzap {
   float: right;
   padding-top: 1.7vh;
   padding-right: 3vw;
 }
 
-.watzapAbout{
+.watzapAbout {
   float: right;
   padding-top: 1.7vh;
 }
 
+/*order details*/
+
+.userDetails {
+  text-align: center;
+  display: grid;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+  justify-content: center;
+}
+.headerDetails {
+  padding-top: 5vh;
+  font-size: 3vh;
+  font-family: "Heebo-Medium";
+  text-align: center;
+  margin-top: 4vh;
+  color: #515151;
+}
+.divContainsOrderDetails {
+  display: grid;
+  grid-template-columns: 20% 20% 20%;
+  justify-content: center;
+}
+
+.divOrderDetail {
+  display: grid;
+  grid-template-rows: 30% 30% 30%;
+  font-family: "Heebo-Medium";
+  font-size: 2vh;
+  justify-content: right;
+  background-color: blueviolet;
+  height: 10vh;
+  width: 15vw;
+  justify-self: right;
+  border-radius: 10px;
+}
+
+.divPaymentDetails {
+  display: grid;
+  grid-template-rows: 15% 15% 15%;
+  font-family: "Heebo-Medium";
+  font-size: 2vh;
+}
 
 /*photos*/
-.galery{
+.galery {
   height: 40vh;
-  padding:0.5vw;
-
+  padding: 0.5vw;
+  border-radius: 10%;
 }
 
-.aboutPhoto{
+.aboutPhoto {
   height: 23vh;
 }
-
 
 /*popup*/
 .popup {
   display: block;
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   padding-top: 20vh;
   left: 0;
   top: 0;
@@ -276,14 +258,29 @@ padding-top: 7vh;}
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-
-
-
-.locationName{
+.locationName {
   height: 3vh;
-  background-color: #F1DDDC;
+  background-color: #f1dddc;
   font-size: 2vh;
   font-family: "Heebo-Medium", sans-serif;
   color: #515151;
   text-align: center;
+}
+
+/*slider*/
+
+.slider {
+  white-space: nowrap;
+  width: 97%;
+  overflow: hidden;
+  display: inline-block;
+}
+.sliderMainDiv {
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+}
+
+.arrow {
+  height: 4vh;
+  align-self: center;
 }

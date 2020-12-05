@@ -2,38 +2,42 @@ const path = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
-const isEnvDevelopment = "development";
-const isEnvProduction = "production";
+// const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
+// const isEnvDevelopment = "development";
+// const isEnvProduction = "production";
 module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.join(__dirname, "/dist"),
   },
-  devtool: 'source-map',
+  devtool: "cheap-module-source-map",
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: "babel-loader",
+        loader: "babel-loader",
+        options: {
+          presets: ["@babel/preset-env"],
+        },
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /.*[\\\/]static[\\\/].*/,
         loader: "file-loader",
         options: {
-          outputPath: 'static',
-          name: '[name].[ext]',
-        }
+          outputPath: "static",
+          name: "[name].[ext]",
+        },
       },
     ],
   },
   devServer: {
     port: 3000,
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
