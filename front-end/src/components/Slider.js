@@ -27,8 +27,8 @@ class Slider extends React.Component {
   }
 
   render() {
-    var imList = this.images.map((path) => (
-      <img className="galery" src={path}></img>
+    var imList = this.images.map((path, index) => (
+      <img className="galery" src={path} key={index}></img>
     ));
     imList.reduce((x, y) => x + y);
     return (

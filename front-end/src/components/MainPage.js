@@ -19,11 +19,11 @@ class MainPage extends React.Component {
   }
 
   clicked() {
-    history.push("/D3images");
+    history.push("/locations");
   }
 
-  clicked2() {
-    history.push("/location");
+  clickedAdmin() {
+    history.push("/galeryManager");
   }
 
   render() {
@@ -32,7 +32,7 @@ class MainPage extends React.Component {
       adminButton = (
         <Button
           buttonText={this.buttonTextManager}
-          clicked={() => this.clicked2()}
+          clicked={() => this.clickedAdmin()}
         />
       );
     }

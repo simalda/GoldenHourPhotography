@@ -29,6 +29,8 @@ input {
   font-size: 2vh;
   font-family: "Heebo-Medium";
   color: #515151;
+  margin: 0.5vh;
+  padding-right: 1vw;
 }
 label {
   align-self: end;
@@ -91,6 +93,8 @@ label {
   color: white;
   font-size: 2vh;
   font-family: "Heebo-Medium", sans-serif;
+  margin: 2vh;
+  justify-self: center;
 }
 .zilum {
   color: #62909a;
@@ -103,6 +107,44 @@ label {
   margin-bottom: 2vh;
 }
 
+/*end page*/
+.endPage {
+  color: #515151;
+  text-align: center;
+  font-size: 1.5vh;
+  font-family: "Heebo-Medium", sans-serif;
+}
+.vase {
+  display: inline-block;
+  bottom: 6vh;
+  right: 1vw;
+  width: 30vw;
+  position: relative;
+  background-color: #f1dddc;
+  height: 4vh;
+  border-radius: 4vh;
+}
+.endPageDate {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  height: 10vh;
+}
+
+.endPageDateHeader {
+  font-size: 2vh;
+  font-family: "Heebo-Bold";
+  margin: 1vh;
+}
+.endPageRecomendations {
+  display: inline-grid;
+  grid-template-rows: 30% 30%;
+  height: 10vh;
+  width: 25vw;
+}
+.endPageWatsap {
+  display: grid;
+  grid-template-rows: 50% 50%;
+}
 /*footer*/
 .icon {
   padding: 1vw;
@@ -121,10 +163,14 @@ label {
   color: #515151;
 }
 /*map*/
-#mapid {
+/* #mapid {
   height: 180px;
   width: 500px;
   padding-top: 7vh;
+} */
+.leaflet-container {
+  height: 80vh;
+  width: 100vw;
 }
 
 /*nav bar*/
@@ -195,7 +241,7 @@ label {
 .userDetails {
   text-align: center;
   display: grid;
-  grid-template-rows: 20% 20% 20% 20% 20%;
+  grid-template-rows: 15% 15% 15% 15% 15% 15%;
   justify-content: center;
 }
 .headerDetails {
@@ -205,6 +251,7 @@ label {
   text-align: center;
   margin-top: 4vh;
   color: #515151;
+  margin-bottom: 2vh;
 }
 .divContainsOrderDetails {
   display: grid;
@@ -218,18 +265,41 @@ label {
   font-family: "Heebo-Medium";
   font-size: 2vh;
   justify-content: right;
-  background-color: blueviolet;
-  height: 10vh;
-  width: 15vw;
+  background-color: #f1dddc;
+  height: 8vh;
+  width: 12vw;
   justify-self: right;
   border-radius: 10px;
+  padding: 2vw;
+  color: #515151;
 }
 
-.divPaymentDetails {
+.divPaymentDescription {
   display: grid;
-  grid-template-rows: 15% 15% 15%;
+  grid-template-rows: 15% 15% 25%;
   font-family: "Heebo-Medium";
   font-size: 2vh;
+  color: #515151;
+}
+
+.sale {
+  font-family: blackjack;
+}
+
+.saleAmount {
+  background-color: #f1dddc;
+  height: 3vh;
+  display: inline-block;
+  padding: 1vh;
+  border-radius: 3vh;
+  margin-right: 1vw;
+}
+.basePrice {
+  text-decoration: line-through;
+}
+
+.preSaleDescription {
+  margin-top: 2vh;
 }
 
 /*photos*/

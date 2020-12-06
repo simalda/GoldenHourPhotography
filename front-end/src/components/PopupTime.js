@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+import React from "react";
 
-import TimeSlotButton from "./TimeSlotButton"
- 
- 
-class PopupTime  extends React.Component {
-    constructor(props) {
-        super(props)
-         
-    }
-   
-    render(){
-        return (
-          <div className="popup timeslot">
-            <TimeSlotButton/>
-          </div>
-        );}
+import TimeSlot from "./TimeSlot";
+
+class PopupTime extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className="popup timeslot">
+        <TimeSlot onCklick={this.props.onCklick} />
+      </div>
+    );
+  }
 }
- 
+
 export default PopupTime;

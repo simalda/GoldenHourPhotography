@@ -2,6 +2,7 @@ import React from "react";
 
 import * as proxy from "../JS/proxy";
 import history from "../JS/history";
+import * as managerManagerManager from "./../JS/managerManagerManager";
 
 class AdminLogin extends React.Component {
   constructor(props) {
@@ -10,23 +11,31 @@ class AdminLogin extends React.Component {
   }
 
   mySubmitHandler(event) {
-    proxy.checkUser(this.state.user, this.state.psw).then((loginResponse) => {
-      if (loginResponse) {
-        try {
-          history.push("/");
-        } catch (error) {
-          console.error(error);
-          console.log(error);
-        }
-
-        this.setState({ admin: this.state.user, loginSucssess: 1 });
-      } else {
+    managerManagerManager
+      .performLogin(this.state.user, this.state.psw)
+      .catch(() =>
         this.setState({
           loginSucssess: -1,
-        });
-      }
-    });
+        })
+      );
   }
+  //   proxy.checkUser(this.state.user, this.state.psw).then((loginResponse) => {
+  //     if (loginResponse) {
+  //       try {
+  //         history.push("/");
+  //       } catch (error) {
+  //         console.error(error);
+  //         console.log(error);
+  //       }
+
+  //       this.setState({ admin: this.state.user, loginSucssess: 1 });
+  //     } else {
+  //       this.setState({
+  //         loginSucssess: -1,
+  //       });
+  //     }
+  //   });
+  // }
 
   returnToLogin() {
     this.setState({
