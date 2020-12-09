@@ -11,12 +11,21 @@ class DataAccess:
     def checkUser(self, user, psw):
         self.mycollection = self.mydb['AdminUser'] 
         userDataFromDB = self.mycollection.find_one({'username': user})
-        pprint(self.client.list_database_names())
-        print(userDataFromDB)
         if userDataFromDB == None:
             return False
         else:
             return True
 
+    def addImage(self,name,  imageType,  imageLocation,  imageViewType,  bannerApearence):
+        self.mycollection = self.mydb['Images']
+        self.mycollection.insert_one(
+        { "name" : name,
+            "imageType" : imageType,
+            "imageLocation" : imageLocation,
+            "imageViewType" : imageViewType,
+            "bannerApearence":bannerApearence
+        }
+        )
+        return True
 # d=DataAccess()
-# d.checkUser('Sofja',3)
+# d.addImage('Sofja',"adscf","","",False)

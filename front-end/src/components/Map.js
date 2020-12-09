@@ -1,41 +1,93 @@
-import React from "react";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import React, { useState } from "react";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMapEvents,
+  Circle,
+} from "react-leaflet";
+import L from "leaflet";
 
 import Button from "./Button";
 import history from "../JS/history";
+
+import { DivIcon } from "leaflet";
 
 class Map extends React.Component {
   constructor(props) {
     super(props);
     this.buttonText = "test";
-
-    // this.position = [51.505, -0.09];
+    this.state = {
+      clickedPos: null,
+    };
     this.position = [32.8, 35];
+    this.iconPerson = new L.Icon({
+      iconUrl: "./static/Pic_01.jpg",
+      iconRetinaUrl: "./static/Pic_01.jpg",
+      iconAnchor: [22, 94],
+      popupAnchor: [-3, -76],
+      shadowUrl: null,
+      shadowSize: null,
+      shadowAnchor: null,
+      iconSize: new L.Point(60, 60),
+      className: "leaflet-div-icons",
+    });
+    this.markerStatesList = [
+      [33, 35],
+      [32.675871, 34.977722],
+    ];
   }
 
   clicked() {
     history.push("/location");
   }
 
+  LocationMarker() {
+    const [position, setPosition] = useState(null);
+    const map = useMapEvents({
+      click() {
+        map.on("click", function (e) {
+          alert(e.latlng);
+          setPosition(e.latlng);
+        });
+      },
+    });
+
+    return position === null ? null : (
+      <Marker position={position} icon={this.iconPerson}>
+        <Popup>You are here</Popup>
+      </Marker>
+    );
+  }
+
   render() {
+    var markerList = this.markerStatesList.map((position, index) => (
+      <Marker position={position} icon={this.iconPerson} key={index}>
+        <Popup>
+          שם המקום
+          <button onClick={() => this.clicked()}>לתיאור מפורט</button>
+        </Popup>
+      </Marker>
+    ));
+    markerList.reduce((x, y) => x + y);
     return (
       <div id="mapid" className="mainDiv">
         <div className="locationName">ביחרו מקום</div>
-        <MapContainer center={this.position} zoom={13} scrollWheelZoom={false}>
+        <MapContainer center={this.position} zoom={11} scrollWheelZoom={false}>
           <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+            url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
           />
-          <Marker position={this.position}>
+          <Marker position={this.position} icon={this.iconPerson}>
             <Popup>
-              <button onClick={() => this.clicked()}>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </button>
+              שם המקום
+              <button onClick={() => this.clicked()}>לתיאור מפורט</button>
             </Popup>
           </Marker>
+          {markerList}
+          <this.LocationMarker />
         </MapContainer>
-        S:K SOFA
-        <Button buttonText={this.buttonText} clicked={() => this.clicked()} />
       </div>
     );
   }

@@ -13,13 +13,13 @@ print(__name__)
 @app.route('/login/<user>/<password>')
 def check_user(user, password):
     db = DataAccess()
-    fs= db.checkUser(user, password)
-    print(fs)
-    print(jsonify(db.checkUser(user, password)))
     return jsonify(db.checkUser(user, password))
 
-
  
+@app.route('/addImage/<name>/<imageType>/<imageLocation>/<imageViewType>/<bannerApearence>')
+def add_image(name,  imageType,  imageLocation,  imageViewType,  bannerApearence):
+    db = DataAccess()
+    return jsonify(db.addImage(name,  imageType,  imageLocation,  imageViewType,  bannerApearence))
 
 
  

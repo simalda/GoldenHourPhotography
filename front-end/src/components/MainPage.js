@@ -28,7 +28,7 @@ class MainPage extends React.Component {
 
   render() {
     var adminButton = <div></div>;
-    if (this.props.data.admin != "") {
+    if (this.props.admin != "") {
       adminButton = (
         <Button
           buttonText={this.buttonTextManager}
@@ -44,7 +44,7 @@ class MainPage extends React.Component {
         <Slider />
         <div className="buttonArea">
           <div className="zilum">
-            צילומים בטבע <img className="" src={locationIcon} />{" "}
+            צילומים בטבע <img className="locationIcon" src={locationIcon} />
           </div>
           <div className="greenText">
             באיזור חיפה והסביבה | צילומי משפחה, ילדים, הריון, תדמית ועוד

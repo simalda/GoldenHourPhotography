@@ -15,8 +15,13 @@
   font-family: "Heebo-Medium";
   border: aliceblue;
 }
+.timeItems {
+  height: 20vh;
+  display: grid;
+  justify-content: center;
+}
 .calendarHeader {
-  height: 7vh;
+  height: 9vh;
   background-color: #f1dddc;
   width: 350px;
   border-radius: 10px;

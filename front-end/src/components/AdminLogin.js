@@ -1,41 +1,21 @@
 import React from "react";
 
-import * as proxy from "../JS/proxy";
 import history from "../JS/history";
 import * as managerManagerManager from "./../JS/managerManagerManager";
+import Button from "./Button";
 
 class AdminLogin extends React.Component {
   constructor(props) {
     super(props);
+    this.buttonText = "שליחה";
     this.state = { user: "", psw: "" };
   }
 
   mySubmitHandler(event) {
-    managerManagerManager
-      .performLogin(this.state.user, this.state.psw)
-      .catch(() =>
-        this.setState({
-          loginSucssess: -1,
-        })
-      );
-  }
-  //   proxy.checkUser(this.state.user, this.state.psw).then((loginResponse) => {
-  //     if (loginResponse) {
-  //       try {
-  //         history.push("/");
-  //       } catch (error) {
-  //         console.error(error);
-  //         console.log(error);
-  //       }
+    this.props.handleAdminLogin(this.state.user, this.state.psw);
 
-  //       this.setState({ admin: this.state.user, loginSucssess: 1 });
-  //     } else {
-  //       this.setState({
-  //         loginSucssess: -1,
-  //       });
-  //     }
-  //   });
-  // }
+    event.preventDefault();
+  }
 
   returnToLogin() {
     this.setState({
@@ -53,7 +33,7 @@ class AdminLogin extends React.Component {
 
   render() {
     var whatToRender;
-    if (this.props.data.loginSucssess === -1) {
+    if (this.props.loginSucssess === -1) {
       whatToRender = (
         <div className="popup">
           Login denied
@@ -81,10 +61,25 @@ class AdminLogin extends React.Component {
           onChange={(event) => this.handleChangePsw(event)}
         />
 
-        <input type="submit" value="Submit" />
+        <Button
+          buttonText={this.buttonText}
+          clicked={() =>
+            this.props.handleAdminLogin(this.state.user, this.state.psw)
+          }
+        />
       </form>
     );
-    return whatToRender;
+    return (
+      <div>
+        {whatToRender}
+        <button
+          style={{ height: "200px", width: "100px", paddingTop: "7vh" }}
+          onClick={() => this.props.test(1, 2)}
+        >
+          {this.props.testNumber}
+        </button>
+      </div>
+    );
   }
 }
 

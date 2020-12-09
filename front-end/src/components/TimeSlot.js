@@ -11,14 +11,24 @@ class TimeSlot extends React.Component {
   render() {
     let timeOptions = this.time.map((time, index) => (
       <TimeButton
-        onCklick={this.props.onCklick}
+        readTime={(time) => this.props.readTime(time)}
         time={time}
         key={index}
       ></TimeButton>
     ));
     timeOptions.reduce((x, y) => x + y);
 
-    return <div className="">{timeOptions}</div>;
+    return (
+      <div className="timeItems">
+        {timeOptions}
+        <button
+          className="miniButton1 justCenter"
+          onClick={() => this.props.onClickCancelTime()}
+        >
+          יציאה
+        </button>
+      </div>
+    );
   }
 }
 

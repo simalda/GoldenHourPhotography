@@ -44,9 +44,10 @@ class OrderDetails extends React.Component {
             />
           </div>
           <div className="divOrderDetail">
-            <div>פארק קישון</div>
-            <div> יום ... </div>
-            <div>שעה ... </div>
+            <div>{this.props.order.location} פארק קישון</div>
+            {/* <div>{this.props.order.date.toString()} יום ... </div> */}
+            <div>{this.props.order.date.getMonth()} יום ... </div>
+            <div>{this.props.order.time} שעה ... </div>
           </div>
         </div>
       </div>

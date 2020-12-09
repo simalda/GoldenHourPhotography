@@ -10,7 +10,10 @@ class PopupTime extends React.Component {
   render() {
     return (
       <div className="popup timeslot">
-        <TimeSlot onCklick={this.props.onCklick} />
+        <TimeSlot
+          readTime={(time) => this.props.readTime(time)}
+          onClickCancelTime={() => this.props.onClickCancelTime()}
+        />
       </div>
     );
   }

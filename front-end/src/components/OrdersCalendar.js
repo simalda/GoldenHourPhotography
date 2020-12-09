@@ -12,12 +12,12 @@ class OrdersCalendar extends React.Component {
     this.state = {
       date: new Date(),
       popupTag: false,
-      // culture: "fr",
+      time: "",
+      timePicked: false,
     };
   }
 
   hebrewDate() {
-    var today = new Date();
     var dateText;
     var days = new Array();
     days[days.length] = "יום ראשון";
@@ -43,11 +43,11 @@ class OrdersCalendar extends React.Component {
     months[months.length] = "דצמבר";
 
     dateText =
-      days[today.getDay()] +
+      days[this.state.date.getDay()] +
       ", " +
-      today.getDate() +
+      this.state.date.getDate() +
       " ל" +
-      months[today.getMonth()];
+      months[this.state.date.getMonth()];
 
     return dateText;
   }
@@ -56,6 +56,7 @@ class OrdersCalendar extends React.Component {
     this.setState({
       ...this.state,
       popupTag: true,
+      date: ev,
     });
   }
 
@@ -66,20 +67,56 @@ class OrdersCalendar extends React.Component {
     });
   }
 
-  onClickOK(date) {
+  onClickOK() {
+    this.props.updateOrder(this.state.date, this.state.time);
     history.push("/orderDetails");
   }
-
+  onClickOKnotREady() {
+    alert("Please, pick time first");
+  }
   onClickCancel() {
     history.goBack();
+    this.setState({
+      timePicked: false,
+    });
+  }
+  readTime(newTime) {
+    console.log(newTime);
+    this.setState({
+      popupTag: false,
+      time: newTime,
+      timePicked: true,
+    });
+  }
+  onClickCancelTime() {
+    this.setState({
+      popupTag: false,
+    });
   }
 
   render() {
     let popup = <div></div>;
+    let pickedTime = <div></div>;
     if (this.state.popupTag) {
       popup = (
-        <PopupTime onCklick={(date, time) => this.onCklick(date, time)} />
+        <PopupTime
+          onClickCancelTime={() => this.onClickCancelTime()}
+          readTime={(time) => this.readTime(time)}
+        />
       );
+    }
+    var OkButton = (
+      <button className="miniButton2 " onClick={() => this.onClickOKnotREady()}>
+        OK
+      </button>
+    );
+    if (this.state.timePicked) {
+      OkButton = (
+        <button className="miniButton2" onClick={() => this.onClickOK()}>
+          OK
+        </button>
+      );
+      pickedTime = <div>{this.state.time}</div>;
     }
     return (
       <div className="calendar popup mainDiv">
@@ -89,6 +126,7 @@ class OrdersCalendar extends React.Component {
               {this.state.date.getFullYear()}
             </div>
             <div className="calendarHeaderDate">{this.hebrewDate()}</div>
+            {pickedTime}
           </div>
           <Calendar
             tileClassName="react-calendar__tile--active2"
@@ -99,12 +137,13 @@ class OrdersCalendar extends React.Component {
           />
 
           <div className="calendarFooter">
-            <button className="miniButton1" onClick={this.onClickCancel}>
+            <button
+              className="miniButton1"
+              onClick={() => this.onClickCancel()}
+            >
               יציאה
             </button>
-            <button className="miniButton2" onClick={this.onClickOK}>
-              OK
-            </button>
+            {OkButton}
           </div>
         </div>
         {popup}
