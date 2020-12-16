@@ -34,9 +34,7 @@ input {
   padding-right: 1vw;
   border-color: #ede7e7;
 }
-img {
-  height: 3vh;
-}
+
 label {
   align-self: end;
   justify-self: center;
@@ -65,8 +63,11 @@ label {
   height: 7vh;
   padding-top: 6vh;
 }
+/* .happyMoments img {
+  height: 10vh;
+} */
 .imHappyMoments {
-  height: 7vh;
+  height: 10vh;
 }
 .about {
   padding-top: 4vh;
@@ -172,12 +173,14 @@ label {
 }
 /*footer*/
 .icon {
-  padding: 1vw;
+  padding: 2vw 1vw;
+  height: 2vw;
 }
 .footer {
   background-color: #f8f8f8;
   text-align: center;
   margin-top: 4vh;
+  height: 6vw;
 }
 
 /*location*/

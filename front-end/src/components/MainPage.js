@@ -47,7 +47,7 @@ class MainPage extends React.Component {
     return (
       <div id="container-main">
         <div className="happyMomemts">
-          <img src={happyMoments} />
+          <img className="imHappyMoments" src={happyMoments} />
         </div>
         <Slider />
         <div className="buttonArea">
