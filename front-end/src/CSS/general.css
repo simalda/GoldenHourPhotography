@@ -12,6 +12,7 @@
 }
 
 @import "./calendar.css";
+@import "./demo.scss";
 
 .body {
   margin: 0;
@@ -32,6 +33,9 @@ input {
   margin: 1.5vh;
   padding-right: 1vw;
   border-color: #ede7e7;
+}
+img {
+  height: 3vh;
 }
 label {
   align-self: end;
@@ -60,6 +64,9 @@ label {
 .happyMoments {
   height: 7vh;
   padding-top: 6vh;
+}
+.imHappyMoments {
+  height: 7vh;
 }
 .about {
   padding-top: 4vh;
@@ -100,15 +107,21 @@ label {
   font-family: "Heebo-Medium", sans-serif;
   margin: 2vh;
   justify-self: center;
+  outline: none;
 }
+.button:hover {
+  background-color: #f1dddc;
+  color: #515151;
+}
+
 .zilum {
   color: #62909a;
   font-family: "Heebo-Bold", sans-serif;
   font-size: 3vh;
 }
 .greenText {
-  color: #62909a;
-  font-family: "Heebo-Medium", sans-serif;
+  color: #515151;
+  font-family: "Heebo-Regular", sans-serif;
   margin-bottom: 2vh;
 }
 /* edit image*/
@@ -194,22 +207,22 @@ label {
 .navbar-text {
   color: #515151;
   display: inline-block;
-  width: 10vh;
   text-align: center;
-  font-size: 1.4vh;
+  font-size: 2vh;
   padding-top: 1.7vh;
   font-family: "Heebo-Medium", sans-serif;
   text-decoration: none;
+  margin: 0 2vh 0 2vh;
 }
 
 .nav {
   background-color: #f1dddc;
-  height: 5vh;
+  height: 7vh;
   text-align: center;
 }
 
 .links {
-  width: 70vh;
+  width: 90vh;
   margin: auto;
   display: inline-block;
 }
@@ -218,7 +231,7 @@ label {
   float: right;
   padding-right: 1vh;
   padding-top: 1.7vh;
-  font-size: 1.4vh;
+  font-size: 2vh;
 }
 .heebo-Bold {
   font-family: "Heebo-Bold", sans-serif;
@@ -240,7 +253,7 @@ label {
   float: left;
   margin-left: 2vw;
   padding-top: 0.7vh;
-  height: 4vh;
+  height: 5.5vh;
 }
 .watzap {
   float: right;
@@ -355,12 +368,12 @@ label {
 
 /*slider*/
 
-.slider {
+/* .slider {
   white-space: nowrap;
   width: 100%;
   overflow: hidden;
   display: inline-block;
-}
+} */
 .sliderMainDiv {
   display: grid;
   grid-template-columns: 5% 90% 5%;

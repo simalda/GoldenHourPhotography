@@ -64,7 +64,10 @@ class NavBar extends React.Component {
               לוקישנים
             </Link>
           </div>
-          <img src={watzap} className="watzap" />
+          <a href="https://wa.me/+972524550656" target="blank">
+            <img src={watzap} className="watzap" />
+          </a>
+
           <div className="connectionDetails">
             <span className="heebo-Bold">זמינה בואצאפ</span>
             <span className="tel"> קטי 0524550656</span>

@@ -22,11 +22,11 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        test: /\.(s[ac]ss|css)$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
-        test: /.*[\\\/]static[\\\/].*/,
+        test: /.*[\\/]static[\\/].*/,
         loader: "file-loader",
         options: {
           outputPath: "static",

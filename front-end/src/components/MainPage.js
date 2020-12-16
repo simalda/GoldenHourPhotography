@@ -10,12 +10,15 @@ import about from "../static/photos/cuts/about.jpg";
 import ketyStone from "../static/photos/cuts/KatyStone.svg";
 import locationIcon from "../static/photos/cuts/location icon.svg";
 import watzap from "../static/photos/cuts/Watsapp.svg";
+import DemoSlider from "./DemoSlider";
+import Demo2 from "./Demo2";
 
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
     this.buttonText = "בחרו מיקום";
     this.buttonTextManager = "ניהול תמונות";
+    this.state = { pos: 0 };
   }
 
   clicked() {
@@ -25,7 +28,11 @@ class MainPage extends React.Component {
   clickedAdmin() {
     history.push("/galeryManager");
   }
-
+  // MoveLeft() {
+  //   this.setState({
+  //     pos: this.state.pos - 50,
+  //   });
+  // }
   render() {
     var adminButton = <div></div>;
     if (this.props.admin != "") {
@@ -36,6 +43,7 @@ class MainPage extends React.Component {
         />
       );
     }
+
     return (
       <div id="container-main">
         <div className="happyMomemts">
@@ -49,6 +57,7 @@ class MainPage extends React.Component {
           <div className="greenText">
             באיזור חיפה והסביבה | צילומי משפחה, ילדים, הריון, תדמית ועוד
           </div>
+
           <Button buttonText={this.buttonText} clicked={() => this.clicked()} />
           {adminButton}
         </div>

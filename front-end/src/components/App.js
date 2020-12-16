@@ -65,7 +65,6 @@ class App extends Component {
             path="/"
             render={(props) => <MainPage {...props} admin={this.state.admin} />}
           />
-          {/* <Route path="/admin" data={this.state} component={AdminLogin} /> */}
           <Route
             path="/admin"
             Switch
@@ -92,7 +91,6 @@ class App extends Component {
               />
             )}
           />
-
           <Route path="/location" component={Location} />
           <Route path="/endPage" component={EndPage} />
           <Route
