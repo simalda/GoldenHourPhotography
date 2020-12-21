@@ -14,7 +14,7 @@
 @import "./calendar.css";
 @import "./demo.scss";
 
-.body {
+body {
   margin: 0;
   padding: 0;
   /* font-family: -apple-system, BlinkMacSystemFont, "Heebo" ,
@@ -60,12 +60,10 @@ label {
   padding-top: 7vh;
 }
 .happyMoments {
-  height: 7vh;
-  padding-top: 6vh;
+  /* height: 7vh; */
+  padding: 2vh 0vh 2vh 0vh;
 }
-/* .happyMoments img {
-  height: 10vh;
-} */
+
 .imHappyMoments {
   height: 10vh;
 }
@@ -211,11 +209,14 @@ label {
   color: #515151;
   display: inline-block;
   text-align: center;
-  font-size: 2vh;
+  font-size: 1vw;
   padding-top: 1.7vh;
   font-family: "Heebo-Medium", sans-serif;
   text-decoration: none;
-  margin: 0 2vh 0 2vh;
+  margin: 0 1.2vw 0 1.2vw;
+}
+.group {
+  display: none;
 }
 
 .nav {
@@ -223,25 +224,89 @@ label {
   height: 7vh;
   text-align: center;
 }
+@media screen and (max-width: 600px) {
+  .nav div,
+  .nav a,
+  .nav .connectionDetails {
+    display: none;
+  }
+  .nav .logo {
+    float: left;
+    display: block;
+  }
+  .nav .group {
+    display: inline-block;
+    height: 4vh;
+    padding-right: 5vw;
+    padding-top: 0.7vh;
+    float: right;
+  }
+  .imHappyMoments {
+    width: 90vw;
+  }
+  .about {
+    padding-top: 4vh;
+    display: grid;
+    grid-template-rows: 50% 50%;
+    height: 180vw;
+    grid-template-columns: none;
+  }
+  .about .aboutPhoto {
+    width: 90vw;
+  }
+  .aboutPhotoDiv {
+    justify-self: center;
+    grid-row: 1;
+  }
+  .aboutText {
+    grid-row: 2;
+  }
+  .button {
+    margin-bottom: 2vw;
+    width: 90vw;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .buttonArea {
+    background-color: #f8f8f8;
+    padding: 1vh;
+    height: 25vh;
+    padding: 5vh 0vh;
+  }
+  .containerImages {
+    height: 35vh;
+  }
+  .containerImages .galery {
+    height: 35vh;
+    padding: 1vw;
+  }
+  #container-main {
+    /* padding-top: 7vh; */
+    padding: 7vh 2vw 0vh 2vw;
+  }
+}
 
+.close {
+  display: none;
+}
 .links {
-  width: 90vh;
+  width: 50vw;
   margin: auto;
   display: inline-block;
 }
 
 .connectionDetails {
   float: right;
-  padding-right: 1vh;
+  padding-right: 1vw;
   padding-top: 1.7vh;
-  font-size: 2vh;
+  font-size: 1vw;
 }
 .heebo-Bold {
   font-family: "Heebo-Bold", sans-serif;
   color: #515151;
 }
 .tel {
-  padding-right: 2vh;
+  padding-right: 0.7vw;
   font-family: "Heebo-Medium", sans-serif;
   color: #515151;
 }
@@ -250,6 +315,7 @@ label {
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 2;
 }
 
 .logo {
@@ -343,6 +409,10 @@ label {
 
 .aboutPhoto {
   height: 40vh;
+  border-radius: 3%;
+}
+.aboutPhotoDiv {
+  display: grid;
 }
 
 /*popup*/

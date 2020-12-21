@@ -46,7 +46,7 @@ class MainPage extends React.Component {
 
     return (
       <div id="container-main">
-        <div className="happyMomemts">
+        <div className="happyMoments">
           <img className="imHappyMoments" src={happyMoments} />
         </div>
         <Slider />
@@ -74,7 +74,9 @@ class MainPage extends React.Component {
               </div>
             </div>
           </div>
-          <img className="aboutPhoto" src={about} />
+          <div className="aboutPhotoDiv">
+            <img className="aboutPhoto" src={about} />
+          </div>
         </div>
       </div>
     );

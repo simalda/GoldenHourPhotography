@@ -2,6 +2,7 @@ import React from "react";
 
 import logo from "../static/photos/cuts/LOGO.svg";
 import watzap from "../static/photos/cuts/Watsapp.svg";
+import group from "../static/photos/cuts/Group 3.svg";
 
 import { Link } from "react-router-dom";
 
@@ -16,6 +17,7 @@ class NavBar extends React.Component {
         {/* <img src={logo} className="App-logo" alt=""></img> */}
         <nav className="nav sticky">
           <img className="logo" src={logo} />
+          <img className="group" src={group} />
           <div className="links">
             <Link
               id="connectUs"
