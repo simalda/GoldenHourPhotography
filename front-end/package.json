@@ -4,7 +4,7 @@
   "description": "Photography site",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode=development --open --hot",
+    "start": "webpack-dev-server --mode=development --open --hot --host 0.0.0.0",
     "build": "webpack --mode=production"
   },
   "author": "Sofa Kolodizner",
