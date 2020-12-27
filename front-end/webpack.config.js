@@ -2,6 +2,15 @@ const path = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const devMode = process.env.NODE_ENV !== 'production';
+
+const plugins = [];
+if (!devMode) {
+  // enable in production only
+  plugins.push(new MiniCssExtractPlugin());
+}
+
 // const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
 // const isEnvDevelopment = "development";
 // const isEnvProduction = "production";
@@ -23,7 +32,13 @@ module.exports = {
       },
       {
         test: /\.(s[ac]ss|css)$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        // use: ["style-loader", "css-loader", "sass-loader"],
+        use: [
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          // 'postcss-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /.*[\\/]static[\\/].*/,
@@ -43,5 +58,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
+   
   ],
 };

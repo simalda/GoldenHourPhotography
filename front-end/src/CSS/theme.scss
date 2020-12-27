@@ -1,0 +1,18 @@
+ 
+   
+@mixin font-Heebo-Medium-gray {
+    font-family: "Heebo-Medium", sans-serif;
+    color: #515151;
+}
+
+@mixin font-Heebo-Bold-gray {
+    font-family: "Heebo-Bold", sans-serif;
+    color: #515151;
+}
+
+@mixin font-Heebo-Regular-gray {
+    font-family: "Heebo-Regular", sans-serif;
+    color: #515151;
+}
+
+$background-color: #EFEFEF;

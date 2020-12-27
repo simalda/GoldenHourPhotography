@@ -1,4 +1,4 @@
-export default function importAll() {
+export function importAll() {
   const r = require.context(
     "../static/photos/galery/",
     false,

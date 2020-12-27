@@ -16,7 +16,7 @@ class NavBar extends React.Component {
       <header>
         {/* <img src={logo} className="App-logo" alt=""></img> */}
         <nav className="nav sticky">
-          <img className="logo" src={logo} />
+          <Link to="/" ><img className="logo" src={logo} /></Link>
           <img className="group" src={group} />
           <div className="links">
             <Link
@@ -67,13 +67,15 @@ class NavBar extends React.Component {
             </Link>
           </div>
           <a href="https://wa.me/+972524550656" target="blank">
+          <span >
             <img src={watzap} className="watzap" />
-          </a>
+          </span>
 
           <div className="connectionDetails">
             <span className="heebo-Bold">זמינה בואצאפ</span>
             <span className="tel"> קטי 0524550656</span>
           </div>
+          </a>
         </nav>
       </header>
     );

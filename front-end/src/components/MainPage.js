@@ -28,19 +28,18 @@ class MainPage extends React.Component {
   clickedAdmin() {
     history.push("/galeryManager");
   }
-  // MoveLeft() {
-  //   this.setState({
-  //     pos: this.state.pos - 50,
-  //   });
-  // }
+ 
   render() {
     var adminButton = <div></div>;
     if (this.props.admin != "") {
       adminButton = (
+        <div><div>Hello, {this.props.user}!!</div>
         <Button
           buttonText={this.buttonTextManager}
           clicked={() => this.clickedAdmin()}
         />
+</div>        
+
       );
     }
 
@@ -63,16 +62,35 @@ class MainPage extends React.Component {
         </div>
 
         <div className="about">
-          <div className="aboutText">
-            <div>text</div>
+          <div className="aboutSection">
+            <div className="aboutText">
+              <div>
+              נעים מאוד קוראים לי קטי
+              </div><div>
+:) שמחה שהגעתם לפה
+</div><br/>
+<div>
+, אני מתמחה בצילומים בטבע באור הטבעי
+</div><div>
+,מאמינה ששימוש באור טבעי תורם לצילום אותנטי ומרגש
+</div><div>
+.ששם אתכם המצולמים במרכז
+</div><div>
+האתר שלי יעזור לכם לבחור את הלוקשיין המושלם
+</div><div>
+.לצילומים באזור חיפה והסביבה
+</div><div>
+.עוסקת גם בעיצוב גרפי ונראות ויזואלית בדיגיטל
+</div>
+</div>
             <img src={ketyStone} />
-            <div>
+            <a href="https://wa.me/+972524550656" target="blank">
               <img src={watzap} className="watzapAbout" />
               <div className="connectionDetails">
                 <span className="heebo-Bold">זמינה בואצאפ</span>
                 <span className="tel"> קטי 0524550656</span>
               </div>
-            </div>
+            </a>
           </div>
           <div className="aboutPhotoDiv">
             <img className="aboutPhoto" src={about} />
