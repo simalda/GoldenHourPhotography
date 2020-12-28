@@ -76,8 +76,10 @@ class Map extends React.Component {
         <div className="locationName">ביחרו מקום</div>
         <MapContainer center={this.position} zoom={11} scrollWheelZoom={false}>
           <TileLayer
-            attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-            url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
+            // attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+            attribution ='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            // url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
+            url ="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <Marker position={this.position} icon={this.iconPerson}>
             <Popup>
