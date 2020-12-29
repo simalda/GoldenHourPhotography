@@ -84,14 +84,15 @@ label {
 
 }
 .stamp{
-  height: 3.3vh;
+  padding-top: 2vh;  
 }
 .aboutSection {
   display: grid;
-  grid-template-rows: 60% 20% 20%;
+  // grid-template-rows: 60% 20% 20%;
   justify-items: end;
   margin-right: 1vw;
   text-align: end;
+  align-content: start;
 }
 .buttonArea {
   background-color:$background-color;
@@ -242,10 +243,19 @@ label {
   height: 7vh;
   text-align: center;
 }
+
+.connectionDetails {
+  float: right;
+  padding-right: 1vw;
+  padding-top: 1.7vh;
+  font-size: 1vw;
+}
+ 
 @media screen and (max-width: 600px) {
   .nav div,
-  .nav a,
-  .nav .connectionDetails {
+  .nav .links,
+  .nav .connectionDetails,
+  .nav  .connectionDetailsNav {
     display: none;
   }
   .nav .logo {
@@ -266,22 +276,39 @@ label {
     padding-top: 4vh;
     display: grid;
     grid-template-rows: 50% 50%;
-    height: 180vw;
+    height: 160vw;
     grid-template-columns: none;
   }
   .about .aboutPhoto {
-    width: 90vw;
+    width: 80vw;
   }
   .aboutPhotoDiv {
     justify-self: center;
     grid-row: 1;
   }
   .aboutText {
-    grid-row: 2;
+   justify-self: center;
+   width: 80vw;
   }
+  .stamp {
+    padding-right: 10vw;
+        width: 30vw;
+    
+}
+.watzapAbout{
+  height: 4vh;
+}
+.watzapWrapper{
+  padding-right: 10vw;
+}
+.connectionDetails{
+  font-size: 1.7vh;
+  display: inline-grid;
+}
+  
   .button {
     margin-bottom: 2vw;
-    width: 90vw;
+    width: 70vw;
     margin-left: 0px;
     margin-right: 0px;
   }
@@ -299,8 +326,16 @@ label {
     padding: 1vw;
   }
   #container-main {
-    /* padding-top: 7vh; */
-    padding: 7vh 2vw 0vh 2vw;
+     padding-top: 7vh; 
+   
+  }
+  .footer{
+    height: 8vh;
+    margin-top:0px
+  }
+  .icon{
+    padding: 2vh 1vh;
+    height: 4vh;
   }
 }
 
@@ -313,12 +348,7 @@ label {
   display: inline-block;
 }
 
-.connectionDetails {
-  float: right;
-  padding-right: 1vw;
-  padding-top: 1.7vh;
-  font-size: 1vw;
-}
+
 .heebo-Bold {
   @include font-Heebo-Bold-gray;
 }
@@ -421,6 +451,7 @@ label {
 .galery {
   height: 60vh;
   padding: 0.3vw;
+  border-radius: 20px;
 }
 
 .aboutPhoto {

@@ -66,7 +66,7 @@ class NavBar extends React.Component {
               לוקישנים
             </Link>
           </div>
-          <a href="https://wa.me/+972524550656" target="blank">
+          <a href="https://wa.me/+972524550656" target="blank" className="connectionDetailsNav">
           <span >
             <img src={watzap} className="watzap" />
           </span>

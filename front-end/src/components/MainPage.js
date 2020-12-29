@@ -71,20 +71,20 @@ class MainPage extends React.Component {
 </div><br/>
 <div>
 , אני מתמחה בצילומים בטבע באור הטבעי
-</div><div>
+
 ,מאמינה ששימוש באור טבעי תורם לצילום אותנטי ומרגש
-</div><div>
+
 .ששם אתכם המצולמים במרכז
-</div><div>
+
 האתר שלי יעזור לכם לבחור את הלוקשיין המושלם
-</div><div>
+
 .לצילומים באזור חיפה והסביבה
-</div><div>
+
 .עוסקת גם בעיצוב גרפי ונראות ויזואלית בדיגיטל
 </div>
 </div>
             <img src={ketyStone} className='stamp'/>
-            <a href="https://wa.me/+972524550656" target="blank">
+            <a href="https://wa.me/+972524550656" target="blank" className="watzapWrapper">
               <img src={watzap} className="watzapAbout" />
               <div className="connectionDetails">
                 <span className="heebo-Bold">זמינה בואצאפ</span>
