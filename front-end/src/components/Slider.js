@@ -174,6 +174,13 @@ class SliderMoves {
     });
     this.slider.removeEventListener("mousedown", this.on, false);
     this.slider.removeEventListener("mouseup", this.off, false);
+
+    /*for mobile*/
+    this.slider.removeEventListener("touchemove", this.setPos, {
+      passive: true,
+    });
+    this.slider.removeEventListener("touchstart", this.on, false);
+    this.slider.removeEventListener("touchend", this.off, false);
   }
 
   resize() {
