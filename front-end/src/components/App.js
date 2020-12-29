@@ -91,7 +91,9 @@ class App extends Component {
               />
             )}
           />
-          <Route path="/location" component={Location} />
+          <Route path="/location" 
+          render={(props)=>(
+           <Location   {...props} updateOrder={(date, time) => this.updateOrder(date, time)} />)}/>
           <Route path="/endPage" component={EndPage} />
           <Route
             path="/orderDetails"

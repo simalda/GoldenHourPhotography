@@ -1,0 +1,104 @@
+/*calendar*/
+@mixin mini-button {
+  height: 4vh;
+  width: 6vw;
+  border-radius: 100px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.calendar {
+  text-align: center;
+}
+
+.calendarInner {
+  display: inline-block;
+}
+.timeslot {
+  border-radius: 10px;
+  height: 4vh;
+  width: 10vw;
+  background-color: white;
+  font-size: 1vh;
+  font-family: "Heebo-Medium";
+  border: aliceblue;
+}
+.timeItems {
+  height: 20vh;
+  display: inline-grid;
+  justify-content: center;
+  width: 330px;
+  background: #f1dddc;
+  padding-top: 2vh;
+  border-radius: 5%;
+}
+.calendarHeader {
+  height: 9vh;
+  background-color: #f1dddc;
+  width: 350px;
+  border-radius: 10px;
+}
+.calendarHeaderYear {
+  padding-top: 1vh;
+  font-size: 1.5vh;
+  font-family: "Heebo-Medium";
+  color: #515151;
+}
+
+.calendarHeaderDate {
+  font-size: 2vh;
+  font-family: "Heebo-Bold";
+  padding-bottom: 1vh;
+  color: #515151;
+}
+.calendarWrap {
+  width: 350px;
+  border-radius: 10px;
+  background-color: rgb(248, 239, 239);
+  display: inline-block;
+}
+.miniButton1 {
+  @include mini-button;
+  background-color: rgb(170, 165, 165);
+  font-family: "Heebo-Medium", sans-serif;
+}
+.miniButton1:hover, .miniButton2:hover {
+  background-color: #f1dddc;
+  color: #515151;
+}
+.miniButton2 {
+  @include mini-button;
+  background-color: #62909a;
+  font-family: "blackjack";
+ }
+ 
+
+.calendarFooter {
+  padding: 1vh;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.react-calendar__tile--active {
+  background: #62909a;
+  color: white;
+  border-radius: 50%;
+}
+
+.react-calendar__month-view__days__day--weekend{
+  color: #515151;
+}
+
+.dayNotAvailable{
+ color:red
+}
+
+.react-calendar {
+  width: 350px;
+  max-width: 100%;
+  background: white;
+  /* border: 1px solid #a0a096; */
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+}

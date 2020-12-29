@@ -19,6 +19,7 @@ class TimeSlot extends React.Component {
     timeOptions.reduce((x, y) => x + y);
 
     return (
+      <div>
       <div className="timeItems">
         {timeOptions}
         <button
@@ -27,6 +28,7 @@ class TimeSlot extends React.Component {
         >
           יציאה
         </button>
+      </div>
       </div>
     );
   }

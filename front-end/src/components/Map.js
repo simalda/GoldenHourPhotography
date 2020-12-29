@@ -43,7 +43,7 @@ class Map extends React.Component {
     history.push("/location");
   }
 
-  LocationMarker() {
+  LocationMarker(iconPerson) {
     const [position, setPosition] = useState(null);
     const map = useMapEvents({
       click() {
@@ -52,12 +52,14 @@ class Map extends React.Component {
           setPosition(e.latlng);
         });
       },
+    
     });
 
     return position === null ? null : (
-      <Marker position={position} icon={this.iconPerson}>
-        <Popup>You are here</Popup>
-      </Marker>
+      <div></div>
+      // <Marker position={position} icon={iconPerson}>
+      //   <Popup>You are here</Popup>
+      // </Marker>
     );
   }
 
@@ -74,7 +76,7 @@ class Map extends React.Component {
     return (
       <div id="mapid" className="mainDiv">
         <div className="locationName">ביחרו מקום</div>
-        <MapContainer center={this.position} zoom={11} scrollWheelZoom={false}>
+        <MapContainer center={this.position} zoom={11} scrollWheelZoom={true}>
           <TileLayer
             // attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
             attribution ='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -88,7 +90,7 @@ class Map extends React.Component {
             </Popup>
           </Marker>
           {markerList}
-          <this.LocationMarker />
+          <this.LocationMarker iconPerson ={this.iconPerson} />
         </MapContainer>
       </div>
     );

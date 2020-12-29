@@ -83,7 +83,7 @@ class MainPage extends React.Component {
 .עוסקת גם בעיצוב גרפי ונראות ויזואלית בדיגיטל
 </div>
 </div>
-            <img src={ketyStone} />
+            <img src={ketyStone} className='stamp'/>
             <a href="https://wa.me/+972524550656" target="blank">
               <img src={watzap} className="watzapAbout" />
               <div className="connectionDetails">

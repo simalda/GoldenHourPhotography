@@ -1,5 +1,5 @@
 @use 'theme';
-@import "./calendar.css";
+@import "./calendar.scss";
 @import "./slider.scss";
 @import "./theme.scss";
 
@@ -35,6 +35,7 @@ input {
   margin: 1.5vh;
   padding-right: 1vw;
   border-color: #ede7e7;
+  outline: none;
 }
 
 label {
@@ -79,7 +80,11 @@ label {
   @include font-Heebo-Medium-gray;
   padding-top:1vh;
   line-height: 1.6;
+  font-size: 1.6vh;
 
+}
+.stamp{
+  height: 3.3vh;
 }
 .aboutSection {
   display: grid;
@@ -94,6 +99,9 @@ label {
 }
 .locationItem {
   height: 3.5vh;
+}
+.locationIcon{
+  height: 3vh;
 }
 /*admin*/
 #adminLogin {
@@ -116,6 +124,7 @@ label {
   margin: 2vh;
   justify-self: center;
   outline: none;
+  cursor: pointer;
 }
 .button:hover {
   background-color: #f1dddc;
@@ -186,6 +195,9 @@ label {
   text-align: center;
   margin-top: 4vh;
   height: 6vw;
+  // position: fixed;
+  // bottom: 0;
+  // width: 100%;
 }
 
 /*location*/
@@ -319,7 +331,7 @@ label {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 100;
 }
 
 .logo {
@@ -332,11 +344,13 @@ label {
   float: right;
   padding-top: 1.7vh;
   padding-right: 3vw;
+  height: 2.8vh;
 }
 
 .watzapAbout {
   float: right;
   padding-top: 1.7vh;
+  height: 2.8vh;
 }
 
 /*order details*/
