@@ -194,7 +194,7 @@ label {
 .footer {
   background-color: $background-color;
   text-align: center;
-  margin-top: 4vh;
+  // margin-top: 4vh;
   height: 6vw;
   // position: fixed;
   // bottom: 0;
@@ -249,6 +249,27 @@ label {
   padding-right: 1vw;
   padding-top: 1.7vh;
   font-size: 1vw;
+}
+
+.divContainsOrderDetails {
+  display: grid;
+  grid-template-columns: 20% 20% 20%;
+  justify-content: center;
+}
+
+.divOrderDetail {
+  display: grid;
+  grid-template-rows: 30% 30% 30%;
+  @include font-Heebo-Medium-gray;
+  font-size: 2vh;
+  justify-content: right;
+  background-color: #f1dddc;
+  height: 8vh;
+  width: 12vw;
+  justify-self: right;
+  border-radius: 10px;
+  padding: 2vw;
+ 
 }
  
 @media screen and (max-width: 600px) {
@@ -337,6 +358,39 @@ label {
     padding: 2vh 1vh;
     height: 4vh;
   }
+.miniButton1, .miniButton2{
+  width: 25vw;
+}
+.timeslot{
+  height: 6vh;
+    width: 35vw;
+    font-size:1.5vh;
+}
+.calendarHeader{
+  height: 12vh;
+}
+
+.divContainsOrderDetails{
+  grid-template-rows: 20% 60% 20%;
+  grid-template-columns:none;
+}
+.divPaymentDescription{
+  order: 3;
+}
+.userDetails{
+  order:2;
+}
+.divOrderDetail{
+  order:1;
+  width: 100vw;
+  height: 12vh;
+}
+input{
+  width: 80vw;
+}
+.headerDetails{
+  display: none;
+}
 }
 
 .close {
@@ -399,26 +453,9 @@ label {
   margin-top: 4vh;
   margin-bottom: 2vh;
 }
-.divContainsOrderDetails {
-  display: grid;
-  grid-template-columns: 20% 20% 20%;
-  justify-content: center;
-}
 
-.divOrderDetail {
-  display: grid;
-  grid-template-rows: 30% 30% 30%;
-  @include font-Heebo-Medium-gray;
-  font-size: 2vh;
-  justify-content: right;
-  background-color: #f1dddc;
-  height: 8vh;
-  width: 12vw;
-  justify-self: right;
-  border-radius: 10px;
-  padding: 2vw;
- 
-}
+
+
 
 .divPaymentDescription {
   display: grid;

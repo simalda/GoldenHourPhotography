@@ -17,7 +17,9 @@ class Slider extends React.Component {
     // slider.init();
     // slider.setFirstPosition()
   }
-
+  // componentWillUnmount(){
+  //   slider.removeEvents()
+  // }
   componentDidUpdate() {
     const slider = new SliderMoves(this.sliderRef, this.state.imagePathList);
     slider.init();
@@ -69,6 +71,8 @@ class SliderMoves {
     this.offX = 0;
     this.currentX = 0;
     this.min = 0;
+
+    this.onMobileX = 0;
   }
   bind() {
     ["setPos", "on", "off", "resize"].forEach(
@@ -77,16 +81,18 @@ class SliderMoves {
   }
 
   createSlider() {
-
     let imageFromPath = (path, index) => {
       let img = document.createElement("IMG");
       img.src = path;
       img.setAttribute("class", "galery");
       img.setAttribute("key", index);
       return img;
-    }
+    };
 
-    let imgToAddIntoDiv  = this.pathForImagesList.map(imageFromPath).concat( this.pathForImagesList.map(imageFromPath)).concat( this.pathForImagesList.map(imageFromPath));;
+    let imgToAddIntoDiv = this.pathForImagesList
+      .map(imageFromPath)
+      .concat(this.pathForImagesList.map(imageFromPath))
+      .concat(this.pathForImagesList.map(imageFromPath));
     let containerDiv = document.createElement("DIV");
     containerDiv.setAttribute("class", "containerImages");
     let innerDiv = document.createElement("DIV");
@@ -109,8 +115,16 @@ class SliderMoves {
   }
 
   setPos(e) {
+    // console.log(2)
+    // for (var i=0; i < e.changedTouches.length; i++) {
+    //   console.log("changedTouches[" + i + "].identifier = " + e.changedTouches[i].identifier);
+    //   console.log(e.changedTouches[i].target)
+    //   console.log(e.changedTouches[i].pageX)
+    // }
     if (!this.isDragging) return;
+
     this.currentX = this.offX + (e.clientX - this.onX);
+this.currentX = this.offX +(e.changedTouches[0].clientX- this.onMobileX)
     if (
       this.currentX > 0 ||
       this.currentX < (-2 * this.sliderInner.getBoundingClientRect().width) / 3
@@ -119,12 +133,12 @@ class SliderMoves {
       this.offX = this.currentX;
     } else if (
       this.currentX <
-        -(this.sliderInner.getBoundingClientRect().width - window.innerWidth) 
+      -(this.sliderInner.getBoundingClientRect().width - window.innerWidth)
     ) {
       this.currentX = -(
         this.sliderInner.getBoundingClientRect().width - window.innerWidth
-              );
-              this.offX = this.currentX;
+      );
+      this.offX = this.currentX;
     }
     this.sliderInner.style.transform = `translate3d(${this.currentX}px, 0, 0)`;
   }
@@ -148,7 +162,14 @@ class SliderMoves {
   on(e) {
     this.isDragging = true;
     this.onX = e.clientX;
+    this.onMobileX = e.changedTouches[0].clientX;
     this.slider.classList.add("is-grabbing");
+    // console.log(1)
+    // for (var i=0; i < e.changedTouches.length; i++) {
+    //   console.log("changedTouches[" + i + "].identifier = " + e.changedTouches[i].identifier);
+    //   console.log(e.changedTouches[i].target)
+    //   console.log(e.changedTouches[i].pageX)
+    // }
   }
 
   off(e) {
@@ -164,6 +185,11 @@ class SliderMoves {
     this.slider.addEventListener("mouseleave", this.off, false);
 
     window.addEventListener("resize", this.resize, false);
+
+    /* mobile*/
+    this.slider.addEventListener("touchmove", this.setPos, false);
+    this.slider.addEventListener("touchstart", this.on, false);
+    this.slider.addEventListener("touchend", this.off, false);
   }
 
   removeEvents() {
@@ -176,11 +202,11 @@ class SliderMoves {
     this.slider.removeEventListener("mouseup", this.off, false);
 
     /*for mobile*/
-    this.slider.removeEventListener("touchemove", this.setPos, {
-      passive: true,
-    });
-    this.slider.removeEventListener("touchstart", this.on, false);
-    this.slider.removeEventListener("touchend", this.off, false);
+    // this.slider.removeEventListener("touchemove", this.setPos, {
+    //   passive: true,
+    // });
+    // this.slider.removeEventListener("touchstart", this.on, false);
+    // this.slider.removeEventListener("touchend", this.off, false);
   }
 
   resize() {
