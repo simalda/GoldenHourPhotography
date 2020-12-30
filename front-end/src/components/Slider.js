@@ -13,10 +13,7 @@ class Slider extends React.Component {
 
   componentDidMount() {
     this.loadImages();
-    // const slider = new SliderMoves();
-    // slider.init();
-    // slider.setFirstPosition()
-  }
+    }
   // componentWillUnmount(){
   //   slider.removeEvents()
   // }
@@ -124,7 +121,9 @@ class SliderMoves {
     if (!this.isDragging) return;
 
     this.currentX = this.offX + (e.clientX - this.onX);
-this.currentX = this.offX +(e.changedTouches[0].clientX- this.onMobileX)
+    if(window.innerWidth<600){
+    this.currentX = this.offX +(e.changedTouches[0].clientX- this.onMobileX)
+    }
     if (
       this.currentX > 0 ||
       this.currentX < (-2 * this.sliderInner.getBoundingClientRect().width) / 3
@@ -161,8 +160,9 @@ this.currentX = this.offX +(e.changedTouches[0].clientX- this.onMobileX)
 
   on(e) {
     this.isDragging = true;
-    this.onX = e.clientX;
-    this.onMobileX = e.changedTouches[0].clientX;
+    this.onX = e.clientX;    
+    if(window.innerWidth<600){
+    this.onMobileX = e.changedTouches[0].clientX;}
     this.slider.classList.add("is-grabbing");
     // console.log(1)
     // for (var i=0; i < e.changedTouches.length; i++) {
