@@ -23,15 +23,7 @@ class Slider extends React.Component {
     // slider.setFirstPosition();
   }
 
-  // placeImagesOnScreen() {
-  //   var total = 0;
-  //   let i = 0;
-  //   while (total < screen.width && i < this.images.length) {
-  //     total += this.images[i].width;
-  //     i++;
-  //   }
-  //   this.images.slice(0, i);
-  // }
+ 
 
   loadImages() {
     const pathList = imageManager.importAll();

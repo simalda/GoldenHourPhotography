@@ -36,6 +36,7 @@ input {
   padding-right: 1vw;
   border-color: #ede7e7;
   outline: none;
+  
 }
 
 label {
@@ -46,7 +47,7 @@ label {
   justify-self: center;
 }
 .mainDiv {
-  padding-top: 6vh;
+  padding-top: 7vh;
   text-align: center;
 }
 .diagonaled {
@@ -108,8 +109,8 @@ label {
 #adminLogin {
   padding-top: 7vh;
   display: grid;
-  grid-template-rows: 20% 20% 20% 20% 20%;
-  height: 25vh;
+  grid-template-rows: 10% 20% 10% 20% 30%;
+  height: 35vh;
   justify-content: center;
 }
 /*buttons*/
@@ -144,10 +145,11 @@ label {
 /* edit image*/
 .editImage {
   height: 8vh;
+  justify-self: center;
 }
 .editImageDiv {
   display: grid;
-  grid-template-columns: 10% 10% 10% 10% 10% 10% 10%;
+  grid-template-columns: 10% 10% 10% 10% 10% 20% 20%;
 }
 /*end page*/
 .endPage {
@@ -542,4 +544,43 @@ input{
 }
 .none {
   display: none;
+}
+
+
+.D3banner{
+  position: relative;
+  height: 4vh;
+  width: 30vw;
+  text-align: center;
+  display: inline-block;
+  background-color: #f1dddc;
+  color: #515151;
+  bottom: 10vh;
+  border-radius: 3vh;
+  @include font-Heebo-Medium-gray;
+  padding-top: 2vh;
+}
+
+.D3bannerLeft{
+  float: left;
+    padding-left: 3vw;
+}
+
+.D3bannerRight{
+  float:right;
+  padding-right: 3vw;
+}
+
+.imageMarker{
+  border-radius: 50%;
+  border:olive solid 5px;
+}
+
+.inputImageManagment{
+width: 7vw;
+}
+
+.selectImageManagment{
+  height: 3vh;
+  margin: 1.5vh;
 }

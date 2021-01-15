@@ -10,8 +10,7 @@ import about from "../static/photos/cuts/about.jpg";
 import ketyStone from "../static/photos/cuts/KatyStone.svg";
 import locationIcon from "../static/photos/cuts/location icon.svg";
 import watzap from "../static/photos/cuts/Watsapp.svg";
-import DemoSlider from "./DemoSlider";
-import Demo2 from "./Demo2";
+ 
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -26,14 +25,14 @@ class MainPage extends React.Component {
   }
 
   clickedAdmin() {
-    history.push("/galeryManager");
+    history.push("/appManager");
   }
  
   render() {
     var adminButton = <div></div>;
     if (this.props.admin != "") {
       adminButton = (
-        <div><div>Hello, {this.props.user}!!</div>
+        <div><div>Hello, {this.props.admin}!!</div>
         <Button
           buttonText={this.buttonTextManager}
           clicked={() => this.clickedAdmin()}

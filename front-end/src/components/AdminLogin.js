@@ -46,54 +46,49 @@ class AdminLogin extends React.Component {
         </div>
       );
     }
-    whatToRender = (
-      // <form id="adminLogin" onSubmit={(event) => this.mySubmitHandler(event)}>
-      //   <label>Username</label>
-      //   <input
-      //     type="text"
-      //     id="fname"
-      //     name="fname"
-      //     value={this.state.user}
-      //     onChange={(event) => this.handleChangeUser(event)}
-      //   />
+    else {whatToRender = (
+      <form id="adminLogin" onSubmit={(event) => this.mySubmitHandler(event)}>
+        <label>Username</label>
+        <input
+          type="text"
+          id="fname"
+          name="fname"
+          value={this.state.user}
+          onChange={(event) => this.handleChangeUser(event)}
+        />
 
-      //   <label>Password</label>
-      //   <input
-      //     type="text"
-      //     id="lname"
-      //     name="lname"
-      //     value={this.state.value}
-      //     onChange={(event) => this.handleChangePsw(event)}
-      //   />
+        <label>Password</label>
+        <input
+          type="text"
+          id="lname"
+          name="lname"
+          value={this.state.value}
+          onChange={(event) => this.handleChangePsw(event)}
+        />
 
-      //   <Button
-      //     buttonText={this.buttonText}
-      //     clicked={() =>
-      //       this.props.handleAdminLogin(this.state.user, this.state.psw)
-      //     }
-      //   />
-      // </form>
-      <GoogleLogin
-    clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-    render={renderProps => (
-      <button onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
-    )}
-    buttonText="Login"
-    onSuccess={responseGoogle}
-    onFailure={responseGoogle}
-    cookiePolicy={'single_host_origin'}
-  />
-    );
+        <Button
+          buttonText={this.buttonText}
+          clicked={() =>
+            this.props.handleAdminLogin(this.state.user, this.state.psw)
+          }
+        />
+      </form>
+   
+    //   <GoogleLogin
+    // clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+    // render={renderProps => (
+    //   <button onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
+    // )}
+    // buttonText="Login"
+    // onSuccess={responseGoogle}
+    // onFailure={responseGoogle}
+    // cookiePolicy={'single_host_origin'}
+  ///>
+    )};
     return (
       <div>
         {whatToRender}
-        <button
-          style={{ height: "200px", width: "100px", paddingTop: "7vh" }}
-          onClick={() => this.props.test(1, 2)}
-        >
-          {this.props.testNumber}
-        </button>
-      </div>
+           </div>
     );
   }
 }

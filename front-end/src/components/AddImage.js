@@ -1,18 +1,37 @@
 import React from "react";
 
 import history from "../JS/history";
-import * as proxy from "../JS/proxy";
+// import * as proxy from "../JS/proxy";
+import * as selectoptions from "../JS/getOptions";
+import Button from "./Button";
+import Image from "../JS/Image";
+import ImageHandler from "../JS/ImageHandler";
 
 class OrdersCalendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
-      imageType: "Regular",
-      imageLocation: "City",
-      imageViewType: "Family",
+      image: null,
+      imageType: "regular",
+      imageLocation: "city",
+      imageViewType: "family",
       bannerApearence: false,
+      isNameInputDisabled: false,
     };
+  }
+  back() {
+    history.goBack();
+  }
+
+  onUploadImage(event) {
+    var str = event.target.value;
+    var res = str.split("\\");
+    this.setState({
+      name: res[res.length - 1],
+      image: event.target.value,
+      isNameInputDisabled: true,
+    });
   }
 
   ChangeName(event) {
@@ -31,81 +50,104 @@ class OrdersCalendar extends React.Component {
     this.setState({ bannerApearence: event.target.value });
   }
 
-  mySubmitHandler() {
-    proxy
-      .addNewImage(
-        this.state.name,
-        this.state.imageType,
-        this.state.imageLocation,
-        this.state.imageViewType,
-        this.state.bannerApearence
-      )
-      .then(
-        (loginResponse) => {
-          console.log(loginResponse);
-          alert("Saved");
-          history.push("/galeryManager/addImage");
-        },
-        (result) => {
-          console.log(result);
-          alert(" Not Saved :" + result);
-          history.push("/galeryManager/addImage");
-        }
-      );
+  mySubmitHandler(event) {
+    event.preventDefault();
+    const image = new Image(
+      this.state.name,
+      this.state.imageType,
+      this.state.imageLocation,
+      this.state.imageViewType
+    );
+    let imHandler = new ImageHandler();
+
+    imHandler.addNewImage(image).then(
+      (loginResponse) => {
+        console.log(loginResponse);
+        alert("Saved");
+        history.push("/appManager");
+      },
+      (result) => {
+        console.log(result);
+        alert(" Not Saved :" + result);
+        history.push("/appManager");
+      }
+    );
   }
   render() {
+    const ImageTypeOptions = selectoptions.getImageTypeOptions(
+      this.props.imageTypes
+    );
+    const ImageLocationsOptions = selectoptions.getImageLocationsOptions(
+      this.props.imageLocations
+    );
+    const EventTypesOptions = selectoptions.getEventTypesOptions(
+      this.props.eventTypes
+    );
+    if (this.state.isNameInputDisabled) {
+      document.getElementById("name").disabled = true;
+    }
     return (
       <div className=" popup mainDiv" style={{ color: "white" }}>
         <form onSubmit={(event) => this.mySubmitHandler(event)}>
           <h1>Feel the fields </h1>
+          <input
+            type="file"
+            id="input"
+            multiple
+            onChange={(event) => this.onUploadImage(event)}
+          ></input>
           <p>Name of image:</p>
-          <input type="text" onChange={(event) => this.ChangeName(event)} />
+          <input
+            id="name"
+            className="inputImageManagment"
+            type="text"
+            value={this.state.name}
+            onChange={(event) => this.ChangeName(event)}
+          />
+          <div>{this.state.name}</div>
           <p>Image type:</p>
           <select
             name="imageType"
             id="imType"
+            className="selectImageManagment"
             onChange={(event) => this.ChangeImageType(event)}
           >
-            <option value="Regular">Regular</option>
-            <option value="360">360</option>
+            {ImageTypeOptions}
           </select>
           <p>Image location:</p>
           <select
             name="location"
             id="imLoc"
+            className="selectImageManagment"
             onChange={(event) => this.ChangeImageLocation(event)}
           >
-            <option value="City">City</option>
-            <option value="Forest">Forest</option>
-            <option value="Sea">Sea</option>
-            <option value="Park">Park</option>
-            <option value="Other">Other</option>
+            {ImageLocationsOptions}
           </select>
           <p>Image view type:</p>
           <select
             name="imViewType"
             id="imViewType"
+            className="selectImageManagment"
             onChange={(event) => this.ChangeImageViewType(event)}
           >
-            <option value="Family">Family</option>
-            <option value="Irua">Irua</option>
-            <option value="Pregnancy">Pregnancy</option>
-            <option value="Other">Other</option>
+            {EventTypesOptions}
           </select>
           <p>Should appear at baner:</p>
-          <select
+          {/* <select
             name="onBaner"
             id="baner"
+            className="selectImageManagment"
             onChange={(event) => this.ChangeBannerAppearance(event)}
           >
             <option value="false">No</option>
             <option value="true">Yes</option>
-          </select>
+          </select> */}
 
           <div>
             <input type="submit" />
           </div>
         </form>
+        <Button buttonText={"back"} clicked={() => this.back()} />
       </div>
     );
   }

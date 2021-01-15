@@ -7,13 +7,7 @@ class Button extends React.Component {
 
   render() {
     let buttonText = <div></div>;
-    if (this.props.buttonText === "בחרו מיקום") {
-      buttonText = "בחרו מיקום";
-    } else if (this.props.buttonText === "שליחה") {
-      buttonText = "שליחה";
-    } else if (this.props.buttonText === "ניהול תמונות") {
-      buttonText = "ניהול תמונות";
-    } else if (this.props.buttonText === "שירינו לי מקום") {
+      if (this.props.buttonText === "שירינו לי מקום") {
       buttonText = (
         <div>
           <div>שירינו לי מקום</div>
@@ -23,6 +17,9 @@ class Button extends React.Component {
           </div>
         </div>
       );
+    }
+    else{
+      buttonText =<span>{this.props.buttonText}</span>
     }
     return (
       <button

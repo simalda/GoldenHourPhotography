@@ -14,9 +14,12 @@ import Location from "./Location";
 import AdminLogin from "./AdminLogin";
 import EndPage from "./EndPage";
 import OrderDetails from "./OrderDetails";
-import GaleryManager from "./GaleryManager";
+import GaleryManager from "./AppManager";
 import AddImage from "./AddImage";
 import EditImage from "./EditImage";
+import EditLocation from "./EditLocation";
+import OrdersManager from "./OrdersManager";
+import EditCalendar from "./EditCalendar";
 
 class App extends Component {
   constructor(props) {
@@ -24,8 +27,11 @@ class App extends Component {
     this.state = {
       admin: "",
       loginSucssess: 0,
-      testNumber: 8,
+      imageTypes: [],
+      imageLocations: ["les", "kishon", "deserd", "city"],
+      eventTypes: [],
       imageList: [],
+      ordersList: [],
       order: {
         name: "",
         mail: "",
@@ -35,6 +41,13 @@ class App extends Component {
       },
     };
   }
+
+  componentDidMount() {
+    this.getAllImageTypes();
+    this.getAllEventTypes();
+    this.getAllImages();
+  }
+
   handleAdminLogin(user, psw) {
     proxy.checkUser(user, psw).then((loginResponse) => {
       if (loginResponse) {
@@ -47,6 +60,39 @@ class App extends Component {
         });
       }
     });
+  }
+
+  getAllImageTypes() {
+    proxy.getAllImageTypes().then((types) => {
+      console.log(types);
+      this.setState({
+        imageTypes: types,
+      });
+    });
+  }
+
+  getAllEventTypes() {
+    proxy.getAllEventTypes().then((types) => {
+      console.log(types);
+      this.setState({
+        eventTypes: types,
+      });
+    });
+  }
+
+  getAllImages() {
+    proxy.getAllImages().then((images) => {
+      console.log(images);
+      this.setState({
+        imageList: images,
+      });
+    });
+  }
+
+  deleteImage(event, name) {
+    proxy.deleteImage(name);
+    history.push("/appManager/editImage");
+    event.preventDefault();
   }
 
   updateOrder(date, time) {
@@ -81,7 +127,6 @@ class App extends Component {
             )}
           />
           <Route path="/locations" component={Map} />
-          {/* <Route path="/location" component={D3images} /> */}
           <Route
             path="/location/calendar"
             render={(props) => (
@@ -91,9 +136,15 @@ class App extends Component {
               />
             )}
           />
-          <Route path="/location" 
-          render={(props)=>(
-           <Location   {...props} updateOrder={(date, time) => this.updateOrder(date, time)} />)}/>
+          <Route
+            path="/location"
+            render={(props) => (
+              <Location
+                {...props}
+                updateOrder={(date, time) => this.updateOrder(date, time)}
+              />
+            )}
+          />
           <Route path="/endPage" component={EndPage} />
           <Route
             path="/orderDetails"
@@ -101,9 +152,72 @@ class App extends Component {
               <OrderDetails {...props} order={this.state.order} />
             )}
           />
-          <Route path="/galeryManager/addImage" component={AddImage} />
-          <Route path="/galeryManager/editImage" component={EditImage} />
-          <Route path="/galeryManager" component={GaleryManager} />
+          {/* <Route path="/appManager/addImage" component={AddImage} /> */}
+          <Route
+            path="/appManager/addImage"
+            render={(props) => (
+              <AddImage
+                {...props}
+                imageTypes={this.state.imageTypes}
+                imageLocations={this.state.imageLocations}
+                eventTypes={this.state.eventTypes}
+                imageList={this.state.imageList}
+              />
+            )}
+          />
+          <Route
+            path="/appManager/editImage"
+            render={(props) => (
+              <EditImage
+                {...props}
+                imageTypes={this.state.imageTypes}
+                imageLocations={this.state.imageLocations}
+                eventTypes={this.state.eventTypes}
+                imageList={this.state.imageList}
+                deleteImage={(event, name) => this.deleteImage(event, name)}
+              />
+            )}
+          />
+          <Route path="/appManager" component={GaleryManager} />
+          <Route
+            path="/orders"
+            render={(props) => (
+              <OrdersManager
+                {...props}
+                // imageTypes={this.state.imageTypes}
+                // imageLocations={this.state.imageLocations}
+                // eventTypes={this.state.eventTypes}
+                // imageList={this.state.imageList}
+                // deleteImage={(event, name) => this.deleteImage(event, name)}
+              />
+            )}
+          />
+          <Route
+            path="/editLocations"
+            render={(props) => (
+              <EditLocation
+                {...props}
+                // imageTypes={this.state.imageTypes}
+                // imageLocations={this.state.imageLocations}
+                // eventTypes={this.state.eventTypes}
+                // imageList={this.state.imageList}
+                // deleteImage={(event, name) => this.deleteImage(event, name)}
+              />
+            )}
+          />
+          <Route
+            path="/editCalendar"
+            render={(props) => (
+              <EditCalendar
+                {...props}
+                // imageTypes={this.state.imageTypes}
+                // imageLocations={this.state.imageLocations}
+                // eventTypes={this.state.eventTypes}
+                // imageList={this.state.imageList}
+                // deleteImage={(event, name) => this.deleteImage(event, name)}
+              />
+            )}
+          />
         </Switch>
         <Footer />
       </Router>

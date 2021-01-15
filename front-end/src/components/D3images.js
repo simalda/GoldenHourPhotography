@@ -6,41 +6,26 @@ import "photo-sphere-viewer/dist/photo-sphere-viewer.css";
 import more from "../static/photos/Homepage+LEI.jpg";
 import lisa from "../static/photos/galery/pic_18.jpg";
 import face from "../static/photos/cuts/facebook.svg";
+import zvezda from "../static/photos/zvezda.jpg";
 
 class D3images extends Component {
   constructor(props) {
     super(props);
+    this.state ={
+      panorama:more
+    }
     this.divStyle = {
       width: "100vw",
       height: "50vh",
     };
-    this.sphereDiv = (element) => {
-      this.photoSphereViewer = element;
-    };
-    this.sphereDiv.appendChild = (elem) => {
-      this.subDiv.appendChild(elem);
-    };
+ 
   }
 
   componentDidMount() {
-    const viewer = new PhotosphereViewer.Viewer({
+    this.viewer = new PhotosphereViewer.Viewer({
       container: document.querySelector("#viewer"),
-      panorama: more,
-      // navbar: [
-      //   "autorotate",
-      //   "zoom",
-      //   {
-      //     id: "my-button",
-      //     content: "Custom",
-      //     title: "Hello world",
-      //     className: "custom-button",
-      //     onClick: () => {
-      //       alert("Hello from custom button");
-      //     },
-      //   },
-      //   "caption",
-      //   "fullscreen",
-      // ],
+      panorama: this.state.panorama,
+  
 
       plugins: [
         [
@@ -52,43 +37,35 @@ class D3images extends Component {
                 id: "imageLisa",
                 longitude: 0.32,
                 latitude: 0.11,
-                image: lisa,
+                image: zvezda,
                 width: 62,
                 height: 62,
-                anchor: "bottom center",
-                tooltip: "A image marker. <b>Click me!</b>",
-                // content: document.getElementById("lorem-content").innerHTML,
+                // anchor: "bottom center",
+                tooltip: {content :"Sofa. <b>Click me!</b>",
+                          position: "bottom center"
               },
-
-              {
-                // image marker that opens the panel when clicked
-                id: "image2",
-                longitude: 0.3,
-                latitude: 0.12,
-                image: face,
-                width: 62,
-                height: 62,
-                anchor: "bottom center",
-                tooltip: "A image marker. <b>Click me!</b>",
-                backgroundColor: "black",
-                // content: document.getElementById("lorem-content").innerHTML,
-              },
+              // content: document.getElementById('lorem-content').innerHTML,
+                className: "imageMarker"
+                },           
               {
                 id: "new-marker",
                 longitude: "45deg",
                 latitude: "0deg",
-                width: "20px",
-                height: "100px",
-
+                width: 100,
+                height: 100,
                 image: lisa,
+                className: "imageMarker",
+                tooltip: "Adam. <b>Click me!</b>",
               },
               {
                 // circle marker
                 id: "circle",
                 circle: 20,
-                x: 2500,
-                y: 1000,
+                height:30,
+                x: 0.3,
+                y: 0.2,
                 tooltip: "A circle marker",
+                className: "imageMarker"
               },
             ],
           },
@@ -96,40 +73,38 @@ class D3images extends Component {
       ],
     });
 
-    const markersPlugin = viewer.getPlugin(PhotoSphereViewer.MarkersPlugin);
+  
 
-    markersPlugin.on("select-marker", (e, marker) => {
-      markersPlugin.updateMarker({
-        id: marker.id,
-        image: lisa,
-      });
-    });
-    // viewer.on("click", function (e, data) {
-    //   if (!data.rightclick) {
-    //     markersPlugin.addMarker({
-    //       id: "#" + Math.random(),
-    //       longitude: data.longitude,
-    //       latitude: data.latitude,
-    //       image: lisa,
-    //       width: 62,
-    //       height: 62,
-    //       anchor: "center",
-    //       tooltip: "Generated pin",
-    //       data: {
-    //         generated: true,
-    //       },
-    //     });
+    const markersPlugin = this.viewer.getPlugin(PhotoSphereViewer.MarkersPlugin);
+
+    // markersPlugin.on("select-marker", (e, marker) => {
+    //   markersPlugin.updateMarker({
+    //     id: marker.id,
+    //     image: lisa,
+    //   });  });
+      markersPlugin.on('select-marker', (e, marker)=> this.TestClick(e, marker))
+  
+
+    // viewer.on("click", (marker) => {
+    //   if (marker.id === "imageLisa") {
+    //     viewer.setPanorama(lisa, null, true);
     //   }
     // });
-    viewer.on("click", (marker) => {
-      if (marker.id === "imageLisa") {
-        viewer.setPanorama(lisa, null, true);
-      }
-    });
   }
 
+  componentDidUpdate(){
+    this.viewer.setPanorama(this.state.panorama, undefined, true)      
+  }
+
+TestClick(e, marker) {  
+    console.log(`Cursor is over marker ${marker.config.image}`);
+    this.setState({
+      panorama:marker.config.image
+    })
+   
+}
   render() {
-    return <div style={this.divStyle} ref={this.sphereDiv} id="viewer"></div>;
+    return <div style={this.divStyle} id="viewer"></div>;
   }
 }
 

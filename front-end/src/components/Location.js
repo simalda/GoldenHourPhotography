@@ -43,6 +43,7 @@ class Location extends React.Component {
         <div className="locationName">פארק קישון</div>
         <div className="3d" style={{ height: "40hv" }}>
           <D3images />
+          <div className="D3banner"><span className="D3bannerLeft"><span style ={{color:"#515151", opacity:0.5}}>הבא</span>  1/3 </span><span className="D3bannerRight"> מקום כלשהו </span> </div>
         </div>
         <div className="photosFromThere">
           <div className="diagonaled">Photos from there</div>
