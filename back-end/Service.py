@@ -3,6 +3,8 @@ from flask_cors import CORS
 from DataAccess import *
 from Image import *
 from ImageHandler import *
+from TimeUnit import *
+from TimeUnitHandler import *
 import json
 app = Flask(__name__)
 app.debug = True
@@ -64,6 +66,26 @@ def delete_image( ):
     image = Image(data["name"],data["imageType"],data["eventType"],data["location"])
     return jsonify(db.deleteImage(image))
 
+
+@app.route('/addTimeUnit', methods=['POST'])
+def add_time_to_calendar():
+    data = json.loads(request.stream.read())
+    db = DataAccess()
+    tuHandler = TimeUnitHandler(db)
+    timeunit = TimeUnit(data["date"],data["dateFormated"],data["time"],data["isWeekly"],data["orderId"])
+    return jsonify(tuHandler.add_time_to_calendar(timeunit))
+
+@app.route('/getTimeSlots') 
+def get_all_time_slots():
+    db = DataAccess()
+    tuHandler = TimeUnitHandler(db)
+    return jsonify(tuHandler.get_time_slots())
+
+@app.route('/getOpenSlots') 
+def get_open_slots():
+    db = DataAccess()
+    tuHandler = TimeUnitHandler(db)
+    return jsonify(tuHandler.get_all_open_slots())
 
 if __name__ == "__main__":
     app.run(port=5000)

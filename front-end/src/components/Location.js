@@ -11,31 +11,33 @@ class Location extends React.Component {
   constructor(props) {
     super(props);
     this.buttonText = "שירינו לי מקום";
-    this.state={
-      popupTag:false
-    }
+    this.state = {
+      popupTag: false,
+    };
   }
 
   clicked() {
     this.setState({
-      popupTag:true
-    })
+      popupTag: true,
+    });
   }
 
   onClickCancelCalendar() {
     this.setState({
-      popupTag:false
+      popupTag: false,
     });
   }
 
   render() {
-    let popup = <div></div>
+    let popup = <div></div>;
     if (this.state.popupTag) {
-        popup = (
+      popup = (
         <OrdersCalendar
-        {...this.props}
-        updateOrder={(date, time) => this.props.updateOrder(date, time)} onClickCancelCalendar ={() => this.onClickCancelCalendar()}
-      />
+          {...this.props}
+          updateOrder={(date, time) => this.props.updateOrder(date, time)}
+          onClickCancelCalendar={() => this.onClickCancelCalendar()}
+          openDatesForOrder={this.props.openDatesForOrder}
+        />
       );
     }
     return (
@@ -43,7 +45,12 @@ class Location extends React.Component {
         <div className="locationName">פארק קישון</div>
         <div className="3d" style={{ height: "40hv" }}>
           <D3images />
-          <div className="D3banner"><span className="D3bannerLeft"><span style ={{color:"#515151", opacity:0.5}}>הבא</span>  1/3 </span><span className="D3bannerRight"> מקום כלשהו </span> </div>
+          <div className="D3banner">
+            <span className="D3bannerLeft">
+              <span style={{ color: "#515151", opacity: 0.5 }}>הבא</span> 1/3{" "}
+            </span>
+            <span className="D3bannerRight"> מקום כלשהו </span>{" "}
+          </div>
         </div>
         <div className="photosFromThere">
           <div className="diagonaled">Photos from there</div>

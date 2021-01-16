@@ -86,6 +86,41 @@ class DataAccess:
         pass
     #  db.orders.insert({"name":"string","secondName":"string", "telephon":"number","email":"string","date":"date", "time":"string"})?
 
+    def addTimeUnit(self, timeUnit):
+        self.mycollection = self.mydb['calendar']
+        self.mycollection.insert_one({"date":timeUnit.date,"dateFormated":timeUnit.dateFormated, "time":timeUnit.time,"isWeekly":timeUnit.isWeekly,"orderId":timeUnit.orderId})   
+        # return True
+    
+    def getTimeSlots(self):
+        self.imagesCollection = self.mydb['calendar']
+        slots = []
+        result = self.imagesCollection.find( )
+        for slot in result:
+            slots.append({
+            "date": slot["date"],
+            "dateFormated": slot["dateFormated"],
+            "time" : slot["time"],
+            "isWeekly" : slot["isWeekly"],
+            "orderId": slot["orderId"]
+        })
+        print(slots)
+        return slots
+    def getAllOpenSlots(self):
+        self.imagesCollection = self.mydb['calendar']
+        slots = []
+        result = self.imagesCollection.find({"orderId":None} )
+        for slot in result:
+            slots.append({
+            "date": slot["date"],
+            "dateFormated": slot["dateFormated"],
+            "time" : slot["time"],
+            "isWeekly" : slot["isWeekly"],
+            "orderId": slot["orderId"]
+        })
+        print(slots)
+        return slots
+
+
 # d=DataAccess()
 # im = Image("pic_04.jpg", "regular","wedding","les"   )
 # imList=[im]

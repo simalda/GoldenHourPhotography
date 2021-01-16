@@ -48,3 +48,23 @@ export function updateImages(imageSet) {
     body: imageString,
   }).then((response) => response.json());
 }
+
+export function addNewTimeUnit(timeUnit) {
+  const timeUnitString = JSON.stringify(timeUnit);
+  return fetch("http://127.0.0.1:5000/addTimeUnit", {
+    method: "POST",
+    body: timeUnitString,
+  }).then((response) => response.json());
+}
+
+export function getTimeSlots() {
+  return fetch(`http://127.0.0.1:5000/getTimeSlots`).then((response) =>
+    response.json()
+  );
+}
+
+export function getOpenSlots() {
+  return fetch(`http://127.0.0.1:5000/getOpenSlots`).then((response) =>
+    response.json()
+  );
+}

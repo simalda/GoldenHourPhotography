@@ -13,6 +13,7 @@ class PopupTime extends React.Component {
         <TimeSlot
           readTime={(time) => this.props.readTime(time)}
           onClickCancelTime={() => this.props.onClickCancelTime()}
+          curentDateTimeSlot={this.props.curentDateTimeSlot}
         />
       </div>
     );

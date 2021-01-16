@@ -19,7 +19,8 @@ import AddImage from "./AddImage";
 import EditImage from "./EditImage";
 import EditLocation from "./EditLocation";
 import OrdersManager from "./OrdersManager";
-import EditCalendar from "./EditCalendar";
+import EditCalendar from "./editCalendar/EditCalendar";
+import TimeUnitHandler from "../JS/TimeUnitHandler";
 
 class App extends Component {
   constructor(props) {
@@ -39,6 +40,8 @@ class App extends Component {
         time: "",
         location: "קישון",
       },
+      timeSlotList: [],
+      openDatesForOrder: [],
     };
   }
 
@@ -46,6 +49,8 @@ class App extends Component {
     this.getAllImageTypes();
     this.getAllEventTypes();
     this.getAllImages();
+    this.getAllAvalableDates();
+    this.getAllOpenDatesForOrder();
   }
 
   handleAdminLogin(user, psw) {
@@ -100,6 +105,24 @@ class App extends Component {
       order: { ...currentstate.order, date, time },
     }));
   }
+  getAllAvalableDates() {
+    let tuHandler = new TimeUnitHandler();
+    tuHandler.getTimeSlots().then((slotList) => {
+      console.log(slotList);
+      this.setState({
+        timeSlotList: slotList,
+      });
+    });
+  }
+  getAllOpenDatesForOrder() {
+    let tuHandler = new TimeUnitHandler();
+    tuHandler.getOpenTimeSlots().then((slotList) => {
+      console.log(slotList);
+      this.setState({
+        openDatesForOrder: slotList,
+      });
+    });
+  }
 
   render() {
     return (
@@ -133,6 +156,7 @@ class App extends Component {
               <OrdersCalendar
                 {...props}
                 updateOrder={(date, time) => this.updateOrder(date, time)}
+                openDatesForOrder={this.state.openDatesForOrder}
               />
             )}
           />
@@ -142,6 +166,7 @@ class App extends Component {
               <Location
                 {...props}
                 updateOrder={(date, time) => this.updateOrder(date, time)}
+                openDatesForOrder={this.state.openDatesForOrder}
               />
             )}
           />
@@ -208,14 +233,7 @@ class App extends Component {
           <Route
             path="/editCalendar"
             render={(props) => (
-              <EditCalendar
-                {...props}
-                // imageTypes={this.state.imageTypes}
-                // imageLocations={this.state.imageLocations}
-                // eventTypes={this.state.eventTypes}
-                // imageList={this.state.imageList}
-                // deleteImage={(event, name) => this.deleteImage(event, name)}
-              />
+              <EditCalendar {...props} timeSlotList={this.state.timeSlotList} />
             )}
           />
         </Switch>

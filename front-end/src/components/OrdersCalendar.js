@@ -5,81 +5,32 @@ import "react-calendar/dist/Calendar.css";
 import PopupTime from "./PopupTime";
 
 import history from "../JS/history";
-import convertDateToDateArrayDDMMYYYY from '../JS/dateManipulations'
+import convertDateToDateArrayDDMMYYYY from "../JS/dateManipulations";
+import TimeUnitHandler from "../JS/TimeUnitHandler";
 
 class OrdersCalendar extends React.Component {
   constructor(props) {
     super(props);
-    var emptyArray = []
-    for (let i=0; i<31;i++){
-       emptyArray.push([])
+    var emptyArray = [];
+    for (let i = 0; i < 31; i++) {
+      emptyArray.push([]);
     }
     this.state = {
       date: new Date(),
       popupTag: false,
+      curentDateTimeSlot: [],
       time: "",
       timePicked: false,
-      avilableTimeSlots:emptyArray,
+      avilableTimeSlots: this.props.openDatesForOrder,
+      availableDatesFormated: [],
     };
   }
 
   componentDidMount() {
+    this.dateFormatedopenDates();
     // this.createEmptytimeSlotArray();
-    this.getAvailableTimeSlots();
+    // this.getAvailableTimeSlots();
   }
-
-  // createEmptytimeSlotArray(){
-  //  var daysInMonth =31
-  //  var emptyArray = []
-  //  for (let i=0; i<31;i++){
-  //     emptyArray.push([])
-  //  }
-  //  this.setState({
-  //    ...this.state,
-  //    avilableTimeSlots: emptyArray
-  //  })
-  // }
-  getAvailableTimeSlots() {
-    var today = new Date();
-    var tommor = new Date();
-  
-
-this.setState((prevState) => {
-  let avilableTimeSlots = prevState.avilableTimeSlots.slice(0);
-  avilableTimeSlots[3] =["14:00-15:00", "15:00 - 16:00", "16:00-17:00", "17:00 - 18:00"]
-  avilableTimeSlots[5] = ["14:00-15:00", "15:00 - 16:00"]
-  return {avilableTimeSlots}
-})
-  }
-
-  //   this.setState((prevState) => {
-  //     var today = new Date();
-  //     var tommor = new Date();
-  //     // var numberOfDaysToAdd = 1;
-  //     today = convertDateToDateArrayDDMMYYYY(today.setDate(today.getDate() - 21));
-  //     tommor = convertDateToDateArrayDDMMYYYY( tommor.setDate(today.getDate() - 28));
-  //     // this.setState((prevState) => {
-  //     //   let avilableTimeSlots = {
-  //     //     ...prevState.avilableTimeSlots,
-  //     //     today: ["14:00-15:00", "15:00 - 16:00", "16:00-17:00", "17:00 - 18:00"],
-  //     //     tommor: ["14:00-15:00", "15:00 - 16:00"],
-  //     //   };
-  //     //   return { avilableTimeSlots };
-  //     // });
-
-  //     let avilableTimeSlots = new Map([
-  //       ...prevState.avilableTimeSlots,
-  //       [
-  //         today,
-  //         ["14:00-15:00", "15:00 - 16:00", "16:00-17:00", "17:00 - 18:00"],
-  //       ],
-  //       [
-  //         tommor, 
-  //         ["14:00-15:00", "15:00 - 16:00"]],
-  //     ]);
-  //     return { avilableTimeSlots };
-  //   });
-  // }
 
   hebrewDate() {
     var dateText;
@@ -117,10 +68,39 @@ this.setState((prevState) => {
   }
   onChange(ev) {
     console.log(ev);
+    const dateTimeSlot = this.getCurentDateTimeSlot(ev);
     this.setState({
       ...this.state,
       popupTag: true,
       date: ev,
+      curentDateTimeSlot: dateTimeSlot,
+    });
+  }
+  getCurentDateTimeSlot(date) {
+    let openSlotList = [];
+    let dates = this.state.avilableTimeSlots;
+    const formatedDate =
+      convertDateToDateArrayDDMMYYYY(date)[0] +
+      "." +
+      convertDateToDateArrayDDMMYYYY(date)[1] +
+      "." +
+      convertDateToDateArrayDDMMYYYY(date)[2];
+    for (let i = 0; i < dates.length; i++) {
+      if (formatedDate === dates[i].dateFormated) {
+        openSlotList.push(dates[i].time);
+      }
+    }
+    return openSlotList;
+  }
+
+  dateFormatedopenDates() {
+    let datesFormated = [];
+    let dates = this.props.openDatesForOrder;
+    for (let i = 0; i < dates.length; i++) {
+      datesFormated.push(dates[i].dateFormated);
+    }
+    this.setState({
+      availableDatesFormated: datesFormated,
     });
   }
 
@@ -154,16 +134,16 @@ this.setState((prevState) => {
   }
 
   shouldDateBeSelected(date) {
-    var someDate = new Date();
-    var numberOfDaysToAdd = 2;
-    someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
-    // if(date.getDay() === someDate.getDay() && (date.getMonth() === someDate.getMonth())){
-    if (
-      date.getDay() === 6 ||
-      !this.state.avilableTimeSlots[date.getDate()-1].length
-    ) {
-      return true;
+    const formatedDate =
+      convertDateToDateArrayDDMMYYYY(date)[0] +
+      "." +
+      convertDateToDateArrayDDMMYYYY(date)[1] +
+      "." +
+      convertDateToDateArrayDDMMYYYY(date)[2];
+    if (this.state.availableDatesFormated.includes(formatedDate)) {
+      return false;
     }
+    return true;
   }
 
   render() {
@@ -174,6 +154,7 @@ this.setState((prevState) => {
         <PopupTime
           onClickCancelTime={() => this.onClickCancelTime()}
           readTime={(time) => this.readTime(time)}
+          curentDateTimeSlot={this.state.curentDateTimeSlot}
         />
       );
     }

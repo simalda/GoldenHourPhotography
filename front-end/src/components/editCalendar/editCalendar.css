@@ -1,0 +1,16 @@
+.calebdarWraper {
+  display: grid;
+  grid-template-columns: repeat(8, auto);
+}
+.oneSlot {
+  padding: 1vh 0 1vh 0;
+}
+
+.headerDiv {
+  margin: 3vh;
+}
+
+.headerH1 {
+  display: inline;
+  padding: 0 3vw;
+}

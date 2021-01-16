@@ -21,6 +21,10 @@ class AppManager extends React.Component {
     history.push("/editLocations");
   }
 
+  editCalendar() {
+    history.push("/editCalendar");
+  }
+
   back() {
     history.goBack();
   }
@@ -35,7 +39,7 @@ class AppManager extends React.Component {
         <Button buttonText={"טיפול בהזמנות"} clicked={() => this.orders()} />
         <Button
           buttonText={"טיפול ביומן"}
-          clicked={() => this.clickedAdmin()}
+          clicked={() => this.editCalendar()}
         />
         <Button
           buttonText={"טיפול במיקום"}
