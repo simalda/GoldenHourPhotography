@@ -4,7 +4,7 @@ import importAll from "../JS/imageManager";
 import Button from "./Button";
 import * as proxy from "../JS/proxy";
 import history from "../JS/history";
-import TimeSlot from "./TimeSlot";
+import TimeSlotJSX from "./TimeSlotJSX";
 import Image from "../JS/Image";
 
 class EditOneImage extends React.Component {
@@ -41,7 +41,27 @@ class EditOneImage extends React.Component {
       if (type === this.props.image.location) {
         options.push(
           <option value={type} selected key={index}>
-            {type}{" "}
+            {type}
+          </option>
+        );
+      } else {
+        options.push(
+          <option value={type} key={index}>
+            {type}
+          </option>
+        );
+      }
+    });
+    return options;
+  }
+
+  createLocationTypes() {
+    const options = [];
+    this.props.LocationTypes.map((type, index) => {
+      if (type === this.props.image.locationType) {
+        options.push(
+          <option value={type} selected key={index}>
+            {type}
           </option>
         );
       } else {
@@ -127,6 +147,7 @@ class EditOneImage extends React.Component {
   render() {
     const ImageTypeOptions = this.createImageTypeOptions();
     const ImageLocations = this.createImageLocations();
+    // const LocationsTypes = this.createLocationTypes()
     const EventTypes = this.createEventTypes();
     return (
       <form onSubmit={(event) => this.sendToUpdate(event)}>
@@ -157,6 +178,16 @@ class EditOneImage extends React.Component {
           >
             event
             {EventTypes}
+          </select>
+          <select
+            name="imageLocation"
+            id="imType"
+            className="selectImageManagment"
+            onChange={(event) =>
+              this.updateListImagesToResaveLocation(event.currentTarget)
+            }
+          >
+            {LocationsTypes}
           </select>
           <select
             name="imageLocation"

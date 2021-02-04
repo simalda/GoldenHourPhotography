@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import history from "../../JS/history";
 import Button from "../Button";
@@ -6,35 +6,104 @@ import * as proxy from "../../JS/proxy";
 import EditOneSlot from "./EditOneSlot";
 import "./editCalendar.css";
 import TimeUnit from "../../JS/TimeUnit";
-import moment from "moment";
+
+import * as dateManager from "../../JS/dateManipulations";
 import TimeUnitHandler from "../../JS/TimeUnitHandler";
+import * as config from "./config";
+import TimeSlotManager from "./TimeSlotManager";
+import OrdersCalendar from "../ordersCalendar/OrdersCalendar";
+import OrderHandler from "../../JS/Orderhandler";
 
 class EditCalendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeSlotList: this.props.timeSlotList,
-      setSlotsToUpdate: new Set(),
-      startDate: this.countStartDate(),
-      endDate: this.countEndDate(),
+      startDate: dateManager.countStartDate(this.props.date),
+      endDate: dateManager.countEndDate(this.props.date),
+      isLoading: true,
     };
   }
 
   componentDidMount() {
-    // this.countDates();
-    // this.getAllAvalableDates();
+    this.updateTable();
+  }
+  async updateTable() {
+    let timeUnitsSingle = await this.getTimeUnitsSingleFromDB();
+    let timeUnitsWeekly = await this.getTimeUnitsWeeklyFromDB();
+    let orders = await this.getOrdersFromDB();
+    this.getCalendarTable(timeUnitsSingle, timeUnitsWeekly, orders);
   }
 
-  countStartDate() {
-    let date = new Date();
-    return moment().subtract(date.getDay(), "days")._d;
+  getTimeUnitsSingleFromDB() {
+    const tu = new TimeUnitHandler();
+    return tu.getSingleTimeSlots();
   }
-  countEndDate() {
-    let date = new Date();
-    return moment().add(6 - date.getDay(), "days")._d;
+  getTimeUnitsWeeklyFromDB() {
+    const tu = new TimeUnitHandler();
+    return tu.getTimeSlotsWeekly();
+  }
+  getOrdersFromDB() {
+    const orderHandler = new OrderHandler();
+    return orderHandler.getOrders();
   }
 
-  setSlotToUpdate(timeSlot) {}
+  getCalendarTable(timeUnitSingleList, timeUnitWeeklyList, ordersList) {
+    let timeSlotManager = new TimeSlotManager();
+    timeSlotManager.getTimeSlotsForPeriod(
+      this.state.startDate,
+      this.state.endDate,
+      timeUnitSingleList,
+      timeUnitWeeklyList,
+      ordersList
+    );
+    this.setState({
+      timeUnitSingleList,
+      timeUnitWeeklyList,
+      ordersList,
+      timeSlotManager,
+      isLoading: false,
+    });
+  }
+
+  onOneSlotClick(oldTimeUnit) {
+    const date = dateManager.addDay(
+      this.state.startDate,
+      oldTimeUnit.dayOfWeek
+    );
+    let timeHandler = new TimeUnitHandler();
+    if (oldTimeUnit.status === "Close") {
+      var answer = window.confirm(
+        "Do you want to make this to be available weekly?"
+      );
+      if (answer) {
+        let timeUnit = new TimeUnit(
+          null,
+          oldTimeUnit.dayOfWeek,
+          oldTimeUnit.time,
+          true
+        );
+        timeHandler.addNewTimeUnit(timeUnit);
+      } else {
+        let timeUnit = new TimeUnit(
+          date,
+          oldTimeUnit.dayOfWeek,
+          oldTimeUnit.time,
+          false
+        );
+        timeHandler.addNewTimeUnit(timeUnit);
+      }
+    } else {
+      var answer = window.confirm(
+        "Are you sure you want to change this time cell?"
+      );
+      if (answer) {
+        timeHandler.deleteTimeUnit(oldTimeUnit);
+      } else {
+        //some code
+      }
+    }
+    this.updateTable();
+  }
 
   back() {
     history.goBack();
@@ -42,107 +111,24 @@ class EditCalendar extends React.Component {
 
   createCalendarBody() {
     let calBody = [];
-    let times = [
-      "10:00 - 11:00",
-      "11:00 - 12:00",
-      "12:00 - 13:00",
-      "13:00 - 14:00",
-      "14:00 - 15:00",
-      "15:00 - 16:00",
-      "16:00 - 17:00",
-    ];
-    times.forEach((time) => {
-      let row = this.createCalendarRow(time);
-      calBody.push(row);
-    });
-    calBody.reduce((x, y) => x + y);
-    return calBody;
-  }
-
-  createCalendarRow(time) {
-    let calRow = [];
-    calRow.push(<div>{time}</div>);
-    for (let i = 0; i < 7; i++) {
-      let { timeUnit, isOpen } = this.checkTimeCell(i, time);
-      calRow.push(
-        <div className="oneSlot" key={i} id={i}>
+    // let times = config.times;
+    this.state.timeSlotManager.slotList.forEach((slot, index) => {
+      if (index % 7 == 0) {
+        calBody.push(<div>{slot.time}</div>);
+      }
+      calBody.push(
+        <div className="oneSlot" key={index} id={index}>
           <EditOneSlot
-            timeUnit={timeUnit}
-            isOpen={isOpen}
-            timeClicked={() => this.setSlotToUpdate()}
+            // timeUnit={slot.time}
+            // isOpen={slot.status}
+            slot={slot}
+            onClick={(slot) => this.onOneSlotClick(slot)}
           />
         </div>
       );
-    }
-    calRow.reduce((x, y) => x + y);
-    return calRow;
-  }
-
-  checkTimeCell(dayIndex, time) {
-    let date = new Date();
-
-    date = moment(this.state.startDate).add(dayIndex, "days")._d;
-    let dateFormated = moment(date).format("DD.MM.YYYY");
-    let timeUni = new TimeUnit(date, dateFormated, time, false, null);
-    // this.state.timeSlotList.forEach((timeUnit) => {
-    //   if (timeUnit.dateFormated === dateFormated && timeUnit.time === time) {
-    //     if (timeUnit.orderId) {
-    //       return {
-    //         timeUnit: new TimeUnit(
-    //           date,
-    //           dateFormated,
-    //           time,
-    //           timeUnit.isWeekly,
-    //           timeUnit.orderId
-    //         ),
-    //         isOpen: "Reserved",
-    //       };
-    //     } else {
-    //       return {
-    //         timeUnit: new TimeUnit(
-    //           date,
-    //           dateFormated,
-    //           time,
-    //           timeUnit.isWeekly,
-    //           timeUnit.orderId
-    //         ),
-    //         isOpen: "Open",
-    //       };
-    //     }
-    //   }
-    // });
-    let timeUnit = this.state.timeSlotList;
-    for (let i = 0; i < timeUnit.length; i++) {
-      if (
-        timeUnit[i].dateFormated === dateFormated &&
-        timeUnit[i].time === time
-      ) {
-        if (timeUnit[i].orderId) {
-          return {
-            timeUnit: new TimeUnit(
-              date,
-              dateFormated,
-              time,
-              timeUnit[i].isWeekly,
-              timeUnit[i].orderId
-            ),
-            isOpen: "Reserved",
-          };
-        } else {
-          return {
-            timeUnit: new TimeUnit(
-              date,
-              dateFormated,
-              time,
-              timeUnit[i].isWeekly,
-              timeUnit[i].orderId
-            ),
-            isOpen: "Open",
-          };
-        }
-      }
-    }
-    return { timeUnit: timeUni, isOpen: "Close" };
+    });
+    calBody.reduce((x, y) => x + y);
+    return calBody;
   }
 
   getPreviosWeekDates() {
@@ -155,39 +141,61 @@ class EditCalendar extends React.Component {
       endDate: end,
     });
   }
+  getNextWeekDates() {
+    let startDate2 = this.state.startDate;
+    let endDate2 = this.state.endDate;
+    let date = new Date();
+    this.setState({
+      startDate: new Date(date.setDate(startDate2.getDate() + 7)),
+      endDate: new Date(date.setDate(endDate2.getDate() + 7)),
+      isLoading: true,
+    });
+  }
 
   render() {
-    let calBody = this.createCalendarBody();
-    let startDate = moment(this.state.startDate).format("DD.MM.YYYY");
-    let endDate = moment(this.state.endDate).format("DD.MM.YYYY");
-    return (
-      <div className="mainDiv">
-        <div className="headerDiv">
-          <button onClick={() => this.getPreviosWeekDates()}>
-            Previous week
-          </button>
-          <h1 className="headerH1">
-            Week from
-            <span>{startDate}</span> to
-            <span> {endDate}</span>
-          </h1>
-          <button onClick={() => this.getNextWeekDates()}> Next week</button>
-        </div>
+    let body = <div></div>;
+    if (this.state.isLoading) {
+      body = <div>Loading</div>;
+      this.updateTable();
+    } else {
+      let calBody = this.createCalendarBody();
+      let startDate = dateManager.convertDateToDateStringDDMMYYYY(
+        this.state.startDate
+      );
+      let endDate = dateManager.convertDateToDateStringDDMMYYYY(
+        this.state.endDate
+      );
+      body = (
+        <div className="mainDiv">
+          <div className="headerDiv">
+            <button onClick={() => this.getPreviosWeekDates()}>
+              Previous week
+            </button>
+            <h1 className="headerH1">
+              Week from
+              <span>{startDate}</span> to
+              <span> {endDate}</span>
+            </h1>
+            <button onClick={() => this.getNextWeekDates()}> Next week</button>
+          </div>
 
-        <div className="calebdarWraper">
-          <div> time</div>
-          <div>יום ראשון</div>
-          <div>יום שני</div>
-          <div>יום שלישי</div>
-          <div>יום רביעי</div>
-          <div>טיום חמישי</div>
-          <div>יום שישי</div>
-          <div> שבת</div>
+          <div className="calebdarWraper">
+            <div> time</div>
+            <div>יום ראשון</div>
+            <div>יום שני</div>
+            <div>יום שלישי</div>
+            <div>יום רביעי</div>
+            <div>טיום חמישי</div>
+            <div>יום שישי</div>
+            <div> שבת</div>
 
-          {calBody}
+            {calBody}
+          </div>
+          <Button buttonText={"Back"} clicked={() => history.goBack()} />
         </div>
-      </div>
-    );
+      );
+    }
+    return <Fragment>{body}</Fragment>;
   }
 }
 

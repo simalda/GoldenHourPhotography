@@ -16,7 +16,6 @@
   src: url(../static/fonts/blackjack/blackjack.otf);
 }
 
-
 body {
   margin: 0;
   padding: 0;
@@ -36,7 +35,6 @@ input {
   padding-right: 1vw;
   border-color: #ede7e7;
   outline: none;
-  
 }
 
 label {
@@ -76,16 +74,15 @@ label {
   display: grid;
   grid-template-columns: 50% 50%;
 }
-.aboutText{
+.aboutText {
   width: 20vw;
   @include font-Heebo-Medium-gray;
-  padding-top:1vh;
+  padding-top: 1vh;
   line-height: 1.6;
   font-size: 1.6vh;
-
 }
-.stamp{
-  padding-top: 2vh;  
+.stamp {
+  padding-top: 2vh;
 }
 .aboutSection {
   display: grid;
@@ -96,13 +93,13 @@ label {
   align-content: start;
 }
 .buttonArea {
-  background-color:$background-color;
+  background-color: $background-color;
   padding: 1vh;
 }
 .locationItem {
   height: 3.5vh;
 }
-.locationIcon{
+.locationIcon {
   height: 3vh;
 }
 /*admin*/
@@ -128,9 +125,24 @@ label {
   outline: none;
   cursor: pointer;
 }
-.button:hover {
+.button:hover,
+.buttonPopupMarker:hover {
   background-color: #f1dddc;
   color: #515151;
+}
+.buttonPopupMarker {
+  border: 0px;
+  background-color: #62909a;
+  border-radius: 3vh;
+  width: 190px;
+  height: 3vh;
+  color: white;
+  font-family: "Heebo-Medium", sans-serif;
+  margin: 1vh;
+  justify-self: center;
+  outline: none;
+  cursor: pointer;
+  display: block;
 }
 
 .zilum {
@@ -271,14 +283,20 @@ label {
   justify-self: right;
   border-radius: 10px;
   padding: 2vw;
- 
 }
- 
+.timeslot {
+  height: 6vh;
+  width: 15vw;
+  font-size: 1.5vh;
+  outline: none;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 600px) {
   .nav div,
   .nav .links,
   .nav .connectionDetails,
-  .nav  .connectionDetailsNav {
+  .nav .connectionDetailsNav {
     display: none;
   }
   .nav .logo {
@@ -310,25 +328,24 @@ label {
     grid-row: 1;
   }
   .aboutText {
-   justify-self: center;
-   width: 80vw;
+    justify-self: center;
+    width: 80vw;
   }
   .stamp {
     padding-right: 10vw;
-        width: 30vw;
-    
-}
-.watzapAbout{
-  height: 4vh;
-}
-.watzapWrapper{
-  padding-right: 10vw;
-}
-.connectionDetails{
-  font-size: 1.7vh;
-  display: inline-grid;
-}
-  
+    width: 30vw;
+  }
+  .watzapAbout {
+    height: 4vh;
+  }
+  .watzapWrapper {
+    padding-right: 10vw;
+  }
+  .connectionDetails {
+    font-size: 1.7vh;
+    display: inline-grid;
+  }
+
   .button {
     margin-bottom: 2vw;
     width: 70vw;
@@ -349,50 +366,54 @@ label {
     padding: 1vw;
   }
   #container-main {
-     padding-top: 7vh; 
-   
+    padding-top: 7vh;
   }
-  .footer{
+  .footer {
     height: 8vh;
-    margin-top:0px
+    margin-top: 0px;
   }
-  .icon{
+  .icon {
     padding: 2vh 1vh;
     height: 4vh;
   }
-.miniButton1, .miniButton2{
-  width: 25vw;
-}
-.timeslot{
-  height: 6vh;
+  .miniButton1,
+  .miniButton2 {
+    width: 25vw;
+    outline: none;
+    cursor: pointer;
+  }
+  .timeslot {
+    height: 6vh;
     width: 35vw;
-    font-size:1.5vh;
-}
-.calendarHeader{
-  height: 12vh;
-}
+    font-size: 1.5vh;
+    outline: none;
+    cursor: pointer;
+  }
+  .calendarHeader {
+    height: 12vh;
+  }
 
-.divContainsOrderDetails{
-  grid-template-rows: 20% 60% 20%;
-  grid-template-columns:none;
-}
-.divPaymentDescription{
-  order: 3;
-}
-.userDetails{
-  order:2;
-}
-.divOrderDetail{
-  order:1;
-  width: 100vw;
-  height: 12vh;
-}
-input{
-  width: 80vw;
-}
-.headerDetails{
-  display: none;
-}
+  .divContainsOrderDetails {
+    grid-template-rows: 20% 60% 20%;
+    grid-template-columns: none;
+  }
+  .divPaymentDescription {
+    order: 3;
+  }
+  .userDetails {
+    order: 2;
+  }
+  .divOrderDetail {
+    order: 1;
+    width: 100vw;
+    height: 12vh;
+  }
+  input {
+    width: 80vw;
+  }
+  .headerDetails {
+    display: none;
+  }
 }
 
 .close {
@@ -403,7 +424,6 @@ input{
   margin: auto;
   display: inline-block;
 }
-
 
 .heebo-Bold {
   @include font-Heebo-Bold-gray;
@@ -455,9 +475,6 @@ input{
   margin-top: 4vh;
   margin-bottom: 2vh;
 }
-
-
-
 
 .divPaymentDescription {
   display: grid;
@@ -546,8 +563,7 @@ input{
   display: none;
 }
 
-
-.D3banner{
+.D3banner {
   position: relative;
   height: 4vh;
   width: 30vw;
@@ -558,29 +574,41 @@ input{
   bottom: 10vh;
   border-radius: 3vh;
   @include font-Heebo-Medium-gray;
-  padding-top: 2vh;
+  padding-top: 1vh;
+  font-size: 2vh;
 }
 
-.D3bannerLeft{
+.D3bannerLeft {
   float: left;
-    padding-left: 3vw;
+  padding-left: 1vw;
+}
+.D3bannerArrow {
+  height: 1.6vh;
+  padding-right: 1vw;
 }
 
-.D3bannerRight{
-  float:right;
+.D3bannerRight {
+  float: right;
   padding-right: 3vw;
 }
 
-.imageMarker{
+.imageMarker {
   border-radius: 50%;
-  border:olive solid 5px;
+  border: #62909a solid 3px;
+  cursor: pointer;
 }
 
-.inputImageManagment{
-width: 7vw;
+.inputImageManagment {
+  width: 7vw;
 }
 
-.selectImageManagment{
+.selectImageManagment {
   height: 3vh;
   margin: 1.5vh;
+}
+
+.leaflet-popup-content {
+  height: 5vh;
+  text-align: center;
+  width: 8vw;
 }

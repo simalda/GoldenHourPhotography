@@ -36,9 +36,9 @@ class AppManager extends React.Component {
           buttonText={"טיפול בתמונות"}
           clicked={() => this.editImages()}
         />
-        <Button buttonText={"טיפול בהזמנות"} clicked={() => this.orders()} />
+        {/* <Button buttonText={"טיפול בהזמנות"} clicked={() => this.orders()} /> */}
         <Button
-          buttonText={"טיפול ביומן"}
+          buttonText={"טיפול ביומן, הזמנות"}
           clicked={() => this.editCalendar()}
         />
         <Button

@@ -3,7 +3,8 @@ import React from "react";
 // import history from "../../JS/history";
 import TimeUnit from "../../JS/TimeUnit";
 import TimeUnitHandler from "../../JS/TimeUnitHandler";
-import moment from "moment";
+// import moment from "moment";
+import * as dateManager from "../../JS/dateManipulations";
 
 class EditOneSlot extends React.Component {
   constructor(props) {
@@ -15,45 +16,16 @@ class EditOneSlot extends React.Component {
       isModalOpen: false,
     };
   }
-
-  onClick() {
-    let timeHandler = new TimeUnitHandler();
-    if (this.state.isOpen === "Close") {
-      var answer = window.confirm(
-        "Do you want to make this to be available weekly?"
-      );
-      if (answer) {
-        this.setState({
-          isOpen: "Open",
-        });
-        let timeUnit = new TimeUnit(
-          this.state.timeUnit.date,
-          moment(this.state.timeUnit.date).format("DD.MM.YYYY"),
-          this.state.timeUnit.time,
-          true,
-          null
-        );
-        timeHandler.addNewTimeUnit(timeUnit);
-      } else {
-        this.setState({
-          isOpen: "Open",
-        });
-        timeHandler.addNewTimeUnit(this.state.timeUnit);
-      }
-    } else {
-      var answer = window.confirm(
-        "Are you sure you want to change this time cell?"
-      );
-      if (answer) {
-        this.setState({
-          isOpen: "Close",
-        });
-        timeHandler.deleteTimeUnit(this.state.timeUnit);
-      } else {
-        //some code
-      }
-    }
-  }
+  // }
+  // componentDidMount() {
+  //   this.setState({
+  //     slotToUpdate: [],
+  //     timeUnit: this.props.timeUnit,
+  //     isOpen: this.props.isOpen,
+  //     isModalOpen: false,
+  //     customClass: this.props.isOpen,
+  //   });
+  // }
 
   //   sendToUpdate() {
   //     proxy.updateImages(imagesToUpdate);
@@ -64,7 +36,14 @@ class EditOneSlot extends React.Component {
     // const ImageLocations = this.createImageLocations();
     // const EventTypes = this.createEventTypes();
 
-    return <button onClick={() => this.onClick()}>{this.state.isOpen}</button>;
+    return (
+      <button
+        className={this.props.slot.status + " calendarButton"}
+        onClick={() => this.props.onClick(this.props.slot)}
+      >
+        {this.props.slot.status}
+      </button>
+    );
   }
 }
 

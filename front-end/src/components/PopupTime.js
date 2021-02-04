@@ -1,6 +1,6 @@
 import React from "react";
 
-import TimeSlot from "./TimeSlot";
+import TimeSlotJSX from "./TimeSlotJSX";
 
 class PopupTime extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class PopupTime extends React.Component {
   render() {
     return (
       <div className="popup timeslot">
-        <TimeSlot
+        <TimeSlotJSX
           readTime={(time) => this.props.readTime(time)}
           onClickCancelTime={() => this.props.onClickCancelTime()}
           curentDateTimeSlot={this.props.curentDateTimeSlot}

@@ -23,6 +23,8 @@
   font-size: 1vh;
   font-family: "Heebo-Medium";
   border: aliceblue;
+  border: none;
+  cursor: pointer;
 }
 .timeItems {
   height: 20vh;
@@ -63,16 +65,18 @@
   background-color: rgb(170, 165, 165);
   font-family: "Heebo-Medium", sans-serif;
 }
-.miniButton1:hover, .miniButton2:hover {
+.miniButton1:hover,
+.miniButton2:hover {
   background-color: #f1dddc;
   color: #515151;
+  outline: none;
+  cursor: pointer;
 }
 .miniButton2 {
   @include mini-button;
   background-color: #62909a;
   font-family: "blackjack";
- }
- 
+}
 
 .calendarFooter {
   padding: 1vh;
@@ -86,12 +90,12 @@
   border-radius: 50%;
 }
 
-.react-calendar__month-view__days__day--weekend{
+.react-calendar__month-view__days__day--weekend {
   color: #515151;
 }
 
-.dayNotAvailable{
- color:red
+.dayNotAvailable {
+  color: red;
 }
 
 .react-calendar {

@@ -1,6 +1,10 @@
 from pymongo import MongoClient
 from pprint import pprint
 from Image import *
+from TimeUnit import *
+import datetime
+
+
 
 class DataAccess:
     def __init__(self):
@@ -12,10 +16,10 @@ class DataAccess:
     def checkUser(self, user, psw):
         self.mycollection = self.mydb['adminUser'] 
         userDataFromDB = self.mycollection.find_one({'username': user})
-        if userDataFromDB == None:
-            return False
-        else:
+        if userDataFromDB['username'] == user and userDataFromDB['password'] == psw:
             return True
+        else:
+            return False
 
     def addImage(self,image):
         self.mycollection = self.mydb['images']
@@ -88,40 +92,99 @@ class DataAccess:
 
     def addTimeUnit(self, timeUnit):
         self.mycollection = self.mydb['calendar']
-        self.mycollection.insert_one({"date":timeUnit.date,"dateFormated":timeUnit.dateFormated, "time":timeUnit.time,"isWeekly":timeUnit.isWeekly,"orderId":timeUnit.orderId})   
+        self.mycollection.insert_one({"date": timeUnit.date,"dayOfWeek":timeUnit.dayOfWeek, "time":timeUnit.time,"isWeekly":timeUnit.isWeekly})   
         # return True
-    
+
+    def deleteTimeUnit(self, timeUnit):
+        self.mycollection = self.mydb['calendar']
+        myquery = { "dateFormated":timeUnit.dateFormated,  "time":timeUnit.time}
+        self.mycollection.delete_one(myquery)
+ 
+ 
+
+
     def getTimeSlots(self):
         self.imagesCollection = self.mydb['calendar']
         slots = []
         result = self.imagesCollection.find( )
         for slot in result:
             slots.append({
-            "date": slot["date"],
-            "dateFormated": slot["dateFormated"],
+            "date":  slot["date"],
+            "dayOfWeek": slot["dayOfWeek"],
             "time" : slot["time"],
-            "isWeekly" : slot["isWeekly"],
-            "orderId": slot["orderId"]
+            "isWeekly" : slot["isWeekly"]           
         })
         print(slots)
         return slots
-    def getAllOpenSlots(self):
+
+    def getWeeklyOpenSlots(self):
         self.imagesCollection = self.mydb['calendar']
         slots = []
-        result = self.imagesCollection.find({"orderId":None} )
+        result = self.imagesCollection.find( {"isWeekly":True})
         for slot in result:
             slots.append({
-            "date": slot["date"],
-            "dateFormated": slot["dateFormated"],
+            "date":  slot["date"],
+            "dayOfWeek": slot["dayOfWeek"],
             "time" : slot["time"],
-            "isWeekly" : slot["isWeekly"],
-            "orderId": slot["orderId"]
+            "isWeekly" : slot["isWeekly"]           
+        })
+        print(slots)
+        return slots
+
+    def getSingleOpenSlots(self):
+        self.imagesCollection = self.mydb['calendar']
+        slots = []
+        result = self.imagesCollection.find( {"isWeekly":False})
+        for slot in result:
+            slots.append({
+            "date":  slot["date"],
+            "dayOfWeek": slot["dayOfWeek"],
+            "time" : slot["time"],
+            "isWeekly" : slot["isWeekly"]           
         })
         print(slots)
         return slots
 
 
+    # def getAllOpenSlots(self):
+    #     self.imagesCollection = self.mydb['calendar']
+    #     slots = []
+    #     result = self.imagesCollection.find({"orderId":None} )
+    #     for slot in result:
+    #         slots.append({
+    #         "date": slot["date"],
+    #         "dateFormated": slot["dateFormated"],
+    #         "time" : slot["time"],
+    #         "isWeekly" : slot["isWeekly"],
+    #         "orderId": slot["orderId"]
+    #     })
+    #     print(slots)
+    #     return slots
+    
+    def addOrder(self, order):
+        self.mycollection = self.mydb['orders']
+        self.mycollection.insert_one({"name":order.name,"telefon":order.telefon, "email":order.email, "location":order.location,"date":order.date,"time":order.time, "eventType":order.eventType,"note":order.note})
+
+    def getOrders(self):
+        self.orderCollection = self.mydb['orders']
+        orders = []
+        result = self.orderCollection.find( )
+        for order in result:
+            orders.append({
+             "date":  order["date"],
+            "time" : order["time"]
+        })
+        print(orders)
+        return orders
+
+
+    def updateCalendarAfterOrder(self):
+        pass
+
 # d=DataAccess()
-# im = Image("pic_04.jpg", "regular","wedding","les"   )
-# imList=[im]
-# d.editAllImages(imList)
+# # im = Image("pic_04.jpg", "regular","wedding","les"   )
+# # imList=[im]
+# timeunit = TimeUnit(datetime.datetime.now(), "25.01.2021","10:00-11:00", True, None)
+# p = d.getTimeSlots()
+# print(type(p[0]["date"]))
+ 

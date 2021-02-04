@@ -1,10 +1,9 @@
 class TimeUnit {
-  constructor(date, dateFormated, time, isWeekly) {
+  constructor(date, dayOfWeek, time, isWeekly) {
     this.date = date;
-    this.dateFormated = dateFormated; //DD.MM.YYYY
+    this.dayOfWeek = dayOfWeek;
     this.time = time;
     this.isWeekly = isWeekly;
-    this.orderId = null;
   }
 }
 

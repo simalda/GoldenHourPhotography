@@ -22,20 +22,33 @@ class Map extends React.Component {
       clickedPos: null,
     };
     this.position = [32.8, 35];
-    this.iconPerson = new L.Icon({
-      iconUrl: "./static/Pic_01.jpg",
-      iconRetinaUrl: "./static/Pic_01.jpg",
-      iconAnchor: [22, 94],
-      popupAnchor: [-3, -76],
-      shadowUrl: null,
-      shadowSize: null,
-      shadowAnchor: null,
-      iconSize: new L.Point(60, 60),
-      className: "leaflet-div-icons",
-    });
+    this.icons = [
+      new L.Icon({
+        iconUrl: "./static/Pic_01.jpg",
+        iconRetinaUrl: "./static/Pic_01.jpg",
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+        shadowUrl: null,
+        shadowSize: null,
+        shadowAnchor: null,
+        iconSize: new L.Point(60, 60),
+        className: "leaflet-div-icons",
+      }),
+      new L.Icon({
+        iconUrl: "./static/UnHaifaRahbal.jpg",
+        iconRetinaUrl: "./static/UnHaifaRahbal.jpg",
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+        shadowUrl: null,
+        shadowSize: null,
+        shadowAnchor: null,
+        iconSize: new L.Point(60, 60),
+        className: "leaflet-div-icons",
+      }),
+    ];
     this.markerStatesList = [
-      [33, 35],
-      [32.675871, 34.977722],
+      [32.704402, 34.935493],
+      [32.761082, 35.018606],
     ];
   }
 
@@ -52,23 +65,24 @@ class Map extends React.Component {
           setPosition(e.latlng);
         });
       },
-    
     });
 
     return position === null ? null : (
-      <div></div>
-      // <Marker position={position} icon={iconPerson}>
-      //   <Popup>You are here</Popup>
-      // </Marker>
+      // <div></div>
+      <Marker position={position} icon={iconPerson}>
+        <Popup>You are here</Popup>
+      </Marker>
     );
   }
 
   render() {
     var markerList = this.markerStatesList.map((position, index) => (
-      <Marker position={position} icon={this.iconPerson} key={index}>
+      <Marker position={position} icon={this.icons[index]} key={index}>
         <Popup>
-          שם המקום
-          <button onClick={() => this.clicked()}>לתיאור מפורט</button>
+          <span style={{ height: "1vh" }}>אוניברסיטת חיפה</span>
+          <button className="buttonPopupMarker" onClick={() => this.clicked()}>
+            לתיאור מפורט
+          </button>
         </Popup>
       </Marker>
     ));
@@ -79,18 +93,18 @@ class Map extends React.Component {
         <MapContainer center={this.position} zoom={11} scrollWheelZoom={true}>
           <TileLayer
             // attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-            attribution ='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             // url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
-            url ="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={this.position} icon={this.iconPerson}>
+          {/* <Marker position={this.position} icon={this.iconPerson}>
             <Popup>
               שם המקום
               <button onClick={() => this.clicked()}>לתיאור מפורט</button>
             </Popup>
-          </Marker>
+          </Marker> */}
           {markerList}
-          <this.LocationMarker iconPerson ={this.iconPerson} />
+          <this.LocationMarker iconPerson={this.iconPerson} />
         </MapContainer>
       </div>
     );

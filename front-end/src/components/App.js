@@ -9,7 +9,7 @@ import NavBar from "./NavBar";
 import Footer from "./Footer";
 import MainPage from "./MainPage";
 import Map from "./Map";
-import OrdersCalendar from "./OrdersCalendar";
+import OrdersCalendar from "./ordersCalendar/OrdersCalendar";
 import Location from "./Location";
 import AdminLogin from "./AdminLogin";
 import EndPage from "./EndPage";
@@ -21,6 +21,8 @@ import EditLocation from "./EditLocation";
 import OrdersManager from "./OrdersManager";
 import EditCalendar from "./editCalendar/EditCalendar";
 import TimeUnitHandler from "../JS/TimeUnitHandler";
+import TimeSlotManager from "./editCalendar/TimeSlotManager";
+import * as dateManager from "../JS/dateManipulations";
 
 class App extends Component {
   constructor(props) {
@@ -33,12 +35,18 @@ class App extends Component {
       eventTypes: [],
       imageList: [],
       ordersList: [],
+      date: new Date(),
       order: {
         name: "",
         mail: "",
         date: "",
         time: "",
+        hebrewDay: "",
         location: "קישון",
+      },
+      calendar: {
+        month: 0,
+        year: 2021,
       },
       timeSlotList: [],
       openDatesForOrder: [],
@@ -50,12 +58,14 @@ class App extends Component {
     this.getAllEventTypes();
     this.getAllImages();
     this.getAllAvalableDates();
-    this.getAllOpenDatesForOrder();
+    // this.getAllOpenDatesMonth();
+    // this.getOpenTimeUnitsForWeek();
   }
 
   handleAdminLogin(user, psw) {
+    console.log("handleAdminLog");
     proxy.checkUser(user, psw).then((loginResponse) => {
-      if (loginResponse) {
+      if (loginResponse.result) {
         console.log(loginResponse);
         history.push("/");
         this.setState({ admin: user, loginSucssess: 1 });
@@ -64,6 +74,12 @@ class App extends Component {
           loginSucssess: -1,
         });
       }
+    });
+  }
+  returnToLogin() {
+    this.setState({
+      loginSucssess: 0,
+      admin: "",
     });
   }
 
@@ -100,9 +116,9 @@ class App extends Component {
     event.preventDefault();
   }
 
-  updateOrder(date, time) {
+  updateOrder(date, time, hebrewDay) {
     this.setState((currentstate) => ({
-      order: { ...currentstate.order, date, time },
+      order: { ...currentstate.order, date, time, hebrewDay },
     }));
   }
   getAllAvalableDates() {
@@ -114,15 +130,33 @@ class App extends Component {
       });
     });
   }
-  getAllOpenDatesForOrder() {
+  getOpenTimeUnitsForWeek() {
+    let date = new Date();
+    let week = dateManager.getWeekBorders(date);
     let tuHandler = new TimeUnitHandler();
-    tuHandler.getOpenTimeSlots().then((slotList) => {
-      console.log(slotList);
-      this.setState({
-        openDatesForOrder: slotList,
+    tuHandler
+      .getOpenTimeUnitsForWeek(week.startDate, week.endDate)
+      .then((openSlots) => {
+        this.setState({
+          openDatesForOrder: openSlots,
+        });
       });
-    });
+
+    // let tsManager = new TimeSlotManager();
+    // return tsManager.getOpenTimeSlotsForMonth(month).then((openSlots) => {
+    //   this.setState({
+    //     openDatesForOrder: tsManager.slotList,
+    //   });
+    // });
   }
+
+  // let tuHandler = new TimeUnitHandler();
+  // tuHandler.getOpenTimeSlots().then((slotList) => {
+  //   console.log(slotList);
+  //   this.setState({
+  //     openDatesForOrder: slotList,
+  //   });
+  // });
 
   render() {
     return (
@@ -145,28 +179,36 @@ class App extends Component {
                 handleAdminLogin={(user, psw) =>
                   this.handleAdminLogin(user, psw)
                 }
+                returnToLogin={() => this.returnToLogin()}
                 test={(a, b) => this.test(a, b)}
               />
             )}
           />
           <Route path="/locations" component={Map} />
-          <Route
+          {/* <Route
             path="/location/calendar"
             render={(props) => (
               <OrdersCalendar
                 {...props}
-                updateOrder={(date, time) => this.updateOrder(date, time)}
-                openDatesForOrder={this.state.openDatesForOrder}
-              />
-            )}
-          />
+                updateOrder={(date, time, hebrewDay) =>
+                  this.updateOrder(date, time, hebrewDay)
+                }
+                calendar={this.state.calendar}
+                // openDatesForOrder={this.state.openDatesForOrder}
+                // date={new Date()}
+              /> */}
+          {/* )}
+          /> */}
           <Route
             path="/location"
             render={(props) => (
               <Location
                 {...props}
-                updateOrder={(date, time) => this.updateOrder(date, time)}
-                openDatesForOrder={this.state.openDatesForOrder}
+                updateOrder={(date, time, hebrewDay) =>
+                  this.updateOrder(date, time, hebrewDay)
+                }
+                calendar={this.state.calendar}
+                // openDatesForOrder={this.state.openDatesForOrder}
               />
             )}
           />
@@ -233,7 +275,11 @@ class App extends Component {
           <Route
             path="/editCalendar"
             render={(props) => (
-              <EditCalendar {...props} timeSlotList={this.state.timeSlotList} />
+              <EditCalendar
+                {...props}
+                date={this.state.date}
+                timeSlotList={this.state.timeSlotList}
+              />
             )}
           />
         </Switch>

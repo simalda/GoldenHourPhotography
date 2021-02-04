@@ -14,3 +14,22 @@
   display: inline;
   padding: 0 3vw;
 }
+.calendarButton {
+  border-radius: 3vh;
+  width: 10vw;
+}
+.Open {
+  background-color: aquamarine;
+}
+.Close {
+  background-color: burlywood;
+}
+.Reserved {
+  background-color: cornflowerblue;
+}
+
+@media screen and (max-width: 600px) {
+  .oneSlot {
+    width: 10vw;
+  }
+}
