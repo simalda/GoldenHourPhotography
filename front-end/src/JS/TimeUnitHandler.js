@@ -1,6 +1,6 @@
 import * as proxy from "../JS/proxy";
-import TimeSlotManager from "../components/editCalendar/TimeSlotManager";
-import * as dateManager from "../JS/dateManipulations";
+import TimeSlotManager from "../components/edit/editCalendar/TimeSlotManager";
+// import * as dateManager from "../../../JS/dateManipulations";
 import TimeUnit from "./TimeUnit";
 
 class TimeUnitHandler {

@@ -5,24 +5,28 @@ import history from "../JS/history";
 import { Router, Switch } from "react-router";
 import * as proxy from "../JS/proxy";
 
-import NavBar from "./NavBar";
+import NavBar from "./navBar/NavBar";
 import Footer from "./Footer";
+import AboutUs from "./navBar/AboutUs";
+import Galery from "./navBar/Galery";
+import QuestionsAnswers from "./navBar/QuestionsAnswers";
 import MainPage from "./MainPage";
-import Map from "./Map";
-import OrdersCalendar from "./ordersCalendar/OrdersCalendar";
+import Map from "./map/Map";
+// import OrdersCalendar from "./ordersCalendar/OrdersCalendar";
 import Location from "./Location";
 import AdminLogin from "./AdminLogin";
 import EndPage from "./EndPage";
 import OrderDetails from "./OrderDetails";
-import GaleryManager from "./AppManager";
-import AddImage from "./AddImage";
-import EditImage from "./EditImage";
-import EditLocation from "./EditLocation";
+import GaleryManager from "./edit/AppManager";
+import AddImage from "./edit/editImage/AddImage";
+import EditImage from "./edit/editImage/EditImage";
+import EditLocation from "./edit/EditLocation";
 import OrdersManager from "./OrdersManager";
-import EditCalendar from "./editCalendar/EditCalendar";
+import EditCalendar from "./edit/editCalendar/EditCalendar";
 import TimeUnitHandler from "../JS/TimeUnitHandler";
-import TimeSlotManager from "./editCalendar/TimeSlotManager";
 import * as dateManager from "../JS/dateManipulations";
+import LocationHandler from "../JS/locationHandler";
+// import LocationsEditor from "../locationsEditor/LocationsEditor";
 
 class App extends Component {
   constructor(props) {
@@ -35,6 +39,8 @@ class App extends Component {
       eventTypes: [],
       imageList: [],
       ordersList: [],
+      locationsInfo: [],
+      locationDescription: {},
       date: new Date(),
       order: {
         name: "",
@@ -42,14 +48,15 @@ class App extends Component {
         date: "",
         time: "",
         hebrewDay: "",
-        location: "קישון",
+        location: "",
       },
       calendar: {
-        month: 0,
+        month: 2,
         year: 2021,
       },
       timeSlotList: [],
       openDatesForOrder: [],
+      footerPositionClass: "",
     };
   }
 
@@ -58,10 +65,23 @@ class App extends Component {
     this.getAllEventTypes();
     this.getAllImages();
     this.getAllAvalableDates();
+    this.getLocationsInfo();
     // this.getAllOpenDatesMonth();
     // this.getOpenTimeUnitsForWeek();
   }
 
+  // componentDidUpdate() {
+  //   if (
+  //     (document.getElementById("frame") &&
+  //       document.getElementById("frame").clientHeight < window.innerHeight) ||
+  //     document.getElementById("imap")
+  //   ) {
+  //     this.setState({
+  //       footerPositionClass: "fixed",
+  //     });
+  //   }
+  // }
+  checkFooterPosition() {}
   handleAdminLogin(user, psw) {
     console.log("handleAdminLog");
     proxy.checkUser(user, psw).then((loginResponse) => {
@@ -110,6 +130,16 @@ class App extends Component {
     });
   }
 
+  getLocationsInfo() {
+    let locationHandler = new LocationHandler();
+    locationHandler.getAllLocationsInfo().then((locations) => {
+      console.log(locations);
+      this.setState({
+        locationsInfo: locations,
+      });
+    });
+  }
+
   deleteImage(event, name) {
     proxy.deleteImage(name);
     history.push("/appManager/editImage");
@@ -149,7 +179,12 @@ class App extends Component {
     //   });
     // });
   }
-
+  locationClicked(location) {
+    this.setState({
+      locationDescription: location,
+    });
+    history.push("/location");
+  }
   // let tuHandler = new TimeUnitHandler();
   // tuHandler.getOpenTimeSlots().then((slotList) => {
   //   console.log(slotList);
@@ -162,30 +197,52 @@ class App extends Component {
     return (
       <Router history={history}>
         <NavBar />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(props) => <MainPage {...props} admin={this.state.admin} />}
-          />
-          <Route
-            path="/admin"
-            Switch
-            render={(props) => (
-              <AdminLogin
-                {...props}
-                testNumber={this.state.testNumber}
-                loginSucssess={this.state.loginSucssess}
-                handleAdminLogin={(user, psw) =>
-                  this.handleAdminLogin(user, psw)
-                }
-                returnToLogin={() => this.returnToLogin()}
-                test={(a, b) => this.test(a, b)}
-              />
-            )}
-          />
-          <Route path="/locations" component={Map} />
-          {/* <Route
+        <div className="frame" id="frame">
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <MainPage {...props} admin={this.state.admin} />
+              )}
+            />
+            <Route
+              path="/admin"
+              Switch
+              render={(props) => (
+                <AdminLogin
+                  {...props}
+                  loginSucssess={this.state.loginSucssess}
+                  handleAdminLogin={(user, psw) =>
+                    this.handleAdminLogin(user, psw)
+                  }
+                  returnToLogin={() => this.returnToLogin()}
+                />
+              )}
+            />
+            <Route
+              path="/AboutUs"
+              render={() => (
+                <div style={{ paddingTop: "9vh" }}>
+                  <AboutUs />
+                </div>
+              )}
+            />
+            <Route path="/galery" render={() => <Galery />} />
+            <Route path="/questionsAnswers" component={QuestionsAnswers} />
+            <Route
+              path="/locations"
+              render={(props) => (
+                <Map
+                  {...props}
+                  admin={this.state.admin}
+                  locationsInfo={this.state.locationsInfo}
+                  locationClicked={(location) => this.locationClicked(location)}
+                />
+              )}
+            />
+            {/* <Route path="/locations" component={Map} /> */}
+            {/* <Route
             path="/location/calendar"
             render={(props) => (
               <OrdersCalendar
@@ -197,92 +254,108 @@ class App extends Component {
                 // openDatesForOrder={this.state.openDatesForOrder}
                 // date={new Date()}
               /> */}
-          {/* )}
+            {/* )}
           /> */}
-          <Route
-            path="/location"
-            render={(props) => (
-              <Location
-                {...props}
-                updateOrder={(date, time, hebrewDay) =>
-                  this.updateOrder(date, time, hebrewDay)
-                }
-                calendar={this.state.calendar}
-                // openDatesForOrder={this.state.openDatesForOrder}
-              />
-            )}
-          />
-          <Route path="/endPage" component={EndPage} />
-          <Route
-            path="/orderDetails"
-            render={(props) => (
-              <OrderDetails {...props} order={this.state.order} />
-            )}
-          />
-          {/* <Route path="/appManager/addImage" component={AddImage} /> */}
-          <Route
-            path="/appManager/addImage"
-            render={(props) => (
-              <AddImage
-                {...props}
-                imageTypes={this.state.imageTypes}
-                imageLocations={this.state.imageLocations}
-                eventTypes={this.state.eventTypes}
-                imageList={this.state.imageList}
-              />
-            )}
-          />
-          <Route
-            path="/appManager/editImage"
-            render={(props) => (
-              <EditImage
-                {...props}
-                imageTypes={this.state.imageTypes}
-                imageLocations={this.state.imageLocations}
-                eventTypes={this.state.eventTypes}
-                imageList={this.state.imageList}
-                deleteImage={(event, name) => this.deleteImage(event, name)}
-              />
-            )}
-          />
-          <Route path="/appManager" component={GaleryManager} />
-          <Route
-            path="/orders"
-            render={(props) => (
-              <OrdersManager
-                {...props}
-                // imageTypes={this.state.imageTypes}
-                // imageLocations={this.state.imageLocations}
-                // eventTypes={this.state.eventTypes}
-                // imageList={this.state.imageList}
-                // deleteImage={(event, name) => this.deleteImage(event, name)}
-              />
-            )}
-          />
-          <Route
-            path="/editLocations"
-            render={(props) => (
-              <EditLocation
-                {...props}
-                // imageTypes={this.state.imageTypes}
-                // imageLocations={this.state.imageLocations}
-                // eventTypes={this.state.eventTypes}
-                // imageList={this.state.imageList}
-                // deleteImage={(event, name) => this.deleteImage(event, name)}
-              />
-            )}
-          />
-          <Route
-            path="/editCalendar"
-            render={(props) => (
-              <EditCalendar
-                {...props}
-                date={this.state.date}
-                timeSlotList={this.state.timeSlotList}
-              />
-            )}
-          />
-        </Switch>
+            <Route
+              path="/location"
+              render={(props) => (
+                <Location
+                  {...props}
+                  updateOrder={(date, time, hebrewDay) =>
+                    this.updateOrder(date, time, hebrewDay)
+                  }
+                  calendar={this.state.calendar}
+                  locationDescription={this.state.locationDescription}
+                  // openDatesForOrder={this.state.openDatesForOrder}
+                />
+              )}
+            />
+            <Route path="/endPage" component={EndPage} />
+            <Route
+              path="/orderDetails"
+              render={(props) => (
+                <OrderDetails {...props} order={this.state.order} />
+              )}
+            />
+            {/* <Route path="/appManager/addImage" component={AddImage} /> */}
+            <Route
+              path="/appManager/addImage"
+              render={(props) => (
+                <AddImage
+                  {...props}
+                  imageTypes={this.state.imageTypes}
+                  imageLocations={this.state.imageLocations}
+                  eventTypes={this.state.eventTypes}
+                  imageList={this.state.imageList}
+                />
+              )}
+            />
+            <Route
+              path="/appManager/editImage"
+              render={(props) => (
+                <EditImage
+                  {...props}
+                  imageTypes={this.state.imageTypes}
+                  imageLocations={this.state.imageLocations}
+                  eventTypes={this.state.eventTypes}
+                  imageList={this.state.imageList}
+                  deleteImage={(event, name) => this.deleteImage(event, name)}
+                />
+              )}
+            />
+            <Route
+              path="/appManager/locationsEditor"
+              render={(props) => (
+                <Map
+                  {...props}
+                  admin={this.state.admin}
+                  imageTypes={this.state.imageTypes}
+                  imageLocations={this.state.imageLocations}
+                  eventTypes={this.state.eventTypes}
+                  imageList={this.state.imageList}
+                />
+              )}
+            />
+
+            <Route path="/appManager" component={GaleryManager} />
+            <Route
+              path="/orders"
+              render={(props) => (
+                <OrdersManager
+                  {...props}
+                  // imageTypes={this.state.imageTypes}
+                  // imageLocations={this.state.imageLocations}
+                  // eventTypes={this.state.eventTypes}
+                  // imageList={this.state.imageList}
+                  // deleteImage={(event, name) => this.deleteImage(event, name)}
+                />
+              )}
+            />
+            <Route
+              path="/editLocations"
+              render={(props) => (
+                <EditLocation
+                  {...props}
+                  // imageTypes={this.state.imageTypes}
+                  // imageLocations={this.state.imageLocations}
+                  // eventTypes={this.state.eventTypes}
+                  // imageList={this.state.imageList}
+                  // deleteImage={(event, name) => this.deleteImage(event, name)}
+                />
+              )}
+            />
+            <Route
+              path="/editCalendar"
+              render={(props) => (
+                <EditCalendar
+                  {...props}
+                  date={this.state.date}
+                  timeSlotList={this.state.timeSlotList}
+                />
+              )}
+            />
+          </Switch>
+        </div>
         <Footer />
       </Router>
     );

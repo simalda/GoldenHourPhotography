@@ -1,11 +1,11 @@
 import React from "react";
 
-import history from "../JS/history";
-import * as importImages from "../JS/imageManager";
-import EditOneImage from "./EditOneImage";
-import Button from "./Button";
-import Image from "../JS/Image";
-import * as proxy from "../JS/proxy";
+import history from "../../JS/history";
+// import * as importImages from "../../JS/imageManager";
+// import EditOneImage from "./EditOneImage";
+import Button from "../Button";
+import Image from "../../JS/Image";
+import * as proxy from "../../JS/proxy";
 
 class EditImage extends React.Component {
   constructor(props) {

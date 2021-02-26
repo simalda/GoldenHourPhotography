@@ -1,5 +1,4 @@
-import * as config from "../components/editCalendar/config";
-import moment from "moment";
+import * as config from "../components/edit/editCalendar/config";
 
 export function convertDateToDateArrayDDMMYYYY(date) {
   let shortDate;
@@ -100,7 +99,7 @@ export function getAllDatesBydayOfWeek(year, month, dayOfWeek) {
   let dateWithCorrectDayOfWeek = new Date(
     date0.setDate(date.getDate() - date.getDay() + dayOfWeek)
   );
-  const dateWithCorrectDayOfWeek_Day = dateWithCorrectDayOfWeek.getDay();
+  // const dateWithCorrectDayOfWeek_Day = dateWithCorrectDayOfWeek.getDay();
   let i = 0;
   if (dateWithCorrectDayOfWeek < date) {
     i = 1;

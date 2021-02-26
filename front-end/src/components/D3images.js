@@ -18,12 +18,13 @@ class D3images extends Component {
     };
     this.divStyle = {
       width: "100vw",
-      height: "50vh",
+      height: "70vh",
     };
   }
 
   componentDidMount() {
     this.viewer = new PhotosphereViewer.Viewer({
+      navbar: false,
       container: document.querySelector("#viewer"),
       panorama: this.state.panorama,
 

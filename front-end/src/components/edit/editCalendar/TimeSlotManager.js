@@ -1,9 +1,7 @@
 import TimeSlot from "./TimeSlot";
 import * as config from "./config";
-import TimeUnitHandler from "../../JS/TimeUnitHandler";
-import TimeUnit from "../../JS/TimeUnit";
-import Orderhandler from "../../JS/Orderhandler";
-import * as dateManager from "../../JS/dateManipulations";
+import TimeUnitHandler from "../../../JS/TimeUnitHandler";
+import * as dateManager from "../../../JS/dateManipulations";
 
 class TimeSlotManager {
   constructor() {

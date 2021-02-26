@@ -110,3 +110,9 @@ export function getOrders() {
 }
 
 export function getCalendarDataAndOrders() {}
+
+export function getAllLocationsInfo() {
+  return fetch(`http://127.0.0.1:5000/getLocationsInfo`).then((response) =>
+    response.json()
+  );
+}

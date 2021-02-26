@@ -1,8 +1,8 @@
 import React from "react";
 
-import history from "../JS/history";
-import Button from "./Button";
-import * as proxy from "../JS/proxy";
+import history from "../../JS/history";
+import Button from "../Button";
+// import * as proxy from "../JS/proxy";
 
 class AppManager extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class AppManager extends React.Component {
   }
 
   editLocation() {
-    history.push("/editLocations");
+    history.push("/locationsEditor");
   }
 
   editCalendar() {

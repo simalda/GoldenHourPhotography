@@ -1,18 +1,18 @@
 import React, { Fragment } from "react";
 
-import history from "../../JS/history";
-import Button from "../Button";
-import * as proxy from "../../JS/proxy";
+import history from "../../../JS/history";
+import Button from "../../Button";
+// import * as proxy from "../../JS/proxy";
 import EditOneSlot from "./EditOneSlot";
 import "./editCalendar.css";
-import TimeUnit from "../../JS/TimeUnit";
+import TimeUnit from "../../../JS/TimeUnit";
 
-import * as dateManager from "../../JS/dateManipulations";
-import TimeUnitHandler from "../../JS/TimeUnitHandler";
+import * as dateManager from "../../../JS/dateManipulations";
+import TimeUnitHandler from "../../../JS/TimeUnitHandler";
 import * as config from "./config";
 import TimeSlotManager from "./TimeSlotManager";
-import OrdersCalendar from "../ordersCalendar/OrdersCalendar";
-import OrderHandler from "../../JS/Orderhandler";
+// import OrdersCalendar from "../ordersCalendar/OrdersCalendar";
+import OrderHandler from "../../../JS/Orderhandler";
 
 class EditCalendar extends React.Component {
   constructor(props) {

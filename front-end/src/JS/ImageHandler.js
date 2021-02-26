@@ -6,7 +6,7 @@ class ImageHandler {
   }
 
   getAllImages() {
-    proxy.getAllImages();
+    return proxy.getAllImages();
   }
 
   deleteImage(image) {

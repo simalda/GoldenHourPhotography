@@ -7,6 +7,7 @@ class TimeUnitHandler():
 
     def get_all_open_slots(self):
         return self.dataAccess.getAllOpenSlots()
+        
     def get_weekly_time_slots(self):
         return self.dataAccess.getWeeklyOpenSlots()
 

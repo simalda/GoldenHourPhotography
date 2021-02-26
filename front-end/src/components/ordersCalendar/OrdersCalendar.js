@@ -2,12 +2,12 @@ import React, { Fragment } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-import PopupTime from "../PopupTime";
+import PopupTime from "./PopupTime";
 
 import history from "../../JS/history";
-import { convertDateToDateArrayDDMMYYYY } from "../../JS/dateManipulations";
+// import { convertDateToDateArrayDDMMYYYY } from "../../JS/dateManipulations";
 import * as dateManager from "../../JS/dateManipulations";
-import TimeSlotManager from "../editCalendar/TimeSlotManager";
+// import TimeSlotManager from "../editCalendar/TimeSlotManager";
 import TimeUnitHandler from "../../JS/TimeUnitHandler";
 import OrderHandler from "../../JS/Orderhandler";
 import UICalendarManager from "./UICalendarManager";
@@ -145,14 +145,18 @@ class OrdersCalendar extends React.Component {
   }
 
   shouldDateBeSelected(date) {
-    if (this.state.calManager.openDaysList[date.getDate() - 1].length) {
+    try {
+      if (this.state.calManager.openDaysList[date.getDate() - 1].length) {
+        console.log(date.getDate());
+        console.log(this.state.calManager.openDaysList[date.getDate()]);
+        return false;
+      }
       console.log(date.getDate());
       console.log(this.state.calManager.openDaysList[date.getDate()]);
+      return true;
+    } catch {
       return false;
     }
-    console.log(date.getDate());
-    console.log(this.state.calManager.openDaysList[date.getDate()]);
-    return true;
   }
 
   render() {
@@ -196,7 +200,7 @@ class OrdersCalendar extends React.Component {
                 {this.state.date.getFullYear()}
               </div>
               <div className="calendarHeaderDate">
-                {this.state.hebrew.dateString}
+                {dateManager.hebrewDate(this.state.date).dateString}
               </div>
               {pickedTime}
             </div>
