@@ -5,7 +5,6 @@ import {
   Popup,
   TileLayer,
   useMapEvents,
-  Circle,
 } from "react-leaflet";
 import L from "leaflet";
 

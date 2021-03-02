@@ -1,11 +1,11 @@
 class Order {
-  constructor(name, telefon, email, location, date, time, eventType, note) {
+  constructor(date, time, name, telefon, email, location, eventType, note) {
+    this.date = date;
+    this.time = time;
     this.name = name;
     this.telefon = telefon;
     this.email = email;
     this.location = location;
-    this.date = date;
-    this.time = time;
     this.eventType = eventType;
     this.note = note;
   }

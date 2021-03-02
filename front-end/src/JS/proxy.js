@@ -116,3 +116,11 @@ export function getAllLocationsInfo() {
     response.json()
   );
 }
+
+export function sendMail(order) {
+  const orderString = JSON.stringify(order);
+  return fetch(`http://127.0.0.1:5000/sendMail`, {
+    method: "POST",
+    body: orderString,
+  }).then((response) => response.json());
+}

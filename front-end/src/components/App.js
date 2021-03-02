@@ -26,6 +26,7 @@ import EditCalendar from "./edit/editCalendar/EditCalendar";
 import TimeUnitHandler from "../JS/TimeUnitHandler";
 import * as dateManager from "../JS/dateManipulations";
 import LocationHandler from "../JS/locationHandler";
+import Translator from "../JS/Translator";
 // import LocationsEditor from "../locationsEditor/LocationsEditor";
 
 class App extends Component {
@@ -51,8 +52,8 @@ class App extends Component {
         location: "",
       },
       calendar: {
-        month: 2,
-        year: 2021,
+        month: new Date().getMonth(),
+        year: new Date().getFullYear(),
       },
       timeSlotList: [],
       openDatesForOrder: [],
@@ -61,6 +62,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.getLanguage();
     this.getAllImageTypes();
     this.getAllEventTypes();
     this.getAllImages();
@@ -69,7 +71,13 @@ class App extends Component {
     // this.getAllOpenDatesMonth();
     // this.getOpenTimeUnitsForWeek();
   }
-
+  getLanguage() {
+    const translator = new Translator();
+    const dictionary = translator.getDictionary();
+    this.setState({
+      dictionary: dictionary,
+    });
+  }
   // componentDidUpdate() {
   //   if (
   //     (document.getElementById("frame") &&
@@ -146,9 +154,10 @@ class App extends Component {
     event.preventDefault();
   }
 
-  updateOrder(date, time, hebrewDay) {
+  updateOrder(date, time, hebrewDay, locationDescription) {
     this.setState((currentstate) => ({
       order: { ...currentstate.order, date, time, hebrewDay },
+      locationDescription: locationDescription,
     }));
   }
   getAllAvalableDates() {
@@ -185,13 +194,6 @@ class App extends Component {
     });
     history.push("/location");
   }
-  // let tuHandler = new TimeUnitHandler();
-  // tuHandler.getOpenTimeSlots().then((slotList) => {
-  //   console.log(slotList);
-  //   this.setState({
-  //     openDatesForOrder: slotList,
-  //   });
-  // });
 
   render() {
     return (
@@ -241,28 +243,13 @@ class App extends Component {
                 />
               )}
             />
-            {/* <Route path="/locations" component={Map} /> */}
-            {/* <Route
-            path="/location/calendar"
-            render={(props) => (
-              <OrdersCalendar
-                {...props}
-                updateOrder={(date, time, hebrewDay) =>
-                  this.updateOrder(date, time, hebrewDay)
-                }
-                calendar={this.state.calendar}
-                // openDatesForOrder={this.state.openDatesForOrder}
-                // date={new Date()}
-              /> */}
-            {/* )}
-          /> */}
             <Route
               path="/location"
               render={(props) => (
                 <Location
                   {...props}
-                  updateOrder={(date, time, hebrewDay) =>
-                    this.updateOrder(date, time, hebrewDay)
+                  updateOrder={(date, time, hebrewDay, locationDescription) =>
+                    this.updateOrder(date, time, hebrewDay, locationDescription)
                   }
                   calendar={this.state.calendar}
                   locationDescription={this.state.locationDescription}
@@ -274,7 +261,13 @@ class App extends Component {
             <Route
               path="/orderDetails"
               render={(props) => (
-                <OrderDetails {...props} order={this.state.order} />
+                <OrderDetails
+                  {...props}
+                  order={this.state.order}
+                  eventTypes={this.state.eventTypes}
+                  locationDescription={this.state.locationDescription}
+                  dictionary={this.state.dictionary}
+                />
               )}
             />
             {/* <Route path="/appManager/addImage" component={AddImage} /> */}

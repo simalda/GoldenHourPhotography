@@ -5,7 +5,9 @@ import Button from "./Button";
 import history from "../JS/history";
 import OrderHandler from "../JS/Orderhandler";
 import Order from "../JS/Order";
-
+import * as proxy from "../JS/proxy";
+import * as dateManager from "../JS/dateManipulations";
+import * as hebrew from "../JS/Languages/Hebrew";
 class OrderDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -24,20 +26,23 @@ class OrderDetails extends React.Component {
 
   clicked() {}
   saveOrder(event) {
+    event.preventDefault();
+
     const orHandler = new OrderHandler();
     const order = new Order(
+      this.state.date,
+      this.state.time,
       this.state.name,
       this.state.telefon,
       this.state.email,
-      this.state.location,
-      this.state.date,
-      this.state.time,
+      this.props.locationDescription.name,
       this.state.eventType,
       this.state.note
     );
     orHandler.addNewOrder(order);
     history.push("/endPage");
   }
+
   onInputChange(event) {
     this.setState((prevState, props) => ({
       ...prevState,
@@ -45,7 +50,30 @@ class OrderDetails extends React.Component {
     }));
   }
 
+  createEventTypes() {
+    const options = this.props.eventTypes.map((type, index) => {
+      if (index === 0) {
+        return (
+          <option value={type} selected key={index}>
+            {this.props.dictionary[type]}
+          </option>
+        );
+      }
+      return (
+        <option value={type} key={index}>
+          {this.props.dictionary[type]}
+        </option>
+      );
+    });
+
+    return options;
+  }
+
+  changeImageType(event) {
+    this.setState({ eventType: event.value });
+  }
   render() {
+    const EventTypes = this.createEventTypes();
     return (
       <div className="orderDetails mainDiv">
         <div className="headerDetails">פרטים אישיים</div>
@@ -80,11 +108,14 @@ class OrderDetails extends React.Component {
                 id="email"
                 onChange={(event) => this.onInputChange(event)}
               ></input>
-              <input
-                placeholder="סוג צילומים"
+              <select
+                name="eventType"
                 id="eventType"
-                onChange={(event) => this.onInputChange(event)}
-              ></input>
+                className=""
+                onChange={(event) => this.changeImageType(event.currentTarget)}
+              >
+                {EventTypes}
+              </select>
               <input
                 placeholder="הערות"
                 id="note"

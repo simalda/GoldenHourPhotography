@@ -88,7 +88,7 @@ export function getDateBydayOfWeek(dateIdentifier, dayOfWeek) {
 }
 
 export function numberOfDaysInMounth(year, month) {
-  return new Date(year, month, 0).getDate();
+  return new Date(year, month + 1, 0).getDate();
 }
 
 export function getAllDatesBydayOfWeek(year, month, dayOfWeek) {

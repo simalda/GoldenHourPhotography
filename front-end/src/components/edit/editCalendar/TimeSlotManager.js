@@ -32,10 +32,12 @@ class TimeSlotManager {
       });
     });
   }
-  updateReservedDays(orderList) {
+  updateReservedDays(startDate, endDate, orderList) {
     orderList.forEach((order) => {
       const dayOfWeek = dateManager.getDayOfWeek(order.date);
-      this.updateOneTimeSlot(dayOfWeek, order.time, config.status.reserved);
+      if (order.date > startDate && order.date < endDate) {
+        this.updateOneTimeSlot(dayOfWeek, order.time, config.status.reserved);
+      }
     });
   }
 
@@ -98,7 +100,7 @@ class TimeSlotManager {
   ) {
     this.updateWeeklyOpenSlots(startDate, timeUnitWeeklyList);
     this.updateAllNonWeeklyOpenSlots(startDate, endDate, timeUnitSingleList);
-    this.updateReservedDays(ordersList);
+    this.updateReservedDays(startDate, endDate, ordersList);
   }
   //   return this.updateWeeklyOpenSlots(startDate).then(() => {
   //     console.log("STEP1");
