@@ -41,7 +41,12 @@ class Location extends React.Component {
         <OrdersCalendar
           {...this.props}
           updateOrder={(date, time, weekDay) =>
-            this.props.updateOrder(date, time, weekDay)
+            this.props.updateOrder(
+              date,
+              time,
+              weekDay,
+              this.props.locationDescription
+            )
           }
           onClickCancelCalendar={() => this.onClickCancelCalendar()}
           openDatesForOrder={this.props.openDatesForOrder}
@@ -50,9 +55,9 @@ class Location extends React.Component {
     }
     return (
       <div className="mainDiv">
-        <div className="locationName">
+        {/* <div className="locationName">
           {this.props.locationDescription.name}
-        </div>
+        </div> */}
         <div className="3d" style={{ height: "40hv" }}>
           <D3images />
           <div className="D3banner">

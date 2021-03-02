@@ -100,14 +100,6 @@ class OrdersCalendar extends React.Component {
     }
   }
   getCurentDateTimeSlot(date) {
-    // let openSlotList = [];
-    // let dates = this.state.avilableTimeSlots;
-    // const formatedDate = dateManager.convertDateToDateStringDDMMYYYY(date);
-    // for (let i = 0; i < dates.length; i++) {
-    //   if (formatedDate === dates[i].dateFormated) {
-    //     openSlotList.push(dates[i].time);
-    //   }
-    // }
     return this.state.calManager.openDaysList[date.getDate()];
   }
 
@@ -207,10 +199,11 @@ class OrdersCalendar extends React.Component {
             <Calendar
               tileClassName={({ date }) => {
                 if (this.shouldDateBeSelected(date)) {
-                  return "dayNotAvailable";
+                  return "dayNotAvailable cellStyle";
                 }
-                return null;
+                return "cellStyle";
               }}
+              // tileDisabled={this.tileDisabled}
               // tileClassName="react-calendar__tile--active2"
               calendarType="Hebrew"
               locale="HE"

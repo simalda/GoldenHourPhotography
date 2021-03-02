@@ -11,6 +11,7 @@ from TimeUnitHandler import *
 from LocationHandler import *
 from Order import *
 from OrderHandler import * 
+from Mail import *
 import json
 app = Flask(__name__)
 app.debug = True
@@ -130,7 +131,9 @@ def add_order():
     data = json.loads(request.stream.read())
     db = DataAccessOrders()
     orHandler = OrderHandler(db)
-    order =Order(data["name"],data["telefon"],data["email"],data["location"], data["date"], data["time"], data["eventType"],data["note"])
+    order = Order( data["date"], data["time"],data["name"],data["telefon"],data["email"],data["location"], data["eventType"],data["note"])
+    mail = Mail()
+    mail.send_mail(order)
     return jsonify(orHandler.add_new_order(order))
 
 @app.route('/getOrders')
@@ -145,7 +148,13 @@ def get_locations_info():
     locInfoHandler = LocationHandler(db)
     return jsonify(locInfoHandler.get_all_locations_info())
 
-  
+@app.route('/sendMail', methods=['POST'])
+def send_mail():
+    data = json.loads(request.stream.read())
+    order =Order( data["date"], data["time"],data["name"],data["telefon"],data["email"],data["location"],  data["eventType"],data["note"])
+    
+    return 
+ 
 
 if __name__ == "__main__":
     app.run(port=5000)

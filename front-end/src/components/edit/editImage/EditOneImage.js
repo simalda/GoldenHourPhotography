@@ -18,7 +18,7 @@ class EditOneImage extends React.Component {
       if (type === this.props.image.imageType) {
         options.push(
           <option value={type} selected key={index}>
-            {type}{" "}
+            {type}
           </option>
         );
       } else {
@@ -78,7 +78,7 @@ class EditOneImage extends React.Component {
       if (type === this.props.image.eventType) {
         options.push(
           <option value={type} selected key={index}>
-            {type}{" "}
+            {type}
           </option>
         );
       } else {
@@ -167,7 +167,7 @@ class EditOneImage extends React.Component {
           </select>
           <select
             name="eventType"
-            id="imType"
+            id="eventType"
             className="selectImageManagment"
             onChange={(event) =>
               this.updateListImagesToResaveEventType(event.currentTarget)
@@ -177,8 +177,8 @@ class EditOneImage extends React.Component {
             {EventTypes}
           </select>
           <select
-            name="imageLocation"
-            id="imType"
+            name="locationType"
+            id="locationType"
             className="selectImageManagment"
             onChange={(event) =>
               this.updateListImagesToResaveLocation(event.currentTarget)

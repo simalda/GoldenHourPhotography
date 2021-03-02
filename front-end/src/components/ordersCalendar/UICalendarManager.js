@@ -27,9 +27,9 @@ class UICalendarManager {
     );
     this.updateWeeklyOpenSlots(startDate, timeUnitWeeklyList);
     this.updateAllNonWeeklyOpenSlots(startDate, endDate, timeUnitSingleList);
-    // this.updateReservedDays(ordersList);
+    this.updateReservedDays(ordersList);
   }
-
+  updateReservedDays(ordersList) {}
   updateAllNonWeeklyOpenSlots(startDate, endDate, singleSlotList) {
     singleSlotList.forEach((slot) => {
       const date = new Date(slot.date);
@@ -49,6 +49,10 @@ class UICalendarManager {
     });
   }
 
+  removeTimeFromDay(date, time) {
+    const day = date.getDate();
+    this.openDaysList[day - 1].push(time);
+  }
   updateOneDay(date, time) {
     const day = date.getDate();
     this.openDaysList[day - 1].push(time);

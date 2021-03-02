@@ -40,7 +40,8 @@ html {
   grid-row-start: 1;
   grid-row-end: 2;
 }
-input {
+input,
+select {
   height: 4vh;
   border-radius: 30px;
   width: 17vw;
@@ -292,13 +293,13 @@ label {
   border-radius: 10px;
   padding: 2vw;
 }
-.timeslot {
-  height: 6vh;
-  width: 15vw;
-  font-size: 1.5vh;
-  outline: none;
-  cursor: pointer;
-}
+// .timeslot {
+//   height: 6vh;
+//   width: 15vw;
+//   font-size: 1.5vh;
+//   outline: none;
+//   cursor: pointer;
+// }
 
 @media screen and (max-width: 600px) {
   .nav div,
@@ -384,19 +385,19 @@ label {
     padding: 2vh 1vh;
     height: 4vh;
   }
-  .miniButton1,
-  .miniButton2 {
-    width: 25vw;
-    outline: none;
-    cursor: pointer;
-  }
-  .timeslot {
-    height: 6vh;
-    width: 35vw;
-    font-size: 1.5vh;
-    outline: none;
-    cursor: pointer;
-  }
+  // .miniButton1,
+  // .miniButton2 {
+  //   width: 25vw;
+  //   outline: none;
+  //   cursor: pointer;
+  // }
+  // .timeslot {
+  //   height: 6vh;
+  //   width: 35vw;
+  //   font-size: 1.5vh;
+  //   outline: none;
+  //   cursor: pointer;
+  // }
   .calendarHeader {
     height: 12vh;
   }
