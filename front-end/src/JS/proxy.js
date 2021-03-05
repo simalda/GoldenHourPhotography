@@ -45,11 +45,13 @@ export function deleteImage(image) {
 
 export function updateImages(imageSet) {
   const imArray = [...imageSet];
-  const imageString = JSON.stringify(imArray);
-  return fetch(`http://127.0.0.1:5000/update`, {
-    method: "POST",
-    body: imageString,
-  }).then((response) => response.json());
+  if (imArray.length) {
+    const imageString = JSON.stringify(imArray);
+    return fetch(`http://127.0.0.1:5000/update`, {
+      method: "POST",
+      body: imageString,
+    }).then((response) => response.json());
+  }
 }
 
 export function addNewTimeUnit(timeUnit) {
@@ -73,9 +75,6 @@ export function getTimeSlots() {
     response.json()
   );
 }
-
-// fetch().then( x =>  7).then(a =>b)
-// fetch().then( x =>  Promise.resolve(7)).then(a =>b)
 
 export function getOpenSlots() {
   return fetch(`http://127.0.0.1:5000/getOpenSlots`).then((response) =>
@@ -103,6 +102,21 @@ export function addOrder(order) {
   }).then((response) => response.json());
 }
 
+export function deleteOrder(orderId) {
+  const orderIdString = JSON.stringify(orderId);
+  return fetch("http://127.0.0.1:5000/deleteOrder", {
+    method: "POST",
+    body: orderIdString,
+  }).then((response) => response.json());
+}
+
+export function updateOrder(order) {
+  const orderString = JSON.stringify(order);
+  return fetch("http://127.0.0.1:5000/updateOrder", {
+    method: "POST",
+    body: orderString,
+  }).then((response) => response.json());
+}
 export function getOrders() {
   return fetch(`http://127.0.0.1:5000/getOrders`).then((response) =>
     response.json()
@@ -117,6 +131,11 @@ export function getAllLocationsInfo() {
   );
 }
 
+export function getAllLocations() {
+  return fetch(`http://127.0.0.1:5000/getLocations`).then((response) =>
+    response.json()
+  );
+}
 export function sendMail(order) {
   const orderString = JSON.stringify(order);
   return fetch(`http://127.0.0.1:5000/sendMail`, {

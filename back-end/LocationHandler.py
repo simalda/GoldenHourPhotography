@@ -11,6 +11,14 @@ class LocationHandler():
                 location["images"] = imagesByLocation
         return locations
 
+    def get_all_locations(self):
+        locations = self.dataAccess.getAllLocations()
+        # for location in locations:
+        #     imagesByLocation = self.dataAccess.getAllImagesForLocation(location["name"])
+        #     if(len(imagesByLocation) != 0):
+        #         location["images"] = imagesByLocation
+        return locations
+
 # da =DataAccess()
 # lh = LocationHandler(da)
 # print(lh.get_all_locations_info())

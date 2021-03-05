@@ -16,7 +16,7 @@ class OrderDetails extends React.Component {
       name: "",
       telefon: "",
       email: "",
-      location: this.props.order.location,
+      location: this.props.locationDescription.name,
       date: this.props.order.date,
       time: this.props.order.time,
       eventType: "",
@@ -40,6 +40,7 @@ class OrderDetails extends React.Component {
       this.state.note
     );
     orHandler.addNewOrder(order);
+    this.props.updateOrderState(order);
     history.push("/endPage");
   }
 
@@ -54,13 +55,13 @@ class OrderDetails extends React.Component {
     const options = this.props.eventTypes.map((type, index) => {
       if (index === 0) {
         return (
-          <option value={type} selected key={index}>
+          <option value={type} selected key={index} className="rtl">
             {this.props.dictionary[type]}
           </option>
         );
       }
       return (
-        <option value={type} key={index}>
+        <option value={type} key={index} className="rtl">
           {this.props.dictionary[type]}
         </option>
       );
@@ -111,7 +112,7 @@ class OrderDetails extends React.Component {
               <select
                 name="eventType"
                 id="eventType"
-                className=""
+                className="orderDetailsEventType"
                 onChange={(event) => this.changeImageType(event.currentTarget)}
               >
                 {EventTypes}
@@ -128,10 +129,19 @@ class OrderDetails extends React.Component {
             </div>
           </form>
           <div className="divOrderDetail">
-            <div>{this.props.order.location} :מיקום</div>
+            <div>
+              {this.props.dictionary[this.props.locationDescription.name]}
+              <span> :מיקום</span>
+            </div>
             {/* <div>{this.props.order.date.toString()} יום ... </div> */}
-            <div>{this.props.order.hebrewDay} :יום </div>
-            <div>{this.props.order.time} :שעה </div>
+            <div>
+              <span>{this.props.order.hebrewDay}</span>
+              <span> :יום </span>
+            </div>
+            <div>
+              <span> {this.props.order.time}</span>
+              <span> :שעה </span>
+            </div>
           </div>
         </div>
       </div>

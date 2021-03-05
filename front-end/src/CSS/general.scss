@@ -41,7 +41,8 @@ html {
   grid-row-end: 2;
 }
 input,
-select {
+select,
+option {
   height: 4vh;
   border-radius: 30px;
   width: 17vw;
@@ -53,7 +54,9 @@ select {
   border-color: #ede7e7;
   outline: none;
 }
-
+.white {
+  background-color: white;
+}
 label {
   align-self: end;
   justify-self: center;
@@ -156,6 +159,14 @@ label {
   display: block;
 }
 
+.rtl {
+  direction: rtl;
+}
+.orderDetailsEventType {
+  justify-self: right;
+  width: 18vw;
+  text-align-last: right;
+}
 .zilum {
   color: #62909a;
   font-family: "Heebo-Bold", sans-serif;
@@ -189,6 +200,7 @@ label {
   background-color: #f1dddc;
   height: 4vh;
   border-radius: 4vh;
+  padding-top: 1vh;
 }
 .endPageDate {
   display: grid;
@@ -203,7 +215,7 @@ label {
 }
 .endPageRecomendations {
   display: inline-grid;
-  grid-template-rows: 30% 30%;
+  grid-template-rows: 50% 50%;
   height: 10vh;
   width: 25vw;
 }
@@ -237,11 +249,14 @@ label {
   width: 500px;
   padding-top: 7vh;
 } */
-.leaflet-container {
+// .leaflet-container {
+//   height: 82vh;
+//   width: 100vw;
+// }
+.locationsMap {
   height: 82vh;
   width: 100vw;
 }
-
 .leaflet-div-icons {
   border: 2px solid #f1dddc;
   border-radius: 50%;
@@ -277,6 +292,9 @@ label {
 .divContainsOrderDetails {
   display: grid;
   grid-template-columns: 20% 20% 20%;
+  justify-content: center;
+}
+.divContainsOrderDetails {
   justify-content: center;
 }
 
@@ -344,6 +362,9 @@ label {
     padding-right: 10vw;
     width: 30vw;
   }
+  .endPageRecomendations {
+    width: 90%;
+  }
   .watzapAbout {
     height: 4vh;
   }
@@ -385,19 +406,7 @@ label {
     padding: 2vh 1vh;
     height: 4vh;
   }
-  // .miniButton1,
-  // .miniButton2 {
-  //   width: 25vw;
-  //   outline: none;
-  //   cursor: pointer;
-  // }
-  // .timeslot {
-  //   height: 6vh;
-  //   width: 35vw;
-  //   font-size: 1.5vh;
-  //   outline: none;
-  //   cursor: pointer;
-  // }
+
   .calendarHeader {
     height: 12vh;
   }
@@ -475,6 +484,13 @@ label {
   display: grid;
   grid-template-rows: 15% 15% 15% 15% 15% 15%;
   justify-content: center;
+}
+.userDetailsEdit {
+  text-align: center;
+  display: grid;
+  grid-template-rows: repeat(auto, 9);
+  justify-content: center;
+  order: 3;
 }
 .headerDetails {
   padding-top: 5vh;
@@ -605,15 +621,6 @@ label {
   border-radius: 50%;
   border: #62909a solid 3px;
   cursor: pointer;
-}
-
-.inputImageManagment {
-  width: 7vw;
-}
-
-.selectImageManagment {
-  height: 3vh;
-  margin: 1.5vh;
 }
 
 .leaflet-popup-content {

@@ -55,8 +55,8 @@ class OrdersCalendar extends React.Component {
     const image = new Image(
       this.state.name,
       this.state.imageType,
-      this.state.imageLocation,
-      this.state.imageViewType
+      this.state.imageViewType,
+      this.state.imageLocation
     );
     let imHandler = new ImageHandler();
 
@@ -64,11 +64,13 @@ class OrdersCalendar extends React.Component {
       (loginResponse) => {
         console.log(loginResponse);
         alert("Saved");
-        history.push("/appManager");
+        this.props.reloadApp();
+        history.push("/appManager ");
       },
       (result) => {
         console.log(result);
         alert(" Not Saved :" + result);
+        this.props.reloadApp();
         history.push("/appManager");
       }
     );
@@ -78,7 +80,7 @@ class OrdersCalendar extends React.Component {
       this.props.imageTypes
     );
     const ImageLocationsOptions = selectoptions.getImageLocationsOptions(
-      this.props.imageLocations
+      this.props.locationList
     );
     const EventTypesOptions = selectoptions.getEventTypesOptions(
       this.props.eventTypes
@@ -144,7 +146,9 @@ class OrdersCalendar extends React.Component {
           </select> */}
 
           <div>
-            <input type="submit" />
+            <button className="button" type="submit">
+              Submit
+            </button>
           </div>
         </form>
         <Button buttonText={"back"} clicked={() => this.back()} />

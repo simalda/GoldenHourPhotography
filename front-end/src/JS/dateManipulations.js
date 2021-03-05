@@ -1,4 +1,4 @@
-import * as config from "../components/edit/editCalendar/config";
+import * as config from "../JS/config";
 
 export function convertDateToDateArrayDDMMYYYY(date) {
   let shortDate;
@@ -20,6 +20,9 @@ export function convertDateToDateStringDDMMYYYY(date) {
   return shortDate;
 }
 
+export function createDate(year, month, day) {
+  return new Date(year, month, day);
+}
 export function hebrewDate(date) {
   var dateText;
   var days = new Array();
@@ -75,16 +78,21 @@ export function getWeekBorders(date) {
 
 export function countStartDate(date) {
   let newDate = new Date();
-  return new Date(newDate.setDate(date.getDate() - date.getDay()));
+  let startDate = new Date(newDate.setDate(date.getDate() - date.getDay()));
+  return new Date(
+    startDate.getFullYear(),
+    startDate.getMonth(),
+    startDate.getDay()
+  );
 }
 export function countEndDate(date) {
   let newDate = new Date();
   return new Date(newDate.setDate(date.getDate() + 6 - date.getDay()));
 }
 
-export function getDateBydayOfWeek(dateIdentifier, dayOfWeek) {
-  let newDate = new Date();
-  return new Date(newDate.setDate(dateIdentifier.getDate() + dayOfWeek));
+export function addDaysToDate(date, days) {
+  const copyDate = new Date(Number(date));
+  return new Date(copyDate.setDate(date.getDate() + days));
 }
 
 export function numberOfDaysInMounth(year, month) {

@@ -1,5 +1,5 @@
 class Order():
-    def __init__(self,   date, time, name=None, telefon = None, email = None, location = None, eventType = None, note = None):
+    def __init__(self,   date, time, name=None, telefon = None, email = None, location = None, eventType = None, note = None, id=None):
         self.date = date
         self.time = time
         self.name = name
@@ -8,3 +8,4 @@ class Order():
         self.location = location            
         self.eventType = eventType
         self.note = note
+        self.id = id

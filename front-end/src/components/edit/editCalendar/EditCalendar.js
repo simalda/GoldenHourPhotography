@@ -2,18 +2,19 @@ import React, { Fragment } from "react";
 
 import history from "../../../JS/history";
 import Button from "../../Button";
-// import * as proxy from "../../JS/proxy";
 import EditOneSlot from "./EditOneSlot";
 import "./editCalendar.css";
 import TimeUnit from "../../../JS/TimeUnit";
 
 import * as dateManager from "../../../JS/dateManipulations";
 import TimeUnitHandler from "../../../JS/TimeUnitHandler";
-import * as config from "./config";
+import * as config from "../../../JS/config";
 import TimeSlotManager from "./TimeSlotManager";
-// import OrdersCalendar from "../ordersCalendar/OrdersCalendar";
 import OrderHandler from "../../../JS/Orderhandler";
-
+import PopupCloseTimeSlotClicked from "./PopupCloseTimeSlotClicked";
+import PopupReservedTimeSlotClicked from "./PopupReservedTimeSlotClicked";
+import PopupOpenTimeSlotClicked from "./PopupOpenTimeSlotClicked";
+import EditOneOrder from "../EditOneOrder";
 class EditCalendar extends React.Component {
   constructor(props) {
     super(props);
@@ -21,17 +22,28 @@ class EditCalendar extends React.Component {
       startDate: dateManager.countStartDate(this.props.date),
       endDate: dateManager.countEndDate(this.props.date),
       isLoading: true,
+      popupReservedTimeSlotClicked: false,
+      popupCloseTimeSlotClicked: false,
+      popupOpenTimeSlotClicked: false,
+      orderEditorClicked: false,
     };
   }
 
   componentDidMount() {
-    this.updateTable();
+    this.updateTable(this.state.startDate, this.state.endDate);
   }
-  async updateTable() {
+
+  async updateTable(startDate, endDate) {
     let timeUnitsSingle = await this.getTimeUnitsSingleFromDB();
     let timeUnitsWeekly = await this.getTimeUnitsWeeklyFromDB();
     let orders = await this.getOrdersFromDB();
-    this.getCalendarTable(timeUnitsSingle, timeUnitsWeekly, orders);
+    this.getCalendarTable(
+      startDate,
+      endDate,
+      timeUnitsSingle,
+      timeUnitsWeekly,
+      orders
+    );
   }
 
   getTimeUnitsSingleFromDB() {
@@ -47,11 +59,17 @@ class EditCalendar extends React.Component {
     return orderHandler.getOrders();
   }
 
-  getCalendarTable(timeUnitSingleList, timeUnitWeeklyList, ordersList) {
+  getCalendarTable(
+    startDate,
+    endDate,
+    timeUnitSingleList,
+    timeUnitWeeklyList,
+    ordersList
+  ) {
     let timeSlotManager = new TimeSlotManager();
     timeSlotManager.getTimeSlotsForPeriod(
-      this.state.startDate,
-      this.state.endDate,
+      startDate,
+      endDate,
       timeUnitSingleList,
       timeUnitWeeklyList,
       ordersList
@@ -66,43 +84,23 @@ class EditCalendar extends React.Component {
   }
 
   onOneSlotClick(oldTimeUnit) {
-    const date = dateManager.addDay(
-      this.state.startDate,
-      oldTimeUnit.dayOfWeek
-    );
-    let timeHandler = new TimeUnitHandler();
-    if (oldTimeUnit.status === "Close") {
-      var answer = window.confirm(
-        "Do you want to make this to be available weekly?"
-      );
-      if (answer) {
-        let timeUnit = new TimeUnit(
-          null,
-          oldTimeUnit.dayOfWeek,
-          oldTimeUnit.time,
-          true
-        );
-        timeHandler.addNewTimeUnit(timeUnit);
-      } else {
-        let timeUnit = new TimeUnit(
-          date,
-          oldTimeUnit.dayOfWeek,
-          oldTimeUnit.time,
-          false
-        );
-        timeHandler.addNewTimeUnit(timeUnit);
-      }
-    } else {
-      var answer = window.confirm(
-        "Are you sure you want to change this time cell?"
-      );
-      if (answer) {
-        timeHandler.deleteTimeUnit(oldTimeUnit);
-      } else {
-        //some code
-      }
+    if (oldTimeUnit.status === config.status.close) {
+      this.setState({
+        popupCloseTimeSlotClicked: true,
+        currentHandledUnit: oldTimeUnit,
+      });
+    } else if (oldTimeUnit.status === config.status.reserved) {
+      this.setState({
+        popupReservedTimeSlotClicked: true,
+        currentHandledUnit: oldTimeUnit,
+      });
+    } else if (oldTimeUnit.status === config.status.open) {
+      this.setState({
+        popupOpenTimeSlotClicked: true,
+        currentHandledUnit: oldTimeUnit,
+      });
     }
-    this.updateTable();
+    this.updateTable(this.state.startDate, this.state.endDate);
   }
 
   back() {
@@ -111,7 +109,6 @@ class EditCalendar extends React.Component {
 
   createCalendarBody() {
     let calBody = [];
-    // let times = config.times;
     this.state.timeSlotManager.slotList.forEach((slot, index) => {
       if (index % 7 == 0) {
         calBody.push(<div>{slot.time}</div>);
@@ -132,31 +129,103 @@ class EditCalendar extends React.Component {
   }
 
   getPreviosWeekDates() {
-    let date = new Date();
-    let start = date.setDate(this.state.startDate.getDate() - 7);
-    let date2 = new Date();
-    let end = date2.setDate(this.state.endDate.getDate() - 7);
+    const start = dateManager.addDaysToDate(this.state.startDate, -7);
+    const end = dateManager.addDaysToDate(this.state.endDate, -7);
+    this.updateTable(start, end);
     this.setState({
       startDate: start,
       endDate: end,
     });
   }
   getNextWeekDates() {
-    let startDate2 = this.state.startDate;
-    let endDate2 = this.state.endDate;
-    let date = new Date();
+    const startDate = dateManager.addDaysToDate(this.state.startDate, 7);
+    const endDate = dateManager.addDaysToDate(this.state.endDate, 7);
+    this.updateTable(startDate, endDate);
     this.setState({
-      startDate: new Date(date.setDate(startDate2.getDate() + 7)),
-      endDate: new Date(date.setDate(endDate2.getDate() + 7)),
+      startDate: startDate,
+      endDate: endDate,
       isLoading: true,
+      currentOrder: null,
     });
+  }
+
+  makeOrderManually() {
+    this.setState({
+      orderEditorClicked: true,
+      popupCloseTimeSlotClicked: false,
+      popupOpenTimeSlotClicked: false,
+      popupReservedTimeSlotClicked: false,
+    });
+  }
+  deleteOrder(orderId) {
+    const orHandler = new OrderHandler();
+    orHandler.deleteOrder(orderId);
+    this.setState({
+      popupReservedTimeSlotClicked: false,
+    });
+    this.updateTable(this.state.startDate, this.state.endDate);
+  }
+  closeEditOrderPopup() {
+    this.setState({
+      orderEditorClicked: false,
+    });
+    this.updateTable(this.state.startDate, this.state.endDate);
+  }
+  closeCloseTimeSlotPopup() {
+    this.setState({
+      popupCloseTimeSlotClicked: false,
+    });
+    this.updateTable(this.state.startDate, this.state.endDate);
+  }
+  closeOpenTimeSlotPopup() {
+    this.setState({
+      popupOpenTimeSlotClicked: false,
+    });
+    this.updateTable(this.state.startDate, this.state.endDate);
+  }
+  closeReservedTimeSlotPopup() {
+    this.setState({
+      popupReservedTimeSlotClicked: false,
+    });
+    this.updateTable(this.state.startDate, this.state.endDate);
+  }
+  openTimeUnitWeekly(timeSlot) {
+    let timeHandler = new TimeUnitHandler();
+    let timeUnit = new TimeUnit(null, timeSlot.dayOfWeek, timeSlot.time, true);
+    timeHandler.addNewTimeUnit(timeUnit);
+    this.setState({
+      popupCloseTimeSlotClicked: false,
+    });
+    this.updateTable(this.state.startDate, this.state.endDate);
+  }
+  openOnlyThisTimeUnit(timeSlot) {
+    const date = dateManager.addDaysToDate(
+      this.state.startDate,
+      this.state.currentHandledUnit.dayOfWeek
+    );
+    let timeHandler = new TimeUnitHandler();
+    let timeUnit = new TimeUnit(date, timeSlot.dayOfWeek, timeSlot.time, false);
+    timeHandler.addNewTimeUnit(timeUnit);
+    this.setState({
+      popupCloseTimeSlotClicked: false,
+    });
+    this.updateTable(this.state.startDate, this.state.endDate);
+  }
+  closeTimeSlot(timeSlot) {
+    let timeHandler = new TimeUnitHandler();
+    let timeUnit = new TimeUnit(null, timeSlot.dayOfWeek, timeSlot.time, true);
+    timeHandler.deleteTimeUnit(timeUnit);
+    this.setState({
+      popupOpenTimeSlotClicked: false,
+    });
+    this.updateTable(this.state.startDate, this.state.endDate);
   }
 
   render() {
     let body = <div></div>;
     if (this.state.isLoading) {
       body = <div>Loading</div>;
-      this.updateTable();
+      // this.updateTable(this.state.startDate, this.state.endDate);
     } else {
       let calBody = this.createCalendarBody();
       let startDate = dateManager.convertDateToDateStringDDMMYYYY(
@@ -165,6 +234,61 @@ class EditCalendar extends React.Component {
       let endDate = dateManager.convertDateToDateStringDDMMYYYY(
         this.state.endDate
       );
+      let popup = <div></div>;
+
+      if (this.state.popupCloseTimeSlotClicked) {
+        popup = (
+          <PopupCloseTimeSlotClicked
+            timeSlot={this.state.currentHandledUnit}
+            openTimeUnitWeekly={(x) => this.openTimeUnitWeekly(x)}
+            openOnlyThisTimeUnit={(x) => this.openOnlyThisTimeUnit(x)}
+            makeOrderManually={(x) => this.makeOrderManually(x)}
+            closeCloseTimeSlotPopup={() => this.closeCloseTimeSlotPopup()}
+          />
+        );
+      } else if (this.state.popupReservedTimeSlotClicked) {
+        popup = (
+          <PopupReservedTimeSlotClicked
+            timeSlot={this.state.currentHandledUnit}
+            deleteOrder={(x) => this.deleteOrder(x)}
+            makeOrderManually={() => this.makeOrderManually()}
+            closeReservedTimeSlotPopup={() => this.closeReservedTimeSlotPopup()}
+          />
+        );
+      } else if (this.state.popupOpenTimeSlotClicked) {
+        popup = (
+          <PopupOpenTimeSlotClicked
+            timeSlot={this.state.currentHandledUnit}
+            closeTimeSlot={(x) => this.closeTimeSlot(x)}
+            makeOrderManually={(x) => this.makeOrderManually(x)}
+            closeOpenTimeSlotPopup={() => this.closeOpenTimeSlotPopup()}
+          />
+        );
+      } else if (this.state.orderEditorClicked) {
+        const date = dateManager.addDaysToDate(
+          this.state.startDate,
+          this.state.currentHandledUnit.dayOfWeek
+        );
+        let currentOrder = null;
+        if (this.state.currentHandledUnit.status === config.status.reserved) {
+          currentOrder = this.state.ordersList.filter(
+            (order) => order.id === this.state.currentHandledUnit.orderId
+          );
+          currentOrder = currentOrder[0];
+        }
+        popup = (
+          <EditOneOrder
+            order={currentOrder}
+            date={date}
+            timeSlot={this.state.currentHandledUnit}
+            closeEditOrderPopup={() => this.closeEditOrderPopup()}
+            locationsInfo={this.props.locationsInfo}
+            eventTypes={this.props.eventTypes}
+            dictionary={this.props.dictionary}
+          />
+        );
+      }
+
       body = (
         <div className="mainDiv">
           <div className="headerDiv">
@@ -190,6 +314,7 @@ class EditCalendar extends React.Component {
             <div> שבת</div>
 
             {calBody}
+            {popup}
           </div>
           <Button buttonText={"Back"} clicked={() => history.goBack()} />
         </div>
