@@ -4,6 +4,7 @@ import history from "../../../JS/history";
 import EditOneImage from "./EditOneImage";
 import Button from "../../Button";
 import Image from "../../../JS/Image";
+import ImageHandler from "../../../JS/ImageHandler";
 import * as proxy from "../../../JS/proxy";
 
 class EditImage extends React.Component {
@@ -23,7 +24,9 @@ class EditImage extends React.Component {
     history.push("/appManager/addImage");
   }
   editImages() {
-    proxy.updateImages(this.state.setImagesToUpdate);
+    const imHandler = new ImageHandler();
+    imHandler.updateImages(this.state.setImagesToUpdate);
+    this.props.reloadApp();
   }
   editOneImage(image) {
     const setFromForLoop = (x) => {
@@ -59,8 +62,10 @@ class EditImage extends React.Component {
           imageTypes={this.props.imageTypes}
           imageLocations={this.props.imageLocations}
           eventTypes={this.props.eventTypes}
+          locationList={this.props.locationList}
           editImages={() => this.editImages()}
           editOneImage={(image) => this.editOneImage(image)}
+          reloadApp={() => this.props.reloadApp()}
         />
       );
     }

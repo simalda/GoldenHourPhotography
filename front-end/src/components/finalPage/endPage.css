@@ -1,0 +1,6 @@
+.endMap {
+  height: 40vh;
+  width: 60vw;
+  left: 50%;
+  transform: translateX(-50%);
+}

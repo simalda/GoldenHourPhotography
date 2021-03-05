@@ -10,6 +10,7 @@ import * as dateManager from "../../JS/dateManipulations";
 // import TimeSlotManager from "../editCalendar/TimeSlotManager";
 import TimeUnitHandler from "../../JS/TimeUnitHandler";
 import OrderHandler from "../../JS/Orderhandler";
+import * as config from "../../JS/config";
 import UICalendarManager from "./UICalendarManager";
 
 class OrdersCalendar extends React.Component {
@@ -30,7 +31,7 @@ class OrdersCalendar extends React.Component {
         dateString: "",
       },
       timePicked: false,
-      avilableTimeSlots: this.props.openDatesForOrder,
+      // avilableTimeSlots: this.props.openDatesForOrder,
       availableDatesFormated: [],
     };
   }
@@ -84,7 +85,8 @@ class OrdersCalendar extends React.Component {
     const hebrewDate = dateManager.hebrewDate(ev);
 
     const dateTimeSlot = this.getCurentDateTimeSlot(ev);
-    if (!dateTimeSlot.length) {
+
+    if (!dateTimeSlot.isThereSlotsToReserve()) {
       alert("אין שעות פנויות ביום זה");
     } else {
       this.setState({
@@ -100,7 +102,7 @@ class OrdersCalendar extends React.Component {
     }
   }
   getCurentDateTimeSlot(date) {
-    return this.state.calManager.openDaysList[date.getDate()];
+    return this.state.calManager.openDaysList[date.getDate() - 1];
   }
 
   onClick(date) {
@@ -118,7 +120,7 @@ class OrdersCalendar extends React.Component {
     );
     history.push("/orderDetails");
   }
-  onClickOKnotREady() {
+  onClickOKnotReady() {
     alert("Please, pick time first");
   }
 
@@ -138,13 +140,10 @@ class OrdersCalendar extends React.Component {
 
   shouldDateBeSelected(date) {
     try {
-      if (this.state.calManager.openDaysList[date.getDate() - 1].length) {
-        console.log(date.getDate());
-        console.log(this.state.calManager.openDaysList[date.getDate()]);
+      if (this.getCurentDateTimeSlot(date).isThereSlotsToReserve()) {
         return false;
       }
-      console.log(date.getDate());
-      console.log(this.state.calManager.openDaysList[date.getDate()]);
+
       return true;
     } catch {
       return false;
@@ -164,14 +163,14 @@ class OrdersCalendar extends React.Component {
           <PopupTime
             onClickCancelTime={() => this.onClickCancelTime()}
             readTime={(time) => this.readTime(time)}
-            curentDateTimeSlot={this.state.curentDateTimeSlot}
+            curentDateTimeSlot={this.state.curentDateTimeSlot.getTimeSlotsAsArray()}
           />
         );
       }
       var OkButton = (
         <button
           className="miniButton2 "
-          onClick={() => this.onClickOKnotREady()}
+          onClick={() => this.onClickOKnotReady()}
         >
           OK
         </button>

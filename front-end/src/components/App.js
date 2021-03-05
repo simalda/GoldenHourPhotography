@@ -15,7 +15,7 @@ import Map from "./map/Map";
 // import OrdersCalendar from "./ordersCalendar/OrdersCalendar";
 import Location from "./Location";
 import AdminLogin from "./AdminLogin";
-import EndPage from "./EndPage";
+import EndPage from "./finalPage/EndPage";
 import OrderDetails from "./OrderDetails";
 import GaleryManager from "./edit/AppManager";
 import AddImage from "./edit/editImage/AddImage";
@@ -24,7 +24,6 @@ import EditLocation from "./edit/EditLocation";
 import OrdersManager from "./OrdersManager";
 import EditCalendar from "./edit/editCalendar/EditCalendar";
 import TimeUnitHandler from "../JS/TimeUnitHandler";
-import * as dateManager from "../JS/dateManipulations";
 import LocationHandler from "../JS/locationHandler";
 import Translator from "../JS/Translator";
 // import LocationsEditor from "../locationsEditor/LocationsEditor";
@@ -36,21 +35,14 @@ class App extends Component {
       admin: "",
       loginSucssess: 0,
       imageTypes: [],
-      imageLocations: ["les", "kishon", "deserd", "city"],
+      locationsType: ["les", "kishon", "deserd", "city"],
       eventTypes: [],
       imageList: [],
       ordersList: [],
+      locationList: [],
       locationsInfo: [],
       locationDescription: {},
       date: new Date(),
-      order: {
-        name: "",
-        mail: "",
-        date: "",
-        time: "",
-        hebrewDay: "",
-        location: "",
-      },
       calendar: {
         month: new Date().getMonth(),
         year: new Date().getFullYear(),
@@ -62,14 +54,18 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.reloadApp();
+    // this.getAllOpenDatesMonth();
+    // this.getOpenTimeUnitsForWeek();
+  }
+  reloadApp() {
     this.getLanguage();
     this.getAllImageTypes();
     this.getAllEventTypes();
     this.getAllImages();
     this.getAllAvalableDates();
     this.getLocationsInfo();
-    // this.getAllOpenDatesMonth();
-    // this.getOpenTimeUnitsForWeek();
+    this.getAllLocations();
   }
   getLanguage() {
     const translator = new Translator();
@@ -78,17 +74,7 @@ class App extends Component {
       dictionary: dictionary,
     });
   }
-  // componentDidUpdate() {
-  //   if (
-  //     (document.getElementById("frame") &&
-  //       document.getElementById("frame").clientHeight < window.innerHeight) ||
-  //     document.getElementById("imap")
-  //   ) {
-  //     this.setState({
-  //       footerPositionClass: "fixed",
-  //     });
-  //   }
-  // }
+
   checkFooterPosition() {}
   handleAdminLogin(user, psw) {
     console.log("handleAdminLog");
@@ -147,7 +133,15 @@ class App extends Component {
       });
     });
   }
-
+  getAllLocations() {
+    let locationHandler = new LocationHandler();
+    locationHandler.getAllLocations().then((locations) => {
+      console.log(locations);
+      this.setState({
+        locationList: locations,
+      });
+    });
+  }
   deleteImage(event, name) {
     proxy.deleteImage(name);
     history.push("/appManager/editImage");
@@ -169,32 +163,18 @@ class App extends Component {
       });
     });
   }
-  getOpenTimeUnitsForWeek() {
-    let date = new Date();
-    let week = dateManager.getWeekBorders(date);
-    let tuHandler = new TimeUnitHandler();
-    tuHandler
-      .getOpenTimeUnitsForWeek(week.startDate, week.endDate)
-      .then((openSlots) => {
-        this.setState({
-          openDatesForOrder: openSlots,
-        });
-      });
 
-    // let tsManager = new TimeSlotManager();
-    // return tsManager.getOpenTimeSlotsForMonth(month).then((openSlots) => {
-    //   this.setState({
-    //     openDatesForOrder: tsManager.slotList,
-    //   });
-    // });
-  }
   locationClicked(location) {
     this.setState({
       locationDescription: location,
     });
     history.push("/location");
   }
-
+  updateOrderState(order) {
+    this.setState({
+      order: order,
+    });
+  }
   render() {
     return (
       <Router history={history}>
@@ -240,6 +220,7 @@ class App extends Component {
                   admin={this.state.admin}
                   locationsInfo={this.state.locationsInfo}
                   locationClicked={(location) => this.locationClicked(location)}
+                  dictionary={this.state.dictionary}
                 />
               )}
             />
@@ -253,11 +234,22 @@ class App extends Component {
                   }
                   calendar={this.state.calendar}
                   locationDescription={this.state.locationDescription}
-                  // openDatesForOrder={this.state.openDatesForOrder}
+                  dictionary={this.state.dictionary}
                 />
               )}
             />
-            <Route path="/endPage" component={EndPage} />
+
+            <Route
+              path="/endPage"
+              c
+              render={(props) => (
+                <EndPage
+                  locationDescription={this.state.locationDescription}
+                  dictionary={this.state.dictionary}
+                  order={this.state.order}
+                />
+              )}
+            />
             <Route
               path="/orderDetails"
               render={(props) => (
@@ -267,6 +259,7 @@ class App extends Component {
                   eventTypes={this.state.eventTypes}
                   locationDescription={this.state.locationDescription}
                   dictionary={this.state.dictionary}
+                  updateOrderState={(order) => this.updateOrderState(order)}
                 />
               )}
             />
@@ -280,6 +273,8 @@ class App extends Component {
                   imageLocations={this.state.imageLocations}
                   eventTypes={this.state.eventTypes}
                   imageList={this.state.imageList}
+                  locationList={this.state.locationList}
+                  reloadApp={() => this.reloadApp()}
                 />
               )}
             />
@@ -292,7 +287,9 @@ class App extends Component {
                   imageLocations={this.state.imageLocations}
                   eventTypes={this.state.eventTypes}
                   imageList={this.state.imageList}
+                  locationList={this.state.locationList}
                   deleteImage={(event, name) => this.deleteImage(event, name)}
+                  reloadApp={() => this.reloadApp()}
                 />
               )}
             />
@@ -342,8 +339,11 @@ class App extends Component {
               render={(props) => (
                 <EditCalendar
                   {...props}
+                  locationsInfo={this.state.locationsInfo}
+                  eventTypes={this.state.eventTypes}
                   date={this.state.date}
                   timeSlotList={this.state.timeSlotList}
+                  dictionary={this.state.dictionary}
                 />
               )}
             />

@@ -1,14 +1,14 @@
 import TimeSlot from "./TimeSlot";
-import * as config from "./config";
+import * as config from "../../../JS/config";
 import TimeUnitHandler from "../../../JS/TimeUnitHandler";
 import * as dateManager from "../../../JS/dateManipulations";
 
 class TimeSlotManager {
   constructor() {
-    this.slotList = this.createSlotList();
+    this.slotList = this.createSlotListForWeek();
     this.openTimeunits = [];
   }
-  createSlotList() {
+  createSlotListForWeek() {
     let slotList = [];
     for (let i = 0; i < config.times.length; i++) {
       for (let day = 0; day < 7; day++) {
@@ -18,33 +18,26 @@ class TimeSlotManager {
     return slotList;
   }
 
-  updateOpenDates() {
-    let tuHandler = new TimeUnitHandler();
-    return tuHandler.getTimeSlots().then((slotList) => {
-      console.log(slotList);
-      slotList.forEach((slot) => {
-        this.updateOneTimeSlot(
-          null,
-          slot.dayOfWeek,
-          slot.time,
-          config.status.open
-        );
-      });
-    });
-  }
   updateReservedDays(startDate, endDate, orderList) {
     orderList.forEach((order) => {
-      const dayOfWeek = dateManager.getDayOfWeek(order.date);
-      if (order.date > startDate && order.date < endDate) {
-        this.updateOneTimeSlot(dayOfWeek, order.time, config.status.reserved);
+      const date = new Date(order.date);
+      const dayOfWeek = dateManager.getDayOfWeek(date);
+      if (date >= startDate && date <= endDate) {
+        this.updateOneTimeSlot(
+          dayOfWeek,
+          order.time,
+          config.status.reserved,
+          order.id
+        );
       }
     });
   }
 
-  updateOneTimeSlot(dayOfWeek, time, status) {
+  updateOneTimeSlot(dayOfWeek, time, status, order) {
     this.slotList.forEach((slotTime) => {
       if (slotTime.dayOfWeek === dayOfWeek && slotTime.time === time) {
         slotTime.status = status;
+        slotTime.orderId = order;
       }
     });
   }
@@ -52,7 +45,7 @@ class TimeSlotManager {
   updateAllNonWeeklyOpenSlots(startDate, endDate, singleSlotList) {
     singleSlotList.forEach((slot) => {
       const date = new Date(slot.date);
-      if (date > startDate && date < endDate) {
+      if (date >= startDate && date <= endDate) {
         this.updateOneTimeSlot(slot.dayOfWeek, slot.time, config.status.open);
       }
     });
@@ -60,10 +53,7 @@ class TimeSlotManager {
 
   updateWeeklyOpenSlots(identifierDdate, weeklyOpenList) {
     weeklyOpenList.forEach((slot) => {
-      const date = dateManager.getDateBydayOfWeek(
-        identifierDdate,
-        slot.dayOfWeek
-      );
+      const date = dateManager.addDaysToDate(identifierDdate, slot.dayOfWeek);
       this.updateOneTimeSlot(
         slot.dayOfWeek,
         slot.time,
@@ -102,22 +92,6 @@ class TimeSlotManager {
     this.updateAllNonWeeklyOpenSlots(startDate, endDate, timeUnitSingleList);
     this.updateReservedDays(startDate, endDate, ordersList);
   }
-  //   return this.updateWeeklyOpenSlots(startDate).then(() => {
-  //     console.log("STEP1");
-  //     console.log(this);
-  //     const step2 = this.updateAllNonWeeklyOpenSlots(startDate, endDate).then(
-  //       () => {
-  //         console.log("STEP2");
-  //         console.log(this);
-  //         const step3 = this.updateReservedDays().then((result) => {
-  //           console.log("STEP3");
-  //           console.log(this);
-  //           console.log(result);
-  //         });
-  //       }
-  //     );
-  //   });
-  // }
 
   getOpenTimeSlotsForWeek(startDate, endDate) {
     this.getTimeSlotsForPeriod(startDate, endDate).then((result) =>

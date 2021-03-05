@@ -70,8 +70,8 @@ class Location extends React.Component {
               <span style={{ color: "#515151", opacity: 0.5 }}>הבא</span> 1/3{" "}
             </span>
             <span className="D3bannerRight">
-              {this.props.locationDescription.name}
-            </span>{" "}
+              {this.props.dictionary[this.props.locationDescription.name]}
+            </span>
           </div>
         </div>
         <div className="photosFromThere">

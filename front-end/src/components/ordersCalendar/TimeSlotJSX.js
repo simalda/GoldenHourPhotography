@@ -5,7 +5,6 @@ import TimeButton from "./TimeButton";
 class TimeSlotJSX extends React.Component {
   constructor(props) {
     super(props);
-    // this.time = ["14:00-15:00", "15:00 - 16:00"];
   }
 
   render() {

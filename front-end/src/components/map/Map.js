@@ -90,7 +90,9 @@ class Map extends React.Component {
       markers.push(
         <Marker position={position} icon={icon} key={index}>
           <Popup>
-            <span style={{ height: "1vh" }}>{locationDesc.name}</span>
+            <span style={{ height: "1vh" }}>
+              {this.props.dictionary[locationDesc.name]}
+            </span>
             <button
               className="buttonPopupMarker"
               onClick={() => this.props.locationClicked(locationDesc)}
@@ -115,7 +117,12 @@ class Map extends React.Component {
     return (
       <div id="mapid" className="mainDiv">
         <div className="locationName">ביחרו מקום</div>
-        <MapContainer center={this.position} zoom={11} scrollWheelZoom={true}>
+        <MapContainer
+          center={this.position}
+          zoom={11}
+          scrollWheelZoom={true}
+          className={"locationsMap"}
+        >
           <TileLayer
             // attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

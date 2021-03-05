@@ -9,7 +9,7 @@ class DataAccessCalendar(DataAccess):
 
     def deleteTimeUnit(self, timeUnit):
         self.mycollection = self.mydb['calendar']
-        myquery = { "dateFormated":timeUnit.dateFormated,  "time":timeUnit.time}
+        myquery = { "dayOfWeek":timeUnit.dayOfWeek,  "time":timeUnit.time}
         self.mycollection.delete_one(myquery)
  
  
@@ -28,7 +28,8 @@ class DataAccessCalendar(DataAccess):
         })
         print(slots)
         return slots
-
+ 
+ 
     def getWeeklyOpenSlots(self):
         self.imagesCollection = self.mydb['calendar']
         slots = []
@@ -58,19 +59,5 @@ class DataAccessCalendar(DataAccess):
         return slots
     def updateCalendarAfterOrder(self):
         pass
- 
-    # def getAllOpenSlots(self):
-    #     self.imagesCollection = self.mydb['calendar']
-    #     slots = []
-    #     result = self.imagesCollection.find({"orderId":None} )
-    #     for slot in result:
-    #         slots.append({
-    #         "date": slot["date"],
-    #         "dateFormated": slot["dateFormated"],
-    #         "time" : slot["time"],
-    #         "isWeekly" : slot["isWeekly"],
-    #         "orderId": slot["orderId"]
-    #     })
-    #     print(slots)
-    #     return slots
+
     

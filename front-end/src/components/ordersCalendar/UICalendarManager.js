@@ -1,4 +1,6 @@
 import * as dateManager from "../../JS/dateManipulations";
+import OneDayTimeSlot from "../../JS/OneDayTimeSlot";
+import * as config from "../../JS/config";
 
 class UICalendarManager {
   constructor(month, year) {
@@ -13,49 +15,64 @@ class UICalendarManager {
       i < dateManager.numberOfDaysInMounth(this.year, this.month);
       i++
     ) {
-      daysList.push([]);
+      daysList.push(
+        new OneDayTimeSlot(dateManager.createDate(this.year, this.month, i))
+      );
     }
     return daysList;
   }
 
   getInfoAboutDays(timeUnitSingleList, timeUnitWeeklyList, ordersList) {
-    const startDate = new Date(this.year, this.month, 0);
+    const todayDay = new Date().getDate();
+    const startDate = new Date(this.year, this.month, todayDay);
     const endDate = new Date(
       this.year,
       this.month,
       dateManager.numberOfDaysInMounth(this.year, this.month)
     );
-    this.updateWeeklyOpenSlots(startDate, timeUnitWeeklyList);
+    this.updateWeeklyOpenSlots(startDate, endDate, timeUnitWeeklyList);
     this.updateAllNonWeeklyOpenSlots(startDate, endDate, timeUnitSingleList);
-    this.updateReservedDays(ordersList);
+    this.updateReservedDays(startDate, endDate, ordersList);
   }
-  updateReservedDays(ordersList) {}
+  updateReservedDays(startDate, endDate, ordersList) {
+    ordersList.forEach((slot) => {
+      const date = new Date(slot.date);
+      if (date >= startDate && date < endDate) {
+        this.removeTimeFromDay(date, slot.time);
+      }
+    });
+  }
   updateAllNonWeeklyOpenSlots(startDate, endDate, singleSlotList) {
     singleSlotList.forEach((slot) => {
       const date = new Date(slot.date);
       if (date > startDate && date < endDate) {
-        this.updateOneDay(date, slot.time);
+        this.addTimeToDay(date, slot.time);
       }
     });
   }
-  updateWeeklyOpenSlots(identifierDdate, weeklyOpenList) {
+  updateWeeklyOpenSlots(startDate, endDate, weeklyOpenList) {
     weeklyOpenList.forEach((slot) => {
       const dates = dateManager.getAllDatesBydayOfWeek(
         this.year,
         this.month,
         slot.dayOfWeek
       );
-      dates.forEach((date) => this.updateOneDay(date, slot.time));
+
+      dates.forEach((date) => {
+        if (date > startDate && date < endDate) {
+          this.addTimeToDay(date, slot.time);
+        }
+      });
     });
   }
 
   removeTimeFromDay(date, time) {
     const day = date.getDate();
-    this.openDaysList[day - 1].push(time);
+    this.openDaysList[day - 1].timeSlots[time] = config.status.close;
   }
-  updateOneDay(date, time) {
+  addTimeToDay(date, time) {
     const day = date.getDate();
-    this.openDaysList[day - 1].push(time);
+    this.openDaysList[day - 1].timeSlots[time] = config.status.open;
   }
 }
 

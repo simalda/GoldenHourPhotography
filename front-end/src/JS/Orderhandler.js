@@ -7,7 +7,12 @@ class OrderHandler {
   getOrders() {
     return proxy.getOrders();
   }
-
+  deleteOrder(orderId) {
+    proxy.deleteOrder(orderId);
+  }
+  updateOrder(order) {
+    return proxy.updateOrder(order);
+  }
   // getOtheReport(image) {
   //   return proxy.deleteImage(image);
   // }

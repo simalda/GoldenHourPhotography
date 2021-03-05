@@ -51,8 +51,20 @@ class DataAccess:
             "longtitude": locaion["longtitude"],
             "latitude" : locaion["latitude"]
         })
+        return locations
+
+    def getAllLocations(self):
+        self.locationInfoCollection = self.mydb['locations']
+        locations = []
+        result = self.locationInfoCollection.find( )
+        for locaion in result:
+            locations.append({
+            "name":  locaion["name"],
+            "locationType": locaion["locationType"]
+        })
         print(locations)
         return locations
+    
 
 # d=DataAccess()
 # # im = Image("pic_04.jpg", "regular","wedding","les"   )

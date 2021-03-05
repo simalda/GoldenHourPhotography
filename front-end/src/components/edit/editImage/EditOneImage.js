@@ -3,6 +3,9 @@ import React from "react";
 import * as proxy from "../../../JS/proxy";
 import history from "../../../JS/history";
 import Image from "../../../JS/Image";
+import "./editImage.css";
+import { Fragment } from "react";
+import ImageHandler from "../../../JS/ImageHandler";
 
 class EditOneImage extends React.Component {
   constructor(props) {
@@ -34,37 +37,17 @@ class EditOneImage extends React.Component {
 
   createImageLocations() {
     const options = [];
-    this.props.imageLocations.map((type, index) => {
-      if (type === this.props.image.location) {
+    this.props.locationList.map((location, index) => {
+      if (location.name === this.props.image.location) {
         options.push(
-          <option value={type} selected key={index}>
-            {type}
+          <option value={location.name} selected key={index}>
+            {location.name}
           </option>
         );
       } else {
         options.push(
-          <option value={type} key={index}>
-            {type}
-          </option>
-        );
-      }
-    });
-    return options;
-  }
-
-  createLocationTypes() {
-    const options = [];
-    this.props.imageLocations.map((type, index) => {
-      if (type === this.props.image.locationType) {
-        options.push(
-          <option value={type} selected key={index}>
-            {type}
-          </option>
-        );
-      } else {
-        options.push(
-          <option value={type} key={index}>
-            {type}
+          <option value={location.name} key={index}>
+            {location.name}
           </option>
         );
       }
@@ -128,26 +111,33 @@ class EditOneImage extends React.Component {
         console.log(loginResponse);
         alert("Deleted");
         history.push("/appManager");
+        this.props.reloadApp();
       },
       (result) => {
         console.log(result);
         alert(" Not Saved :" + result);
-        history.push("/appManager");
+        // history.push("/appManager");
+        this.props.reloadApp();
       }
     );
   }
 
-  sendToUpdate() {
-    proxy.updateImages(imagesToUpdate);
-  }
+  // sendToUpdate(e) {
+  //   e.preventDefault();
+  //   const imHandler = new ImageHandler();
+  //   imHandler.updateImages(imagesToUpdate);
+  //  this.props.reloadApp();
+  // }
 
   render() {
     const ImageTypeOptions = this.createImageTypeOptions();
-    const ImageLocations = this.createImageLocations();
-    const LocationsTypes = this.createLocationTypes();
+    const ImageLocation = this.createImageLocations();
+    // const LocationsTypes = this.createLocationTypes();
     const EventTypes = this.createEventTypes();
+    // const LocationName = this.createLocationName();
     return (
-      <form onSubmit={(event) => this.sendToUpdate(event)}>
+      <Fragment>
+        {/* <form onSubmit={(event) => this.sendToUpdate(event)}> */}
         <div className="editImageDiv">
           <img
             className="editImage"
@@ -177,42 +167,32 @@ class EditOneImage extends React.Component {
             {EventTypes}
           </select>
           <select
-            name="locationType"
-            id="locationType"
+            name="locationName"
+            id="location"
             className="selectImageManagment"
             onChange={(event) =>
               this.updateListImagesToResaveLocation(event.currentTarget)
             }
           >
-            {LocationsTypes}
+            {ImageLocation}
           </select>
-          <select
-            name="imageLocation"
-            id="imType"
-            className="selectImageManagment"
-            onChange={(event) =>
-              this.updateListImagesToResaveLocation(event.currentTarget)
-            }
-          >
-            {ImageLocations}
-          </select>
-
           <button
             className="button"
-            clicked={() => this.props.editImages()}
+            onClick={() => this.props.editImages()}
             style={{ width: "10vw" }}
           >
             שמירה
           </button>
           <button
             className="button"
-            clicked={() => this.deleteImage(this.props.image)}
+            onClick={() => this.deleteImage(this.props.image)}
             style={{ width: "10vw" }}
           >
             מחיקה
           </button>
         </div>
-      </form>
+        {/* </form> */}
+      </Fragment>
     );
   }
 }

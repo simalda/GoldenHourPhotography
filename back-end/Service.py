@@ -96,8 +96,23 @@ def delete_time_from_calendar():
     data = json.loads(request.stream.read())
     db = DataAccessCalendar()
     tuHandler = TimeUnitHandler(db)
-    timeunit = TimeUnit(data["date"],data["dateFormated"],data["time"],data["isWeekly"] )
+    timeunit = TimeUnit(data["date"],data["dayOfWeek"],data["time"],data["isWeekly"] )
     return jsonify(tuHandler.delete_time_from_calendar(timeunit))
+
+@app.route('/deleteOrder', methods=['POST'])
+def delete_order():
+    data = json.loads(request.stream.read())
+    db = DataAccessOrders()
+    orHandler = OrderHandler(db)
+    return jsonify(orHandler.delete_order(data))
+
+@app.route('/updateOrder', methods=['POST'])
+def update_order():
+    data = json.loads(request.stream.read())
+    db = DataAccessOrders()
+    orHandler = OrderHandler(db)
+    order = Order( data["date"], data["time"],data["name"],data["telefon"],data["email"],data["location"], data["eventType"],data["note"], data["id"])
+    return jsonify(orHandler.update_order(order))
 
 @app.route('/getTimeSlots') 
 def get_all_time_slots():
@@ -105,6 +120,8 @@ def get_all_time_slots():
     tuHandler = TimeUnitHandler(db)
     return jsonify(tuHandler.get_time_slots())
 
+
+ 
 
 @app.route('/getWeeklyOpenSlots')
 def get_weekly_slots():
@@ -118,13 +135,6 @@ def get_single_slots():
     tuHandler = TimeUnitHandler(db)
     return jsonify(tuHandler.get_single_time_slots())
 
-
-
-@app.route('/getOpenSlots') 
-def get_open_slots():
-    db = DataAccessCalendar()
-    tuHandler = TimeUnitHandler(db)
-    return jsonify(tuHandler.get_all_open_slots())
 
 @app.route('/addorder', methods=['POST']) 
 def add_order():
@@ -147,6 +157,12 @@ def get_locations_info():
     db = DataAccessImage()
     locInfoHandler = LocationHandler(db)
     return jsonify(locInfoHandler.get_all_locations_info())
+
+@app.route('/getLocations')
+def get_locations():
+    db = DataAccess()
+    locInfoHandler = LocationHandler(db)
+    return jsonify(locInfoHandler.get_all_locations())
 
 @app.route('/sendMail', methods=['POST'])
 def send_mail():
