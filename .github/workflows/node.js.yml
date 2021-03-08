@@ -26,6 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
+      working-directory: ./front-end
     - name: Build!
       working-directory: ./front-end
       run: npm run build
