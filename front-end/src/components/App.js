@@ -24,7 +24,7 @@ import EditLocation from "./edit/EditLocation";
 import OrdersManager from "./OrdersManager";
 import EditCalendar from "./edit/editCalendar/EditCalendar";
 import TimeUnitHandler from "../JS/TimeUnitHandler";
-import LocationHandler from "../JS/locationHandler";
+import LocationHandler from "../JS/LocationHandler";
 import Translator from "../JS/Translator";
 // import LocationsEditor from "../locationsEditor/LocationsEditor";
 
