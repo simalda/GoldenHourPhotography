@@ -53,3 +53,5 @@ export const status = {
   open: "Open",
   reserved: "Reserved",
 };
+
+export const backendUrl = process.env.BACKENDURL;
