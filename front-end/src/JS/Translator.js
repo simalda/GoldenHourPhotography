@@ -1,4 +1,4 @@
-import file from "../../../languages/hebrew.json";
+import file from "./Languages/hebrew.json";
 
 class Translator {
   constructor() {

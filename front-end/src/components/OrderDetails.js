@@ -7,7 +7,7 @@ import OrderHandler from "../JS/Orderhandler";
 import Order from "../JS/Order";
 import * as proxy from "../JS/proxy";
 import * as dateManager from "../JS/dateManipulations";
-import * as hebrew from "../JS/Languages/Hebrew";
+// import * as hebrew from "../JS/Languages/Hebrew";
 class OrderDetails extends React.Component {
   constructor(props) {
     super(props);

@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
+// import SVG from "react-inlinesvg";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-
+import rightArrow from "../../static/photos/cuts/Arrow_Right.svg";
 import PopupTime from "./PopupTime";
 
 import history from "../../JS/history";
@@ -101,6 +102,15 @@ class OrdersCalendar extends React.Component {
       });
     }
   }
+  onViewChange(ev) {
+    console.log("hi");
+    const switchMonth = (calendar, step) =>
+      setMonth({
+        ...month,
+        [calendar]: moment(month[calendar]).add(step, "months"),
+      });
+    switchMonth(ev, 1);
+  }
   getCurentDateTimeSlot(date) {
     return this.state.calManager.openDaysList[date.getDate() - 1];
   }
@@ -151,6 +161,10 @@ class OrdersCalendar extends React.Component {
   }
 
   render() {
+    // const NextArrow = (ev) => (
+    //   <SVG onClick={() => this.onViewChange(ev)} src={rightArrow} />
+    // );
+    // const PrevArrow = calendar => <SVG onClick={() => switchMonth(calendar, -1)} src={ArrowLeftIcon}/>;
     let body = <div></div>;
     if (this.state.isLoading) {
       body = <div>Loading</div>;
@@ -207,6 +221,7 @@ class OrdersCalendar extends React.Component {
               calendarType="Hebrew"
               locale="HE"
               onChange={(ev) => this.onChange(ev)}
+              // nextLabel={NextArrow()}
               value={this.state.date}
             />
 
