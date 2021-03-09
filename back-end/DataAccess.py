@@ -3,14 +3,12 @@ from pprint import pprint
 from Image import *
 from TimeUnit import *
 import datetime
-
-
+import configProvider  
 
 class DataAccess:
     def __init__(self):
-        self.client=MongoClient()  
-        self.client = MongoClient("mongodb://localhost:27017/") 
-        self.mydb = self.client["GoldenHourPhotography"]
+        self.client = MongoClient(configProvider.DBURL) #DBURL
+        self.mydb = self.client[configProvider.DBNAME]#DBNAME
     
 
     def checkUser(self, user, psw):
