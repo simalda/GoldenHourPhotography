@@ -1,0 +1,19 @@
+[{
+  "_id": {
+    "$oid": "601980a41c419f3f58e81c5e"
+  },
+  "name": "atlit",
+  "locationType": "beach"
+},{
+  "_id": {
+    "$oid": "601980d41c419f3f58e81c5f"
+  },
+  "name": "university",
+  "locationType": "nof"
+},{
+  "_id": {
+    "$oid": "601981671c419f3f58e81c60"
+  },
+  "name": "dado",
+  "locationType": "beach"
+}]
