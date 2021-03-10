@@ -7,8 +7,8 @@ from Order import *
 
 class Mail():
     def __init__(self):
-         self.sender = '***REMOVED***'         
-         self.password = '***REMOVED***'
+         self.sender = ''         
+         self.password = ''
 
     def send_mail(self, order):
         self.recipient = [order.email ]
