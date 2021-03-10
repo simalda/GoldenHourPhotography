@@ -1,40 +1,40 @@
 from DataAccess import DataAccess
 class DataAccessImage(DataAccess):
-    def addImage(self,image):
-        self.mycollection = self.mydb['images']
-        self.mycollection.insert_one(
+    def add_image(self,image):
+        self.collection = self.mydb['images']
+        self.collection.insert_one(
         { "name" : image.name,
-            "imageType" : image.imageType,
-            "eventType" : image.eventType,
+            "imageType" : image.image_type,
+            "eventType" : image.event_type,
             "location" : image.location
         }
         )
         return True
 
-    def editAllImages(self, imList):
-        for im in imList:
-            self.editImage(im)
+    def edit_all_images(self, image_list):
+        for image in image_list:
+            self.edit_image(image)
 
-    def editImage(self, im):
-        self.imagesCollection = self.mydb['images']
+    def edit_image(self, im):
+        self.collection = self.mydb['images']
         myquery = { "name": im.name}
-        newvalues = { "$set": { "imageType" : im.imageType,
-            "eventType":im.eventType,
+        newvalues = { "$set": { "imageType" : im.image_type,
+            "eventType":im.event_type,
             "location":im.location } }
 
-        x = self.imagesCollection.update_one(myquery, newvalues)
-        print(x.modified_count, "documents updated.")
+        query = self.collection.update_one(myquery, newvalues)
+        print(query.modified_count, "documents updated.")
     
-    def deleteImage(self, image):
-        self.imagesCollection = self.mydb['images']
+    def delete_image(self, image):
+        self.collection = self.mydb['images']
         myquery = { "name": image.name}
-        self.imagesCollection.delete_one(myquery)
+        self.collection.delete_one(myquery)
  
 
-    def getAllImages(self):
-        self.imagesCollection = self.mydb['images']
+    def get_all_images(self):
+        self.collection = self.mydb['images']
         images = []
-        result = self.imagesCollection.find( )
+        result = self.collection.find( )
         for image in result:
             images.append({
             "name":image["name"],
@@ -42,13 +42,12 @@ class DataAccessImage(DataAccess):
             "eventType" :image["eventType"],
             "location": image["location"]
         })
-        print(images)
         return images
 
-    def getAllImagesForLocation(self, location):
-        self.imagesCollection = self.mydb['images']
+    def get_all_images_for_location(self, location):
+        self.collection = self.mydb['images']
         images = []
-        result = self.imagesCollection.find({ "location" : location } )
+        result = self.collection.find({ "location" : location } )
         for image in result:
             images.append({
             "name":image["name"],
@@ -56,5 +55,4 @@ class DataAccessImage(DataAccess):
             "eventType" :image["eventType"],
             "location": image["location"]
         })
-        print(images)
         return images

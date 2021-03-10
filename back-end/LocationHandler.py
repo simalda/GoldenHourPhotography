@@ -1,24 +1,18 @@
 from DataAccess import *
 class LocationHandler():
-    def __init__(self, dataAccess):
-        self.dataAccess = dataAccess
+    def __init__(self, data_access):
+        self.data_access = data_access
      
     def get_all_locations_info(self):
-        locations = self.dataAccess.getAllLocationsInfo()
+        locations = self.data_access.get_all_locations_info()
         for location in locations:
-            imagesByLocation = self.dataAccess.getAllImagesForLocation(location["name"])
-            if(len(imagesByLocation) != 0):
-                location["images"] = imagesByLocation
+            images_by_location = self.data_access.get_all_images_for_location(location["name"])
+            if(len(images_by_location) != 0):
+                location["images"] = images_by_location
         return locations
 
     def get_all_locations(self):
-        locations = self.dataAccess.getAllLocations()
-        # for location in locations:
-        #     imagesByLocation = self.dataAccess.getAllImagesForLocation(location["name"])
-        #     if(len(imagesByLocation) != 0):
-        #         location["images"] = imagesByLocation
+        locations = self.data_access.get_all_locations()
         return locations
 
-# da =DataAccess()
-# lh = LocationHandler(da)
-# print(lh.get_all_locations_info())
+ 
