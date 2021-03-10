@@ -1,5 +1,4 @@
 import React from "react";
-import EditOneOrder from "../EditOneOrder";
 
 class PopupReservedTimeSlotClicked extends React.Component {
   constructor(props) {

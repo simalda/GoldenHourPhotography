@@ -242,7 +242,7 @@ class App extends Component {
             <Route
               path="/endPage"
               c
-              render={(props) => (
+              render={() => (
                 <EndPage
                   locationDescription={this.state.locationDescription}
                   dictionary={this.state.dictionary}

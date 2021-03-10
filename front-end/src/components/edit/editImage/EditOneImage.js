@@ -5,7 +5,6 @@ import history from "../../../JS/history";
 import Image from "../../../JS/Image";
 import "./editImage.css";
 import { Fragment } from "react";
-import ImageHandler from "../../../JS/ImageHandler";
 
 class EditOneImage extends React.Component {
   constructor(props) {

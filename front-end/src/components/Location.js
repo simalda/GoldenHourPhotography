@@ -6,8 +6,6 @@ import D3images from "./D3images";
 import OrdersCalendar from "./ordersCalendar/OrdersCalendar";
 import arrow from "../static/photos/cuts/Arrow_Left.svg";
 
-import history from "../JS/history";
-
 class Location extends React.Component {
   constructor(props) {
     super(props);

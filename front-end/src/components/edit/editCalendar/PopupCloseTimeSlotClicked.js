@@ -1,6 +1,4 @@
 import React from "react";
-import TimeUnitHandler from "../../../JS/TimeUnitHandler";
-import TimeUnit from "../../../JS/TimeUnit";
 
 class PopupCloseTimeSlotClicked extends React.Component {
   render() {

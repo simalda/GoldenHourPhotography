@@ -73,7 +73,7 @@ export default function QuestionsAnswers() {
               />
             </svg>
           </summary>
-          <p>Of course you can, we won't stop you.</p>
+          <p>Of course you can, we won&apos;t stop you.</p>
         </details>
 
         <details>

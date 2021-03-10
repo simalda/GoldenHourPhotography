@@ -1,6 +1,6 @@
 import React from "react";
 
-export function createImageTypeOptions(imageTypes, currrentItemType) {
+export function createImageTypeOptions() {
   const options = [];
   this.props.imageTypes.map((type, index) => {
     if (type === this.props.currrentItemType) {

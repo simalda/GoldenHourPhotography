@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import * as PhotosphereViewer from "photo-sphere-viewer";
-import { MarkersPlugins } from "photo-sphere-viewer/dist/plugins/markers";
+
 import "photo-sphere-viewer/dist/photo-sphere-viewer.css";
 
-import more from "../static/photos/Homepage+LEI.jpg";
 import lisa from "../static/photos/galery/pic_18.jpg";
-import face from "../static/photos/cuts/facebook.svg";
 import zvezda from "../static/photos/zvezda.jpg";
-import hof from "../static/photos/hof.jpeg";
 import atlit from "../static/photos/Atlit_Panorama.jpg";
 class D3images extends Component {
   constructor(props) {

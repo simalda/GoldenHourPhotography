@@ -5,9 +5,7 @@ import Button from "./Button";
 import history from "../JS/history";
 import OrderHandler from "../JS/Orderhandler";
 import Order from "../JS/Order";
-import * as proxy from "../JS/proxy";
-import * as dateManager from "../JS/dateManipulations";
-// import * as hebrew from "../JS/Languages/Hebrew";
+
 class OrderDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -45,7 +43,7 @@ class OrderDetails extends React.Component {
   }
 
   onInputChange(event) {
-    this.setState((prevState, props) => ({
+    this.setState((prevState) => ({
       ...prevState,
       [event.target.id]: event.target.value,
     }));

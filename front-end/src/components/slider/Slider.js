@@ -128,7 +128,7 @@ class SliderMoves {
     this.slider.classList.add("is-grabbing");
   }
 
-  off(e) {
+  off() {
     this.isDragging = false;
     this.offX = this.currentX;
     this.slider.classList.remove("is-grabbing");

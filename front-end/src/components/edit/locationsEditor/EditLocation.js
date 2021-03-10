@@ -1,11 +1,11 @@
 import React from "react";
 
-import history from "../../JS/history";
-// import * as importImages from "../../JS/imageManager";
-// import EditOneImage from "./EditOneImage";
-import Button from "../Button";
-import Image from "../../JS/Image";
-import * as proxy from "../../JS/proxy";
+import history from "../../../JS/history";
+
+import Button from "../../Button";
+import Image from "../../../JS/Image";
+import * as proxy from "../../../JS/proxy";
+import EditOneLocation from "./EditOneLocation";
 
 class EditImage extends React.Component {
   constructor(props) {
@@ -41,7 +41,6 @@ class EditImage extends React.Component {
   }
 
   loadImages() {
-    // let pathList = importImages.importAll();
     let newImageList = [];
     for (let i = 0; i < this.props.locationList.length; i++) {
       const image = new Image(
@@ -50,7 +49,6 @@ class EditImage extends React.Component {
         this.props.locationList[i].eventType,
         this.props.locationList[i].location
       );
-      // if(pathList.includes('http://localhost:3000/static/'+this.props.imageList[i]["name"])){
       newImageList.push(
         <EditOneLocation
           key={i}

@@ -26,7 +26,8 @@ class TimeUnitHandler {
 
   getOpenTimeUnitsForWeek(startDate, endDate) {
     const tsManager = new TimeSlotManager();
-    const timeSlotsForWeek = tsManager
+    // const timeSlotsForWeek = tsManager
+    tsManager
       .getOpenTimeSlotsForWeek(startDate, endDate)
       .then((timeSlotsForWeek) =>
         timeSlotsForWeek.map(
