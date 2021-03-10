@@ -20,7 +20,7 @@ import OrderDetails from "./OrderDetails";
 import GaleryManager from "./edit/AppManager";
 import AddImage from "./edit/editImage/AddImage";
 import EditImage from "./edit/editImage/EditImage";
-import EditLocation from "./edit/EditLocation";
+import EditLocation from "./edit/locationsEditor/EditLocation";
 import OrdersManager from "./OrdersManager";
 import EditCalendar from "./edit/editCalendar/EditCalendar";
 import TimeUnitHandler from "../JS/TimeUnitHandler";

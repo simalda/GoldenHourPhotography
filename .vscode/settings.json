@@ -1,6 +1,5 @@
 {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "python.pythonPath": "C:\\Python39\\python.exe",
     "python.autoComplete.extraPaths": ["./back-end"],
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,

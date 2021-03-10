@@ -10,7 +10,6 @@ class D3images extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // panorama:more
       panorama: atlit,
     };
     this.divStyle = {
