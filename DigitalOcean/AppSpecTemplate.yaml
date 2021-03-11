@@ -2,6 +2,8 @@ name: goldenhourphotography
 
 services:
   - name: "back-end"
+    environment_slug: python
+    run_command: gunicorn --worker-tmp-dir /dev/shm Service:app
     github:
       repo: AdiK87/GoldenHourPhotography
       branch: master
@@ -9,6 +11,7 @@ services:
     source_dir: "back-end"
     routes:
       - path: /back-end
+    http_port: 5000
     envs:
       - key: DBNAME
         value: "zibi"
@@ -33,6 +36,6 @@ static_sites:
       - path: /
     envs:
       - key: BACKENDURL
-        value: "zibi"
+        value: "https://goldenhourphotography-ucvq5.ondigitalocean.app/back-end"
         scope: RUN_AND_BUILD_TIME
         type: SECRET
