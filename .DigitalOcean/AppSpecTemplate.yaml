@@ -32,6 +32,7 @@ static_sites:
       deploy_on_push: true
     source_dir: front-end
     index_document: index.html
+    catchall_document: index.html
     routes:
       - path: /
     envs:
