@@ -14,11 +14,11 @@ services:
     http_port: 5000
     envs:
       - key: DBNAME
-        value: "zibi"
+        value: "Dont commit in this value"
         scope: RUN_TIME
         type: SECRET
       - key: DBURL
-        value: "zibi"
+        value: "Dont commit in this value"
         scope: RUN_TIME
         type: SECRET
 
