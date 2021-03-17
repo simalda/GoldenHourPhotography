@@ -15,7 +15,7 @@ class TimeSlotJSX extends React.Component {
         key={index}
       ></TimeButton>
     ));
-    timeOptions.reduce((x, y) => x + y);
+    // timeOptions.reduce((x, y) => x + y);
 
     return (
       <div>

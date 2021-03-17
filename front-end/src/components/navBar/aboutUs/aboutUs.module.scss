@@ -1,0 +1,101 @@
+@use '../../../CSS/mixin.scss';
+
+.about {
+  padding-top: 4vh;
+  display: grid;
+  height: 160vw;
+  grid-template-columns: 50% 50%;
+}
+
+.aboutSection {
+  display: grid;
+  justify-items: end;
+  margin-right: 1vw;
+  text-align: end;
+  align-content: start;
+}
+
+.aboutPhoto {
+  height: 40vh;
+  border-radius: 3%;
+}
+.aboutPhotoDiv {
+  display: grid;
+}
+
+.aboutText {
+  width: 20vw;
+  @include mixin.font-Heebo-Medium-gray;
+  padding-top: 1vh;
+  line-height: 1.6;
+  font-size: 1.6vh;
+}
+
+.aboutus_font {
+  @include mixin.font-Heebo-Bold-gray;
+}
+
+.connectionDetails {
+  float: right;
+  padding-right: 1vw;
+  padding-top: 1.7vh;
+  font-size: 1vw;
+}
+
+.tel {
+  padding-right: 0.7vw;
+  @include mixin.font-Heebo-Medium-gray;
+}
+.watzap {
+  float: right;
+  padding-top: 1.7vh;
+  padding-right: 3vw;
+  height: 2.8vh;
+}
+
+.watzapAbout {
+  float: right;
+  padding-top: 1.7vh;
+  height: 2.8vh;
+}
+.stamp {
+  padding-top: 2vh;
+}
+
+@media screen and (max-width: 600px) {
+  .about {
+    padding-top: 4vh;
+    display: grid;
+    grid-template-rows: 50% 50%;
+    height: 160vw;
+    grid-template-columns: none;
+  }
+  // .about .aboutPhoto {
+  //   width: 80vw;
+  // }
+  .aboutPhotoDiv {
+    justify-self: center;
+    grid-row: 1;
+  }
+  .aboutText {
+    justify-self: center;
+    width: 80vw;
+  }
+  // .watzapAbout {
+  //   height: 4vh;
+  // }
+
+  .stamp {
+    padding-right: 10vw;
+    width: 30vw;
+  }
+
+  .connectionDetails {
+    font-size: 1.7vh;
+    display: inline-grid;
+  }
+
+  .watzapWrapper {
+    padding-right: 10vw;
+  }
+}

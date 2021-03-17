@@ -1,20 +1,9 @@
-@use 'theme';
+@use 'mixin';
+@use 'variables';
+@use 'fonts';
 @import "../components/ordersCalendar/calendar.scss";
 @import "../components/slider/slider.scss";
-@import "./theme.scss";
 
-@font-face {
-  font-family: Heebo-Medium;
-  src: url(../static/fonts/heebo/Heebo-Medium.ttf);
-}
-@font-face {
-  font-family: Heebo-Bold;
-  src: url(../static/fonts/heebo/Heebo-Bold.ttf);
-}
-@font-face {
-  font-family: blackjack;
-  src: url(../static/fonts/blackjack/blackjack.otf);
-}
 #app {
   height: 100%;
   display: grid;
@@ -24,10 +13,6 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  /* font-family: -apple-system, BlinkMacSystemFont, "Heebo" ,
-    sans-serif; */
-  /* -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
 }
 html {
   height: 100%;
@@ -35,7 +20,6 @@ html {
 .frame {
   height: 100%;
   padding-top: 7vh;
-  // padding-bottom: 8vh;
   text-align: center;
   grid-row-start: 1;
   grid-row-end: 2;
@@ -48,7 +32,7 @@ option {
   width: 17vw;
   text-align: right;
   font-size: 2vh;
-  @include font-Heebo-Medium-gray;
+  @include mixin.font-Heebo-Medium-gray;
   margin: 1.5vh;
   padding-right: 1vw;
   border-color: #ede7e7;
@@ -73,49 +57,6 @@ label {
   padding-top: 1vh;
 }
 
-/*main*/
-
-.happyMoments {
-  /* height: 7vh; */
-  padding: 2vh 0vh 2vh 0vh;
-}
-
-.imHappyMoments {
-  height: 10vh;
-}
-.about {
-  padding-top: 4vh;
-  display: grid;
-  grid-template-columns: 50% 50%;
-}
-.aboutText {
-  width: 20vw;
-  @include font-Heebo-Medium-gray;
-  padding-top: 1vh;
-  line-height: 1.6;
-  font-size: 1.6vh;
-}
-.stamp {
-  padding-top: 2vh;
-}
-.aboutSection {
-  display: grid;
-  // grid-template-rows: 60% 20% 20%;
-  justify-items: end;
-  margin-right: 1vw;
-  text-align: end;
-  align-content: start;
-}
-.buttonArea {
-  background-color: $background-color;
-  padding: 1vh;
-}
-.locationItem {
-  height: 3.5vh;
-}
-.locationIcon {
-  height: 3vh;
-}
 /*admin*/
 #adminLogin {
   padding-top: 7vh;
@@ -127,7 +68,7 @@ label {
 /*buttons*/
 .button {
   border: 0px;
-  background-color: #62909a;
+  background-color: variables.$base-color-1;
   border-radius: 3vh;
   width: 17vw;
   height: 6vh;
@@ -141,12 +82,12 @@ label {
 }
 .button:hover,
 .buttonPopupMarker:hover {
-  background-color: #f1dddc;
+  background-color: variables.$base-color-2;
   color: #515151;
 }
 .buttonPopupMarker {
   border: 0px;
-  background-color: #62909a;
+  background-color: variables.$base-color-1;
   border-radius: 3vh;
   width: 90%;
   height: 3vh;
@@ -167,15 +108,7 @@ label {
   width: 18vw;
   text-align-last: right;
 }
-.zilum {
-  color: #62909a;
-  font-family: "Heebo-Bold", sans-serif;
-  font-size: 3vh;
-}
-.greenText {
-  @include font-Heebo-Regular-gray;
-  margin-bottom: 2vh;
-}
+
 /* edit image*/
 .editImage {
   height: 8vh;
@@ -185,51 +118,14 @@ label {
   display: grid;
   grid-template-columns: 10% 10% 10% 10% 10% 10% 20% 10%;
 }
-/*end page*/
-.endPage {
-  text-align: center;
-  font-size: 1.5vh;
-  @include font-Heebo-Medium-gray;
-}
-.vase {
-  display: inline-block;
-  bottom: 6vh;
-  right: 1vw;
-  width: 30vw;
-  position: relative;
-  background-color: #f1dddc;
-  height: 4vh;
-  border-radius: 4vh;
-  padding-top: 1vh;
-}
-.endPageDate {
-  display: grid;
-  grid-template-rows: 50% 50%;
-  height: 10vh;
-}
 
-.endPageDateHeader {
-  font-size: 2vh;
-  font-family: "Heebo-Bold";
-  margin: 1vh;
-}
-.endPageRecomendations {
-  display: inline-grid;
-  grid-template-rows: 50% 50%;
-  height: 10vh;
-  width: 25vw;
-}
-.endPageWatsap {
-  display: grid;
-  grid-template-rows: 50% 50%;
-}
 /*footer*/
 .icon {
   padding: 2vh 1vw;
   height: 4vh;
 }
 .footer {
-  background-color: $background-color;
+  background-color: variables.$background-color;
   text-align: center;
   height: 8vh;
   grid-row-start: 2;
@@ -244,21 +140,13 @@ label {
   color: #515151;
 }
 /*map*/
-/* #mapid {
-  height: 180px;
-  width: 500px;
-  padding-top: 7vh;
-} */
-// .leaflet-container {
-//   height: 82vh;
-//   width: 100vw;
-// }
+
 .locationsMap {
   height: 82vh;
   width: 100vw;
 }
 .leaflet-div-icons {
-  border: 2px solid #f1dddc;
+  border: 2px solid variables.$base-color-2;
   border-radius: 50%;
   font-family: "Heebo-Medium", sans-serif;
 }
@@ -268,7 +156,7 @@ label {
   text-align: center;
   font-size: 1vw;
   padding-top: 1.7vh;
-  @include font-Heebo-Medium-gray;
+  @include mixin.font-Heebo-Medium-gray;
   text-decoration: none;
   margin: 0 1.2vw 0 1.2vw;
 }
@@ -277,16 +165,9 @@ label {
 }
 
 .nav {
-  background-color: #f1dddc;
+  background-color: variables.$base-color-2;
   height: 7vh;
   text-align: center;
-}
-
-.connectionDetails {
-  float: right;
-  padding-right: 1vw;
-  padding-top: 1.7vh;
-  font-size: 1vw;
 }
 
 .divContainsOrderDetails {
@@ -301,23 +182,16 @@ label {
 .divOrderDetail {
   display: grid;
   grid-template-rows: 30% 30% 30%;
-  @include font-Heebo-Medium-gray;
+  @include mixin.font-Heebo-Medium-gray;
   font-size: 2vh;
   justify-content: right;
-  background-color: #f1dddc;
+  background-color: variables.$base-color-2;
   height: 8vh;
   width: 12vw;
   justify-self: right;
   border-radius: 10px;
   padding: 2vw;
 }
-// .timeslot {
-//   height: 6vh;
-//   width: 15vw;
-//   font-size: 1.5vh;
-//   outline: none;
-//   cursor: pointer;
-// }
 
 @media screen and (max-width: 600px) {
   .nav div,
@@ -340,40 +214,9 @@ label {
   .imHappyMoments {
     width: 90vw;
   }
-  .about {
-    padding-top: 4vh;
-    display: grid;
-    grid-template-rows: 50% 50%;
-    height: 160vw;
-    grid-template-columns: none;
-  }
-  .about .aboutPhoto {
-    width: 80vw;
-  }
-  .aboutPhotoDiv {
-    justify-self: center;
-    grid-row: 1;
-  }
-  .aboutText {
-    justify-self: center;
-    width: 80vw;
-  }
-  .stamp {
-    padding-right: 10vw;
-    width: 30vw;
-  }
+
   .endPageRecomendations {
     width: 90%;
-  }
-  .watzapAbout {
-    height: 4vh;
-  }
-  .watzapWrapper {
-    padding-right: 10vw;
-  }
-  .connectionDetails {
-    font-size: 1.7vh;
-    display: inline-grid;
   }
 
   .button {
@@ -443,14 +286,6 @@ label {
   display: inline-block;
 }
 
-.heebo-Bold {
-  @include font-Heebo-Bold-gray;
-}
-.tel {
-  padding-right: 0.7vw;
-  @include font-Heebo-Medium-gray;
-}
-
 .sticky {
   position: fixed;
   top: 0;
@@ -463,18 +298,6 @@ label {
   margin-left: 2vw;
   padding-top: 0.7vh;
   height: 5.5vh;
-}
-.watzap {
-  float: right;
-  padding-top: 1.7vh;
-  padding-right: 3vw;
-  height: 2.8vh;
-}
-
-.watzapAbout {
-  float: right;
-  padding-top: 1.7vh;
-  height: 2.8vh;
 }
 
 /*order details*/
@@ -495,7 +318,7 @@ label {
 .headerDetails {
   padding-top: 5vh;
   font-size: 3vh;
-  @include font-Heebo-Medium-gray;
+  @include mixin.font-Heebo-Medium-gray;
   text-align: center;
   margin-top: 4vh;
   margin-bottom: 2vh;
@@ -504,7 +327,7 @@ label {
 .divPaymentDescription {
   display: grid;
   grid-template-rows: 15% 15% 25%;
-  @include font-Heebo-Medium-gray;
+  @include mixin.font-Heebo-Medium-gray;
   font-size: 2vh;
 }
 
@@ -513,7 +336,7 @@ label {
 }
 
 .saleAmount {
-  background-color: #f1dddc;
+  background-color: variables.$base-color-2;
   height: 3vh;
   display: inline-block;
   padding: 1vh;
@@ -535,14 +358,6 @@ label {
   border-radius: 20px;
 }
 
-.aboutPhoto {
-  height: 40vh;
-  border-radius: 3%;
-}
-.aboutPhotoDiv {
-  display: grid;
-}
-
 /*popup*/
 .popup {
   display: block;
@@ -560,20 +375,14 @@ label {
 
 .locationName {
   height: 3vh;
-  background-color: #f1dddc;
+  background-color: variables.$base-color-2;
   font-size: 2vh;
-  @include font-Heebo-Medium-gray;
+  @include mixin.font-Heebo-Medium-gray;
   text-align: center;
 }
 
 /*slider*/
 
-/* .slider {
-  white-space: nowrap;
-  width: 100%;
-  overflow: hidden;
-  display: inline-block;
-} */
 .sliderMainDiv {
   display: grid;
   grid-template-columns: 5% 90% 5%;
@@ -594,11 +403,11 @@ label {
   width: 30vw;
   text-align: center;
   display: inline-block;
-  background-color: #f1dddc;
+  background-color: variables.$base-color-2;
   color: #515151;
   bottom: 10vh;
   border-radius: 3vh;
-  @include font-Heebo-Medium-gray;
+  @include mixin.font-Heebo-Medium-gray;
   padding-top: 1vh;
   font-size: 2vh;
 }
@@ -619,7 +428,7 @@ label {
 
 .imageMarker {
   border-radius: 50%;
-  border: #62909a solid 3px;
+  border: variables.$base-color-1 solid 3px;
   cursor: pointer;
 }
 
@@ -627,4 +436,9 @@ label {
   height: 5vh;
   text-align: center;
   width: 8vw;
+}
+
+//bezdomnyy
+.locationItem {
+  height: 3.5vh;
 }

@@ -1,8 +1,7 @@
 import React from "react";
-import "./endPage.css";
+import "./endPage.scss";
 import history from "../../JS/history";
 import * as dateManager from "../../JS/dateManipulations";
-// import im from "../static/photos/BackgroundMapImage.jpg";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 class EndPage extends React.Component {
   constructor(props) {
@@ -25,7 +24,6 @@ class EndPage extends React.Component {
 
         <div className="">
           <div id="mapid">
-            {/* <img src={im} /> */}
             <MapContainer
               center={this.position}
               zoom={16}

@@ -121,13 +121,6 @@ class EditOneImage extends React.Component {
     );
   }
 
-  // sendToUpdate(e) {
-  //   e.preventDefault();
-  //   const imHandler = new ImageHandler();
-  //   imHandler.updateImages(imagesToUpdate);
-  //  this.props.reloadApp();
-  // }
-
   render() {
     const ImageTypeOptions = this.createImageTypeOptions();
     const ImageLocation = this.createImageLocations();

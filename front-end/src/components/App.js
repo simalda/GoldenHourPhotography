@@ -5,16 +5,14 @@ import history from "../JS/history";
 import { Router, Switch } from "react-router";
 import * as proxy from "../JS/proxy";
 
-import NavBar from "./navBar/NavBar";
-import Footer from "./Footer";
-import AboutUs from "./navBar/AboutUs";
-import Galery from "./navBar/Galery";
-import QuestionsAnswers from "./navBar/QuestionsAnswers";
-import MainPage from "./MainPage";
-import Map from "./map/Map";
-// import OrdersCalendar from "./ordersCalendar/OrdersCalendar";
-import Location from "./Location";
+import AboutUs from "./navBar/aboutUs/AboutUs";
 import AdminLogin from "./AdminLogin";
+import Footer from "./Footer";
+import Galery from "./navBar/Galery";
+import Location from "./Location";
+import Map from "./map/Map";
+import MainPage from "./mainPage/MainPage";
+import NavBar from "./navBar/NavBar";
 import EndPage from "./finalPage/EndPage";
 import OrderDetails from "./OrderDetails";
 import GaleryManager from "./edit/AppManager";
@@ -26,12 +24,13 @@ import EditCalendar from "./edit/editCalendar/EditCalendar";
 import TimeUnitHandler from "../JS/TimeUnitHandler";
 import LocationHandler from "../JS/LocationHandler";
 import Translator from "../JS/Translator";
-// import LocationsEditor from "../locationsEditor/LocationsEditor";
+import QuestionsAnswers from "./navBar/QuestionsAnswers";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isloaded: false,
       admin: "",
       loginSucssess: 0,
       imageTypes: [],
@@ -66,6 +65,7 @@ class App extends Component {
     this.getAllAvalableDates();
     this.getLocationsInfo();
     this.getAllLocations();
+    this.setState({ isloaded: true });
   }
   getLanguage() {
     const translator = new Translator();
@@ -176,6 +176,9 @@ class App extends Component {
     });
   }
   render() {
+    if (!this.state.isloaded) {
+      return <span>wait....</span>;
+    }
     return (
       <Router history={history}>
         <NavBar />
@@ -185,7 +188,11 @@ class App extends Component {
               exact
               path="/"
               render={(props) => (
-                <MainPage {...props} admin={this.state.admin} />
+                <MainPage
+                  {...props}
+                  admin={this.state.admin}
+                  dictionary={this.state.dictionary}
+                />
               )}
             />
             <Route

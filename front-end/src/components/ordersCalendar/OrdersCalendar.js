@@ -103,9 +103,9 @@ class OrdersCalendar extends React.Component {
   //     });
   //   switchMonth(ev, 1);
   // }
-  // getCurentDateTimeSlot(date) {
-  //   return this.state.calManager.openDaysList[date.getDate() - 1];
-  // }
+  getCurentDateTimeSlot(date) {
+    return this.state.calManager.openDaysList[date.getDate() - 1];
+  }
 
   onClick(date) {
     console.log(date);

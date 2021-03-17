@@ -5,13 +5,11 @@ class DataAccessOrders(DataAccess):
     def get_orders_in_period(self, firs_date, second_date):
         self.collection = self.mydb['orders']
         result = self.collection.find( )
-    
- 
 
     def add_order(self, order):
         self.collection = self.mydb['orders']
         self.collection.insert_one({"name":order.name,"telefon":order.telefon, "email":order.email,
-         "location":order.location,"date":order.date,"time":order.time, "eventType":order.eventType,"note":order.note})
+        "location":order.location,"date":order.date,"time":order.time, "eventType":order.eventType,"note":order.note})
 
     def update_order(self, order):
         self.collection = self.mydb['orders']
@@ -20,10 +18,10 @@ class DataAccessOrders(DataAccess):
          "location":order.location,"date":order.date,"time":order.time, "eventType":order.eventType,"note":order.note } }     
         self.collection.update_one(myquery, newvalues)
 
- 
 
- 
-    
+
+
+
 
     def delete_order(self, orderId):
         self.collection = self.mydb['orders']

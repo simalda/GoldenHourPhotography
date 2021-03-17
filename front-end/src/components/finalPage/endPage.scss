@@ -1,0 +1,47 @@
+@use '../../CSS/mixin';
+@use '../../CSS/variables';
+
+.endMap {
+  height: 40vh;
+  width: 60vw;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.endPage {
+  text-align: center;
+  font-size: 1.5vh;
+  @include mixin.font-Heebo-Medium-gray;
+}
+.vase {
+  display: inline-block;
+  bottom: 6vh;
+  right: 1vw;
+  width: 30vw;
+  position: relative;
+  background-color: variables.$base-color-2;
+  height: 4vh;
+  border-radius: 4vh;
+  padding-top: 1vh;
+}
+.endPageDate {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  height: 10vh;
+}
+
+.endPageDateHeader {
+  font-size: 2vh;
+  font-family: variables.$general-bold-font;
+  margin: 1vh;
+}
+.endPageRecomendations {
+  display: inline-grid;
+  grid-template-rows: 50% 50%;
+  height: 10vh;
+  width: 25vw;
+}
+.endPageWatsap {
+  display: grid;
+  grid-template-rows: 50% 50%;
+}
