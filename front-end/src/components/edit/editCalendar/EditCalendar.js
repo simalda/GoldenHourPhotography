@@ -1,9 +1,7 @@
 import React, { Fragment } from "react";
 
 import history from "../../../JS/history";
-import Button from "../../Button";
 import EditOneSlot from "./EditOneSlot";
-import "./editCalendar.css";
 import TimeUnit from "../../../JS/TimeUnit";
 
 import * as dateManager from "../../../JS/dateManipulations";
@@ -15,6 +13,8 @@ import PopupCloseTimeSlotClicked from "./PopupCloseTimeSlotClicked";
 import PopupReservedTimeSlotClicked from "./PopupReservedTimeSlotClicked";
 import PopupOpenTimeSlotClicked from "./PopupOpenTimeSlotClicked";
 import EditOneOrder from "../EditOneOrder";
+
+import classes from "./editCalendar.module.scss";
 class EditCalendar extends React.Component {
   constructor(props) {
     super(props);
@@ -114,10 +114,8 @@ class EditCalendar extends React.Component {
         calBody.push(<div>{slot.time}</div>);
       }
       calBody.push(
-        <div className="oneSlot" key={index} id={index}>
+        <div className={classes.oneSlot} key={index} id={index}>
           <EditOneSlot
-            // timeUnit={slot.time}
-            // isOpen={slot.status}
             slot={slot}
             onClick={(slot) => this.onOneSlotClick(slot)}
           />
@@ -225,7 +223,6 @@ class EditCalendar extends React.Component {
     let body = <div></div>;
     if (this.state.isLoading) {
       body = <div>Loading</div>;
-      // this.updateTable(this.state.startDate, this.state.endDate);
     } else {
       let calBody = this.createCalendarBody();
       let startDate = dateManager.convertDateToDateStringDDMMYYYY(
@@ -290,12 +287,12 @@ class EditCalendar extends React.Component {
       }
 
       body = (
-        <div className="mainDiv">
-          <div className="headerDiv">
+        <div className={classes.mainDiv}>
+          <div className={classes.headerDiv}>
             <button onClick={() => this.getPreviosWeekDates()}>
               Previous week
             </button>
-            <h1 className="headerH1">
+            <h1 className={classes.headerH1}>
               Week from
               <span>{startDate}</span> to
               <span> {endDate}</span>
@@ -303,7 +300,7 @@ class EditCalendar extends React.Component {
             <button onClick={() => this.getNextWeekDates()}> Next week</button>
           </div>
 
-          <div className="calebdarWraper">
+          <div className={classes.calebdarWraper}>
             <div> time</div>
             <div>יום ראשון</div>
             <div>יום שני</div>
@@ -316,7 +313,9 @@ class EditCalendar extends React.Component {
             {calBody}
             {popup}
           </div>
-          <Button buttonText={"Back"} clicked={() => history.goBack()} />
+          <button className="button" onCklick={() => history.goBack()}>
+            {this.props.dictionary["back"]}
+          </button>
         </div>
       );
     }

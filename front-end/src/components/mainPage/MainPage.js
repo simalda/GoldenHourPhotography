@@ -1,6 +1,5 @@
 import React from "react";
 
-import Button from "../Button";
 import Slider from "../slider/Slider";
 import AboutUs from "../navBar/aboutUs/AboutUs";
 
@@ -9,7 +8,6 @@ import history from "../../JS/history";
 import happyMoments from "../../static/photos/cuts/Love capturing happy moments text.svg";
 import locationIcon from "../../static/photos/cuts/location icon.svg";
 import classes from "./mainPage.module.scss";
-
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +28,7 @@ class MainPage extends React.Component {
       adminButton = (
         <div>
           <div>Hello, {this.props.admin}!!</div>
-          <button onClick={() => this.clickedAdmin()}>
+          <button className="button" onClick={() => this.clickedAdmin()}>
             {this.props.dictionary["manageSite"]}
           </button>
         </div>
@@ -46,15 +44,16 @@ class MainPage extends React.Component {
         <div className={classes.buttonArea}>
           <div className={classes.zilum}>
             {this.props.dictionary["naturePhotos"]}
-            צילומים בטבע
+
             <img className={classes.locationIcon} src={locationIcon} />
           </div>
           <div className={classes.greenText}>
             {this.props.dictionary["siteDescription"]}
-            באיזור חיפה והסביבה | צילומי משפחה, ילדים, הריון, תדמית ועוד
           </div>
+          <button className="button" onClick={() => this.clicked()}>
+            {this.props.dictionary["chooseLocation"]}
+          </button>
 
-          <Button buttonText={"בחרו מיקום"} clicked={() => this.clicked()} />
           {adminButton}
         </div>
 
