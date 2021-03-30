@@ -1,0 +1,60 @@
+@use '../../../CSS/mixin';
+@use '../../../CSS/variables';
+
+.group {
+  display: none;
+}
+
+.nav {
+  background-color: variables.$base-color-2;
+  height: 7vh;
+  text-align: center;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.logo {
+  float: left;
+  margin-left: 2vw;
+  padding-top: 0.7vh;
+  height: 5.5vh;
+}
+
+.links {
+  width: 50vw;
+  margin: auto;
+  display: inline-block;
+  .navbar_text {
+    display: inline-block;
+    text-align: center;
+    font-size: 1vw;
+    padding-top: 1.7vh;
+    @include mixin.font-Heebo-Medium-gray;
+    text-decoration: none;
+    margin: 0 1.2vw 0 1.2vw;
+  }
+}
+@media screen and (max-width: 600px) {
+  .nav div,
+  .nav .links,
+  .nav .connectionDetails,
+  .nav .connectionDetailsNav {
+    display: none;
+  }
+  .nav .logo {
+    float: left;
+    display: block;
+  }
+  .nav .group {
+    display: inline-block;
+    height: 4vh;
+    padding-right: 5vw;
+    padding-top: 0.7vh;
+    float: right;
+  }
+}

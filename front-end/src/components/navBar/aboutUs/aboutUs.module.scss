@@ -47,38 +47,8 @@
         grid-column: 2;
       }
     }
-    .watzapWrapper {
-      @media screen and (max-width: 600px) {
-        grid-column: 2;
-        grid-row: 3;
-      }
-      .watzapAbout {
-        float: right;
-        padding-top: 1.7vh;
-        height: 2.8vh;
-        @media screen and (max-width: 600px) {
-          height: 3vh;
-        }
-      }
-      .connectionDetails {
-        float: right;
-        padding-right: 1vw;
-        padding-top: 1.7vh;
-        font-size: 1vw;
-        @media screen and (max-width: 600px) {
-          font-size: 2.4vh;
-          display: inline-grid;
-        }
-        .aboutus_font {
-          @include mixin.font-Heebo-Bold-gray;
-        }
-        .tel {
-          padding-right: 0.7vw;
-          @include mixin.font-Heebo-Medium-gray;
-        }
-      }
-    }
   }
+
   .aboutPhotoDiv {
     display: grid;
 
@@ -95,6 +65,38 @@
         max-width: 100%;
         height: unset;
       }
+    }
+  }
+}
+
+.watzapWrapper {
+  @media screen and (max-width: 600px) {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  .watzapAbout {
+    float: right;
+    padding-top: 1.7vh;
+    height: 2.8vh;
+    @media screen and (max-width: 600px) {
+      height: 3vh;
+    }
+  }
+  .connectionDetails {
+    float: right;
+    padding-right: 1vw;
+    padding-top: 1.7vh;
+    font-size: 1vw;
+    @media screen and (max-width: 600px) {
+      font-size: 2.4vh;
+      display: inline-grid;
+    }
+    .aboutus_font {
+      @include mixin.font-Heebo-Bold-gray;
+    }
+    .tel {
+      padding-right: 0.7vw;
+      @include mixin.font-Heebo-Medium-gray;
     }
   }
 }

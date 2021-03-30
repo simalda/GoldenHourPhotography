@@ -8,10 +8,7 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 
-// import Button from "../Button";
-// import history from "../../JS/history";
-
-// import { DivIcon } from "leaflet";
+import "./map.css";
 
 class Map extends React.Component {
   constructor(props) {
@@ -115,7 +112,7 @@ class Map extends React.Component {
     let markerList = this.createMarkersList();
 
     return (
-      <div id="mapid" className="mainDiv">
+      <div id="mapid" className="">
         <div className="locationName">ביחרו מקום</div>
         <MapContainer
           center={this.position}

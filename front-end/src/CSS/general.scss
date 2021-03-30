@@ -1,7 +1,7 @@
 @use 'mixin';
 @use 'variables';
 @use 'fonts';
-@import "../components/ordersCalendar/calendar.scss";
+@import "../components/ordersCalendar/calendar.module.scss";
 @import "../components/slider/slider.scss";
 
 #app {
@@ -109,16 +109,6 @@ label {
   text-align-last: right;
 }
 
-/* edit image*/
-.editImage {
-  height: 8vh;
-  justify-self: center;
-}
-.editImageDiv {
-  display: grid;
-  grid-template-columns: 10% 10% 10% 10% 10% 10% 20% 10%;
-}
-
 /*footer*/
 .icon {
   padding: 2vh 1vw;
@@ -141,33 +131,10 @@ label {
 }
 /*map*/
 
-.locationsMap {
-  height: 82vh;
-  width: 100vw;
-}
 .leaflet-div-icons {
   border: 2px solid variables.$base-color-2;
   border-radius: 50%;
   font-family: "Heebo-Medium", sans-serif;
-}
-/*nav bar*/
-.navbar-text {
-  display: inline-block;
-  text-align: center;
-  font-size: 1vw;
-  padding-top: 1.7vh;
-  @include mixin.font-Heebo-Medium-gray;
-  text-decoration: none;
-  margin: 0 1.2vw 0 1.2vw;
-}
-.group {
-  display: none;
-}
-
-.nav {
-  background-color: variables.$base-color-2;
-  height: 7vh;
-  text-align: center;
 }
 
 .divContainsOrderDetails {
@@ -194,23 +161,6 @@ label {
 }
 
 @media screen and (max-width: 600px) {
-  .nav div,
-  .nav .links,
-  .nav .connectionDetails,
-  .nav .connectionDetailsNav {
-    display: none;
-  }
-  .nav .logo {
-    float: left;
-    display: block;
-  }
-  .nav .group {
-    display: inline-block;
-    height: 4vh;
-    padding-right: 5vw;
-    padding-top: 0.7vh;
-    float: right;
-  }
   .imHappyMoments {
     width: 90vw;
   }
@@ -279,25 +229,6 @@ label {
 
 .close {
   display: none;
-}
-.links {
-  width: 50vw;
-  margin: auto;
-  display: inline-block;
-}
-
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-}
-
-.logo {
-  float: left;
-  margin-left: 2vw;
-  padding-top: 0.7vh;
-  height: 5.5vh;
 }
 
 /*order details*/

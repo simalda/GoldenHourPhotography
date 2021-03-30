@@ -8,11 +8,11 @@ import * as proxy from "../JS/proxy";
 import AboutUs from "./navBar/aboutUs/AboutUs";
 import AdminLogin from "./AdminLogin";
 import Footer from "./Footer";
-import Galery from "./navBar/Galery";
+import Galery from "./navBar/galery/Galery";
 import Location from "./Location";
 import Map from "./map/Map";
 import MainPage from "./mainPage/MainPage";
-import NavBar from "./navBar/NavBar";
+import NavBar from "./navBar/navBarItself/NavBar";
 import EndPage from "./finalPage/EndPage";
 import OrderDetails from "./OrderDetails";
 import GaleryManager from "./edit/AppManager";
@@ -24,7 +24,7 @@ import EditCalendar from "./edit/editCalendar/EditCalendar";
 import TimeUnitHandler from "../JS/TimeUnitHandler";
 import LocationHandler from "../JS/LocationHandler";
 import Translator from "../JS/Translator";
-import QuestionsAnswers from "./navBar/QuestionsAnswers";
+import QuestionsAnswers from "./navBar/questionAnswers/QuestionsAnswers";
 
 class App extends Component {
   constructor(props) {
@@ -282,6 +282,7 @@ class App extends Component {
                   imageList={this.state.imageList}
                   locationList={this.state.locationList}
                   reloadApp={() => this.reloadApp()}
+                  dictionary={this.state.dictionary}
                 />
               )}
             />
@@ -297,6 +298,7 @@ class App extends Component {
                   locationList={this.state.locationList}
                   deleteImage={(event, name) => this.deleteImage(event, name)}
                   reloadApp={() => this.reloadApp()}
+                  dictionary={this.state.dictionary}
                 />
               )}
             />

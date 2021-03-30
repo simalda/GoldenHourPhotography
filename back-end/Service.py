@@ -19,7 +19,7 @@ CORS(app)
 print(__name__)
 
 
-
+ 
 
 @app.route('/login/<user>/<password>')
 def check_user(user, password):
@@ -35,7 +35,20 @@ def check_user(user, password):
         response.headers["Content-Type"] = "application/json"
         return response
 
- 
+@app.route('/login', methods=['POST'])
+def login():
+    data = json.loads(request.stream.read())
+    if len(data) == 0:
+        return jsonify("Bad request"), 400
+    db = DataAccessImage()
+    result = db.check_user(user, password)
+    if not result:
+        return jsonify("Authorization faled"), 401
+    elif result:
+        return jsonify("Authorization success"), 200
+     
+
+        
 @app.route('/addImage', methods=['POST'])
 def add_image():
     data = json.loads(request.stream.read())
