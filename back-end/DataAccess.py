@@ -3,10 +3,11 @@ from pprint import pprint
 from Image import *
 from TimeUnit import *
 import datetime
+import time
 import ConfigProvider  
 
 from passlib.hash import sha256_crypt
-
+from bson import ObjectId
 
 
 class DataAccess:
@@ -24,16 +25,22 @@ class DataAccess:
         print(password2)
         print(sha256_crypt.verify(password, password2))
         if user_data_from_d_b['username'] == user and user_data_from_d_b['password'] == psw:
-            guid = self.create_session(user)
-            return True, guid
+            guid = self.start_session(user)
+            return {"result": True, "id": guid}
         else:
             return False
 
-    def create_session(self, user):
+    def start_session(self, user):
         self.collection = self.mydb['session'] 
         guid = self.collection.insert_one({"name":user, "startDate": datetime.datetime.now(),"endDate":None}).inserted_id 
-        # print(str(guid.get('_id')))
         return str(guid)
+
+    def end_session(self, id):
+        self.collection = self.mydb['session'] 
+        myquery = { "_id": ObjectId(id)}
+        newvalues = { "$set": { "endDate":datetime.datetime.now()} }
+
+        self.collection.update_one(myquery, newvalues)
 
     def get_all_image_types(self):
         self.collection = self.mydb['imageTypes']
@@ -75,6 +82,8 @@ class DataAccess:
     
 
 d=DataAccess()
-res = d.check_user("Sofa","Sofa1")
-print(res)
+# res = d.check_user("Sofa","Sofa1")
+# time.sleep(3)
+d.end_session('606317f07d9ddb252a05d5db')
+# print(res["id"])
  
