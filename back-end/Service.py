@@ -1,4 +1,4 @@
-from flask import Flask, current_app, flash, jsonify, make_response, redirect, request, url_for
+ from flask import Flask, current_app, flash, jsonify, make_response, redirect, request, url_for
 from flask_cors import CORS
 from DataAccess import *
 from DataAccessCalendar import *
@@ -45,10 +45,8 @@ def login():
     if not result:
         return jsonify("Authorization faled"), 401
     elif result:
-        return jsonify("Authorization success"), 200
-     
+        return jsonify(result.guid), 200
 
-        
 @app.route('/addImage', methods=['POST'])
 def add_image():
     data = json.loads(request.stream.read())
