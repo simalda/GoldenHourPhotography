@@ -6,10 +6,15 @@ import datetime
 import time
 import ConfigProvider  
 
-from passlib.hash import sha256_crypt
+import hashlib
 from bson import ObjectId
 
 
+
+
+
+
+ 
 class DataAccess:
     def __init__(self):
         self.client = MongoClient(ConfigProvider.DBURL) #DBURL
@@ -19,12 +24,12 @@ class DataAccess:
     def check_user(self, user, psw):
         self.collection = self.mydb['adminUser'] 
         user_data_from_d_b = self.collection.find_one({'username': user})
-        password = sha256_crypt.hash(psw)
-        password2 = sha256_crypt.hash(psw)
-        print(password)
-        print(password2)
-        print(sha256_crypt.verify(password, password2))
-        if user_data_from_d_b['username'] == user and user_data_from_d_b['password'] == psw:
+        hash_to_check = hashlib.sha256()
+        hash_from_d_b = hashlib.sha256()
+        hash_to_check.update(str.encode(psw))
+        hash_from_d_b.update(str.encode(user_data_from_d_b['password']))
+        print(hash_to_check.hexdigest())
+        if user_data_from_d_b['username'] == user  and hash_from_d_b.hexdigest() == hash_to_check.hexdigest():
             guid = self.start_session(user)
             return {"result": True, "id": guid}
         else:
@@ -79,11 +84,5 @@ class DataAccess:
             "locationType": locaion["locationType"]
         })
         return locations
-    
 
-d=DataAccess()
-# res = d.check_user("Sofa","Sofa1")
-# time.sleep(3)
-d.end_session('606317f07d9ddb252a05d5db')
-# print(res["id"])
- 
+
