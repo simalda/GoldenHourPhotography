@@ -2,25 +2,17 @@ import React, { Fragment } from "react";
 // import SVG from "react-inlinesvg";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import rightArrow from "../../static/photos/cuts/Arrow_Right.svg";
 import PopupTime from "./PopupTime";
 
 import history from "../../JS/history";
-// import { convertDateToDateArrayDDMMYYYY } from "../../JS/dateManipulations";
 import * as dateManager from "../../JS/dateManipulations";
-// import TimeSlotManager from "../editCalendar/TimeSlotManager";
 import TimeUnitHandler from "../../JS/TimeUnitHandler";
 import OrderHandler from "../../JS/Orderhandler";
-import * as config from "../../JS/config";
 import UICalendarManager from "./UICalendarManager";
 
 class OrdersCalendar extends React.Component {
   constructor(props) {
     super(props);
-    // var emptyArray = [];
-    // for (let i = 0; i < 31; i++) {
-    //   emptyArray.push([]);
-    // }
     this.state = {
       date: new Date(),
       popupTag: false,
@@ -102,18 +94,18 @@ class OrdersCalendar extends React.Component {
       });
     }
   }
-  onViewChange(ev) {
-    console.log("hi");
-    const switchMonth = (calendar, step) =>
-      setMonth({
-        ...month,
-        [calendar]: moment(month[calendar]).add(step, "months"),
-      });
-    switchMonth(ev, 1);
-  }
-  getCurentDateTimeSlot(date) {
-    return this.state.calManager.openDaysList[date.getDate() - 1];
-  }
+  // onViewChange(ev) {
+  //   console.log("hi");
+  //   const switchMonth = (calendar, step) =>
+  //     setMonth({
+  //       ...month,
+  //       [calendar]: moment(month[calendar]).add(step, "months"),
+  //     });
+  //   switchMonth(ev, 1);
+  // }
+  // getCurentDateTimeSlot(date) {
+  //   return this.state.calManager.openDaysList[date.getDate() - 1];
+  // }
 
   onClick(date) {
     console.log(date);

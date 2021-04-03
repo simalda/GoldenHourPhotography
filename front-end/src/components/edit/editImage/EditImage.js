@@ -5,7 +5,6 @@ import EditOneImage from "./EditOneImage";
 import Button from "../../Button";
 import Image from "../../../JS/Image";
 import ImageHandler from "../../../JS/ImageHandler";
-import * as proxy from "../../../JS/proxy";
 
 class EditImage extends React.Component {
   constructor(props) {

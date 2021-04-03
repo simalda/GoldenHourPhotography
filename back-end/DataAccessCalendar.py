@@ -2,23 +2,23 @@ from DataAccess import DataAccess
 
 class DataAccessCalendar(DataAccess):
     
-    def addTimeUnit(self, timeUnit):
-        self.mycollection = self.mydb['calendar']
-        self.mycollection.insert_one({"date": timeUnit.date,"dayOfWeek":timeUnit.dayOfWeek, "time":timeUnit.time,"isWeekly":timeUnit.isWeekly})   
+    def add_time_unit(self, time_unit):
+        self.collection = self.mydb['calendar']
+        self.collection.insert_one({"date": time_unit.date,"dayOfWeek":time_unit.day_of_week, "time":time_unit.time,"isWeekly":time_unit.is_weekly})   
         # return True
 
-    def deleteTimeUnit(self, timeUnit):
-        self.mycollection = self.mydb['calendar']
-        myquery = { "dayOfWeek":timeUnit.dayOfWeek,  "time":timeUnit.time}
-        self.mycollection.delete_one(myquery)
+    def delete_time_unit(self, time_unit):
+        self.collection = self.mydb['calendar']
+        myquery = { "dayOfWeek":time_unit.day_of_week,  "time":time_unit.time}
+        self.collection.delete_one(myquery)
  
  
 
 
-    def getTimeSlots(self):
-        self.imagesCollection = self.mydb['calendar']
+    def get_time_slots(self):
+        self.collection = self.mydb['calendar']
         slots = []
-        result = self.imagesCollection.find( )
+        result = self.collection.find( )
         for slot in result:
             slots.append({
             "date":  slot["date"],
@@ -26,14 +26,13 @@ class DataAccessCalendar(DataAccess):
             "time" : slot["time"],
             "isWeekly" : slot["isWeekly"]           
         })
-        print(slots)
         return slots
  
  
-    def getWeeklyOpenSlots(self):
-        self.imagesCollection = self.mydb['calendar']
+    def get_weekly_open_slots(self):
+        self.collection = self.mydb['calendar']
         slots = []
-        result = self.imagesCollection.find( {"isWeekly":True})
+        result = self.collection.find( {"isWeekly":True})
         for slot in result:
             slots.append({
             "date":  slot["date"],
@@ -41,13 +40,12 @@ class DataAccessCalendar(DataAccess):
             "time" : slot["time"],
             "isWeekly" : slot["isWeekly"]           
         })
-        print(slots)
         return slots
 
-    def getSingleOpenSlots(self):
-        self.imagesCollection = self.mydb['calendar']
+    def get_single_open_slots(self):
+        self.collection = self.mydb['calendar']
         slots = []
-        result = self.imagesCollection.find( {"isWeekly":False})
+        result = self.collection.find( {"isWeekly":False})
         for slot in result:
             slots.append({
             "date":  slot["date"],
@@ -55,9 +53,7 @@ class DataAccessCalendar(DataAccess):
             "time" : slot["time"],
             "isWeekly" : slot["isWeekly"]           
         })
-        print(slots)
         return slots
-    def updateCalendarAfterOrder(self):
-        pass
+     
 
     

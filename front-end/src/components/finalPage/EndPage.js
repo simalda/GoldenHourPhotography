@@ -3,15 +3,7 @@ import "./endPage.css";
 import history from "../../JS/history";
 import * as dateManager from "../../JS/dateManipulations";
 // import im from "../static/photos/BackgroundMapImage.jpg";
-import {
-  MapContainer,
-  Marker,
-  Popup,
-  TileLayer,
-  useMapEvents,
-} from "react-leaflet";
-import L from "leaflet";
-
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
 class EndPage extends React.Component {
   constructor(props) {
     super(props);

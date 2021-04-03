@@ -24,7 +24,7 @@ print(__name__)
 @app.route('/login/<user>/<password>')
 def check_user(user, password):
     db = DataAccess()
-    if(db.checkUser(user, password)):
+    if(db.check_user(user, password)):
         response = make_response(                jsonify({"result":True}),                200,      )
         response.headers["Content-Type"] = "application/json"
         return response
@@ -40,85 +40,85 @@ def check_user(user, password):
 def add_image():
     data = json.loads(request.stream.read())
     db = DataAccessImage()
-    imHandler = ImageHandler(db)
+    image_handler = ImageHandler(db)
     image = Image(data["name"],data["imageType"],data["eventType"],data["location"])
-    return jsonify(imHandler.add_image(image))
+    return jsonify(image_handler.add_image(image))
 
 
 @app.route('/getAllImageTypes') 
 def get_all_image_types():
     db = DataAccess()
-    return jsonify(db.getAllImageTypes())
+    return jsonify(db.get_all_image_types())
 
 
 @app.route('/getAllEventTypes') 
 def get_all_event_types():
     db = DataAccess()
-    return jsonify(db.getAllEventTypes())
+    return jsonify(db.get_all_event_types())
  
 
 @app.route('/getAllImages') 
 def get_all_images():
     db = DataAccessImage()
-    print(db.getAllImages())
-    return jsonify(db.getAllImages())
+    print(db.get_all_images())
+    return jsonify(db.get_all_images())
 
 @app.route('/update', methods=['POST'])
 def update_images():
     data = json.loads(request.stream.read())
     db = DataAccessImage()
-    imHandler = ImageHandler(db)
-    imList = []
+    image_handler = ImageHandler(db)
+    image_list = []
     for im in data:
-        imList.append( Image(im["name"],im["imageType"],im["eventType"],im["location"]))
-    return jsonify(imHandler.edit_all_images(imList))
+        image_list.append( Image(im["name"],im["imageType"],im["eventType"],im["location"]))
+    return jsonify(image_handler.edit_all_images(image_list))
  
 
 @app.route('/delete', methods=['POST'])
 def delete_image( ):
     data = json.loads(request.stream.read())
     db = DataAccessImage()
-    imHandler = ImageHandler(db)
+    image_handler = ImageHandler(db)
     image = Image(data["name"],data["imageType"],data["eventType"],data["location"])
-    return jsonify(db.deleteImage(image))
+    return jsonify(image_handler.delete_image(image)) #RECHECK 
 
 
 @app.route('/addTimeUnit', methods=['POST'])
 def add_time_to_calendar():
     data = json.loads(request.stream.read())
     db = DataAccessCalendar()
-    tuHandler = TimeUnitHandler(db)
+    tu_handler = TimeUnitHandler(db)
     timeunit = TimeUnit(data["date"],data["dayOfWeek"],data["time"],data["isWeekly"] )
-    return jsonify(tuHandler.add_time_to_calendar(timeunit))
+    return jsonify(tu_handler.add_time_to_calendar(timeunit))
 
 @app.route('/deleteTimeUnit', methods=['POST'])
 def delete_time_from_calendar():
     data = json.loads(request.stream.read())
     db = DataAccessCalendar()
-    tuHandler = TimeUnitHandler(db)
+    tu_handler = TimeUnitHandler(db)
     timeunit = TimeUnit(data["date"],data["dayOfWeek"],data["time"],data["isWeekly"] )
-    return jsonify(tuHandler.delete_time_from_calendar(timeunit))
+    return jsonify(tu_handler.delete_time_from_calendar(timeunit))
 
 @app.route('/deleteOrder', methods=['POST'])
 def delete_order():
     data = json.loads(request.stream.read())
     db = DataAccessOrders()
-    orHandler = OrderHandler(db)
-    return jsonify(orHandler.delete_order(data))
+    or_handler = OrderHandler(db)
+    return jsonify(or_handler.delete_order(data))
 
 @app.route('/updateOrder', methods=['POST'])
 def update_order():
     data = json.loads(request.stream.read())
     db = DataAccessOrders()
-    orHandler = OrderHandler(db)
+    or_handler = OrderHandler(db)
     order = Order( data["date"], data["time"],data["name"],data["telefon"],data["email"],data["location"], data["eventType"],data["note"], data["id"])
-    return jsonify(orHandler.update_order(order))
+    return jsonify(or_handler.update_order(order))
 
 @app.route('/getTimeSlots') 
 def get_all_time_slots():
     db = DataAccessCalendar()
-    tuHandler = TimeUnitHandler(db)
-    return jsonify(tuHandler.get_time_slots())
+    tu_handler = TimeUnitHandler(db)
+    return jsonify(tu_handler.get_time_slots())
 
 
  
@@ -126,49 +126,48 @@ def get_all_time_slots():
 @app.route('/getWeeklyOpenSlots')
 def get_weekly_slots():
     db = DataAccessCalendar()
-    tuHandler = TimeUnitHandler(db)
-    return jsonify(tuHandler.get_weekly_time_slots())
+    tu_handler = TimeUnitHandler(db)
+    return jsonify(tu_handler.get_weekly_time_slots())
 
 @app.route('/getSingleOpenSlots')
 def get_single_slots():
     db = DataAccessCalendar()
-    tuHandler = TimeUnitHandler(db)
-    return jsonify(tuHandler.get_single_time_slots())
+    tu_handler = TimeUnitHandler(db)
+    return jsonify(tu_handler.get_single_time_slots())
 
 
 @app.route('/addorder', methods=['POST']) 
 def add_order():
     data = json.loads(request.stream.read())
     db = DataAccessOrders()
-    orHandler = OrderHandler(db)
+    or_handler = OrderHandler(db)
     order = Order( data["date"], data["time"],data["name"],data["telefon"],data["email"],data["location"], data["eventType"],data["note"])
     mail = Mail()
     mail.send_mail(order)
-    return jsonify(orHandler.add_new_order(order))
+    return jsonify(or_handler.add_new_order(order))
 
 @app.route('/getOrders')
 def get_orders():
     db = DataAccessOrders()
-    orHandler = OrderHandler(db)
-    return jsonify(orHandler.get_orders())
+    or_handler = OrderHandler(db)
+    return jsonify(or_handler.get_orders())
 
 @app.route('/getLocationsInfo')
 def get_locations_info():
     db = DataAccessImage()
-    locInfoHandler = LocationHandler(db)
-    return jsonify(locInfoHandler.get_all_locations_info())
+    loc_info_handler = LocationHandler(db)
+    return jsonify(loc_info_handler.get_all_locations_info())
 
 @app.route('/getLocations')
 def get_locations():
     db = DataAccess()
-    locInfoHandler = LocationHandler(db)
-    return jsonify(locInfoHandler.get_all_locations())
+    loc_info_handler = LocationHandler(db)
+    return jsonify(loc_info_handler.get_all_locations())
 
 @app.route('/sendMail', methods=['POST'])
 def send_mail():
     data = json.loads(request.stream.read())
-    order =Order( data["date"], data["time"],data["name"],data["telefon"],data["email"],data["location"],  data["eventType"],data["note"])
-    
+    order =Order( data["date"], data["time"],data["name"],data["telefon"],data["email"],data["location"],  data["eventType"],data["note"])    
     return 
  
 

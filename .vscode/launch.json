@@ -14,21 +14,6 @@
         "FLASK_ENV": "development"
       },
       "args": ["run"]
-    },
-    {
-      "args": ["task"],
-      "name": "Gulp task",
-      "program": "${workspaceFolder}/node_modules/gulp/bin/gulp.js",
-      "request": "launch",
-      "skipFiles": ["<node_internals>/**"],
-      "type": "pwa-node"
-    },
-    {
-      "name": "Python: Current File",
-      "type": "python",
-      "request": "launch",
-      "program": "${file}",
-      "console": "integratedTerminal"
-    }
+    }    
   ]
 }

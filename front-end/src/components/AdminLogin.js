@@ -1,25 +1,15 @@
 import React from "react";
 
-import history from "../JS/history";
-import * as managerManagerManager from "./../JS/managerManagerManager";
-import Button from "./Button";
-
-import GoogleLogin from "react-google-login";
-
 class AdminLogin extends React.Component {
   constructor(props) {
     super(props);
     this.buttonText = "שליחה";
     this.state = { user: "", psw: "" };
-    const responseGoogle = (response) => {
-      console.log(response);
-    };
   }
 
   mySubmitHandler(event) {
     console.log("mySubmitHandler");
     this.props.handleAdminLogin(this.state.user, this.state.psw);
-
     event.preventDefault();
   }
 

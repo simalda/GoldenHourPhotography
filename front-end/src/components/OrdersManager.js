@@ -2,7 +2,6 @@ import React from "react";
 
 import history from "../JS/history";
 import Button from "./Button";
-import * as proxy from "../JS/proxy";
 
 class AppManager extends React.Component {
   constructor(props) {
