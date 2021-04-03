@@ -28,10 +28,11 @@ class DataAccess:
         hash_from_d_b = hashlib.sha256()
         hash_to_check.update(str.encode(psw))
         hash_from_d_b.update(str.encode(user_data_from_d_b['password']))
+        print(user_data_from_d_b['password'])
         print(hash_to_check.hexdigest())
-        if user_data_from_d_b['username'] == user  and hash_from_d_b.hexdigest() == hash_to_check.hexdigest():
+        if user_data_from_d_b['username'] == user  and user_data_from_d_b['password'] == hash_to_check.hexdigest():
             guid = self.start_session(user)
-            return {"result": True, "id": guid}
+            return {"result": True, "guid": guid}
         else:
             return False
 

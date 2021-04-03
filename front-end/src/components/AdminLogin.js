@@ -47,7 +47,7 @@ class AdminLogin extends React.Component {
 
           <label>Password</label>
           <input
-            type="text"
+            type="password"
             id="lname"
             name="lname"
             value={this.state.value}

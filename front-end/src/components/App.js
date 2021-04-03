@@ -79,7 +79,7 @@ class App extends Component {
   handleAdminLogin(user, psw) {
     console.log("handleAdminLog");
     proxy.checkUser(user, psw).then((loginResponse) => {
-      if (loginResponse.result) {
+      if (loginResponse.lenght !== 0) {
         console.log(loginResponse);
         history.push("/");
         this.setState({ admin: user, loginSucssess: 1 });
