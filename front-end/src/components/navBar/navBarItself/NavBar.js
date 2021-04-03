@@ -7,7 +7,6 @@ import group from "../../../static/photos/cuts/Group 3.svg";
 import { Link } from "react-router-dom";
 
 import classes from "./navBar.module.scss";
-import classes2 from "../aboutUs/aboutUs.module.scss";
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -85,9 +84,9 @@ class NavBar extends React.Component {
               <img src={watzap} className="watzap" />
             </span>
 
-            <div className={classes2.connectionDetails}>
-              <span className={classes2.aboutus_font}>זמינה בואצאפ</span>
-              <span className={classes2.tel}> קטי 0524550656</span>
+            <div className="connectionDetails">
+              <span className="aboutus_font ">זמינה בואצאפ</span>
+              <span className="tel"> קטי 0524550656</span>
             </div>
           </a>
         </nav>

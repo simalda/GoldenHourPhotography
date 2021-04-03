@@ -38,6 +38,25 @@ option {
   border-color: #ede7e7;
   outline: none;
 }
+
+.connectionDetails {
+  float: right;
+  padding-right: 1vw;
+  padding-top: 1.7vh;
+  font-size: 1vw;
+  @media screen and (max-width: 600px) {
+    font-size: 2.4vh;
+    display: inline-grid;
+  }
+  .aboutus_font {
+    @include mixin.font-Heebo-Bold-gray;
+  }
+  .tel {
+    padding-right: 0.7vw;
+    @include mixin.font-Heebo-Medium-gray;
+  }
+}
+
 .white {
   background-color: white;
 }

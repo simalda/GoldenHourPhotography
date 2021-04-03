@@ -26,9 +26,10 @@ export default function AboutUs() {
           className={classes.watzapWrapper}
         >
           <img src={watzap} className={classes.watzapAbout} />
-          <div className={classes.connectionDetails}>
-            <span className={classes.aboutus_font}>זמינה בואצאפ</span>
-            <span className={classes.tel}> קטי 0524550656</span>
+
+          <div className="connectionDetails">
+            <span className="aboutus_font ">זמינה בואצאפ</span>
+            <span className="tel"> קטי 0524550656</span>
           </div>
         </a>
       </div>
