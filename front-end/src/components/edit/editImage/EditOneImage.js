@@ -3,9 +3,9 @@ import React from "react";
 import * as proxy from "../../../JS/proxy";
 import history from "../../../JS/history";
 import Image from "../../../JS/Image";
-import "./editImage.css";
 import { Fragment } from "react";
 
+import classes from "./editImage.module.scss";
 class EditOneImage extends React.Component {
   constructor(props) {
     super(props);
@@ -121,13 +121,6 @@ class EditOneImage extends React.Component {
     );
   }
 
-  // sendToUpdate(e) {
-  //   e.preventDefault();
-  //   const imHandler = new ImageHandler();
-  //   imHandler.updateImages(imagesToUpdate);
-  //  this.props.reloadApp();
-  // }
-
   render() {
     const ImageTypeOptions = this.createImageTypeOptions();
     const ImageLocation = this.createImageLocations();
@@ -137,17 +130,19 @@ class EditOneImage extends React.Component {
     return (
       <Fragment>
         {/* <form onSubmit={(event) => this.sendToUpdate(event)}> */}
-        <div className="editImageDiv">
+        <div className={classes.editImageDiv}>
           <img
-            className="editImage"
+            className={classes.editImage}
             src={this.props.path}
             key={this.props.index}
           ></img>
-          <div className="inputImageManagment">{this.props.image.name}</div>
+          <div className={classes.inputImageManagment}>
+            {this.props.image.name}
+          </div>
           <select
             name="imageType"
             id="imType"
-            className="selectImageManagment"
+            className={classes.selectImageManagment}
             onChange={(event) =>
               this.updateListImagesToResaveimageType(event.currentTarget)
             }
@@ -157,7 +152,7 @@ class EditOneImage extends React.Component {
           <select
             name="eventType"
             id="eventType"
-            className="selectImageManagment"
+            className={classes.selectImageManagment}
             onChange={(event) =>
               this.updateListImagesToResaveEventType(event.currentTarget)
             }
@@ -168,7 +163,7 @@ class EditOneImage extends React.Component {
           <select
             name="locationName"
             id="location"
-            className="selectImageManagment"
+            className={classes.selectImageManagment}
             onChange={(event) =>
               this.updateListImagesToResaveLocation(event.currentTarget)
             }
@@ -180,17 +175,16 @@ class EditOneImage extends React.Component {
             onClick={() => this.props.editImages()}
             style={{ width: "10vw" }}
           >
-            שמירה
+            {this.props.dictionary["save"]}
           </button>
           <button
             className="button"
             onClick={() => this.deleteImage(this.props.image)}
             style={{ width: "10vw" }}
           >
-            מחיקה
+            {this.props.dictionary["delete"]}
           </button>
         </div>
-        {/* </form> */}
       </Fragment>
     );
   }

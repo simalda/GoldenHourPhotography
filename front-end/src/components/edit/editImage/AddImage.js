@@ -3,10 +3,10 @@ import React from "react";
 import history from "../../../JS/history";
 // import * as proxy from "../JS/proxy";
 import * as selectoptions from "../../../JS/getOptions";
-import Button from "../../Button";
 import Image from "../../../JS/Image";
 import ImageHandler from "../../../JS/ImageHandler";
 
+import classes from "./editImage.module.scss";
 class OrdersCalendar extends React.Component {
   constructor(props) {
     super(props);
@@ -89,7 +89,7 @@ class OrdersCalendar extends React.Component {
       document.getElementById("name").disabled = true;
     }
     return (
-      <div className=" popup mainDiv" style={{ color: "white" }}>
+      <div className="popup" style={{ color: "white", paddingTop: "0vh" }}>
         <form onSubmit={(event) => this.mySubmitHandler(event)}>
           <h1>Feel the fields </h1>
           <input
@@ -98,60 +98,53 @@ class OrdersCalendar extends React.Component {
             multiple
             onChange={(event) => this.onUploadImage(event)}
           ></input>
-          <p>Name of image:</p>
+          <p className={classes.par}>Name of image:</p>
           <input
             id="name"
-            className="inputImageManagment"
+            className={classes.inputImageManagment}
             type="text"
             value={this.state.name}
             onChange={(event) => this.ChangeName(event)}
           />
           <div>{this.state.name}</div>
-          <p>Image type:</p>
+          <p className={classes.par}>Image type:</p>
           <select
             name="imageType"
             id="imType"
-            className="selectImageManagment"
+            className={classes.selectImageManagment}
             onChange={(event) => this.ChangeImageType(event)}
           >
             {ImageTypeOptions}
           </select>
-          <p>Image location:</p>
+          <p className={classes.par}>Image location:</p>
           <select
             name="location"
             id="imLoc"
-            className="selectImageManagment"
+            className={classes.selectImageManagment}
             onChange={(event) => this.ChangeImageLocation(event)}
           >
             {ImageLocationsOptions}
           </select>
-          <p>Image view type:</p>
+          <p className={classes.par}>Image view type:</p>
           <select
             name="imViewType"
             id="imViewType"
-            className="selectImageManagment"
+            className={classes.selectImageManagment}
             onChange={(event) => this.ChangeImageViewType(event)}
           >
             {EventTypesOptions}
           </select>
-          <p>Should appear at baner:</p>
-          {/* <select
-            name="onBaner"
-            id="baner"
-            className="selectImageManagment"
-            onChange={(event) => this.ChangeBannerAppearance(event)}
-          >
-            <option value="false">No</option>
-            <option value="true">Yes</option>
-          </select> */}
+          <p className={classes.par}>Should appear at baner:</p>
 
           <div>
             <button className="button" type="submit">
-              Submit
+              {this.props.dictionary["save"]}
             </button>
           </div>
         </form>
-        <Button buttonText={"back"} clicked={() => this.back()} />
+        <button className="button" onClick={() => this.back()}>
+          {this.props.dictionary["back"]}
+        </button>
       </div>
     );
   }

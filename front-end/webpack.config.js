@@ -37,11 +37,25 @@ module.exports = {
         test: /\.(s[ac]ss|css)$/,
         // use: ["style-loader", "css-loader", "sass-loader"],
         use: [
-          devMode ? "style-loader" : MiniCssExtractPlugin.loader,
-          "css-loader",
-          // 'postcss-loader',
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+              modules: {
+                localIdentName: "[name]__[local]-[hash:base64:8]",
+              },
+            },
+          },
           "sass-loader",
         ],
+        include: /\.module\.(s[ac]ss|css)$/,
+      },
+      {
+        test: /\.(s[ac]ss|css)$/,
+        // use: ["style-loader", "css-loader", "sass-loader"],
+        use: ["style-loader", "css-loader", "sass-loader"],
+        exclude: /\.module\.(s[ac]ss|css)$/,
       },
       {
         test: /.*[\\/]static[\\/].*/,

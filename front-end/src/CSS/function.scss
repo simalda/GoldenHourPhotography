@@ -1,0 +1,10 @@
+@function navbar-space($navbar-height, $add-height) {
+  $result: $navbar-height + $add-height;
+
+  @return $result;
+}
+@function footer-space($footer-height, $add-height) {
+  $result: $footer-height + $add-height;
+
+  @return $result;
+}

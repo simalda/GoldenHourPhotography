@@ -1,3 +1,4 @@
+/* global PhotoSphereViewer */
 import React, { Component } from "react";
 import * as PhotosphereViewer from "photo-sphere-viewer";
 
@@ -26,6 +27,7 @@ class D3images extends Component {
 
       plugins: [
         [
+          // eslint-disable-next-line no-undef
           PhotoSphereViewer.MarkersPlugin,
           {
             markers: [

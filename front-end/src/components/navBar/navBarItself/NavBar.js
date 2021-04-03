@@ -1,10 +1,12 @@
 import React from "react";
 
-import logo from "../../static/photos/cuts/LOGO.svg";
-import watzap from "../../static/photos/cuts/Watsapp.svg";
-import group from "../../static/photos/cuts/Group 3.svg";
+import logo from "../../../static/photos/cuts/LOGO.svg";
+import watzap from "../../../static/photos/cuts/Watsapp.svg";
+import group from "../../../static/photos/cuts/Group 3.svg";
 
 import { Link } from "react-router-dom";
+
+import classes from "./navBar.module.scss";
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -15,12 +17,12 @@ class NavBar extends React.Component {
     return (
       <header>
         {/* <img src={logo} className="App-logo" alt=""></img> */}
-        <nav className="nav sticky">
+        <nav className={`${classes.nav}  ${classes.sticky}`}>
           <Link to="/">
-            <img className="logo" src={logo} />
+            <img className={classes.logo} src={logo} />
           </Link>
-          <img className="group" src={group} />
-          <div className="links">
+          <img className={classes.group} src={group} />
+          <div className={classes.links}>
             {/* <Link
               id="contactUs"
               key="contactUs"
@@ -32,7 +34,7 @@ class NavBar extends React.Component {
             <Link
               id="recomendations"
               key="recomendations"
-              className="navbar-text"
+              className={classes.navbar_text}
               to="/recomendations"
             >
               המלצות
@@ -40,7 +42,7 @@ class NavBar extends React.Component {
             <Link
               id="qa"
               key="qa"
-              className="navbar-text"
+              className={classes.navbar_text}
               to="/questionsAnswers"
             >
               שאלות ותשובות
@@ -51,18 +53,23 @@ class NavBar extends React.Component {
             <Link
               id="aboutUs"
               key="AboutUs"
-              className="navbar-text"
+              className={classes.navbar_text}
               to="/aboutUs"
             >
               אודות
             </Link>
-            <Link id="galery" key="galery" className="navbar-text" to="/galery">
+            <Link
+              id="galery"
+              key="galery"
+              className={classes.navbar_text}
+              to="/galery"
+            >
               גלריה
             </Link>
             <Link
               id="locations"
               key="locations"
-              className="navbar-text"
+              className={classes.navbar_text}
               to="/locations"
             >
               לוקישנים
@@ -71,14 +78,14 @@ class NavBar extends React.Component {
           <a
             href="https://wa.me/+972524550656"
             target="blank"
-            className="connectionDetailsNav"
+            className={classes.connectionDetailsNav}
           >
             <span>
               <img src={watzap} className="watzap" />
             </span>
 
             <div className="connectionDetails">
-              <span className="heebo-Bold">זמינה בואצאפ</span>
+              <span className="aboutus_font ">זמינה בואצאפ</span>
               <span className="tel"> קטי 0524550656</span>
             </div>
           </a>

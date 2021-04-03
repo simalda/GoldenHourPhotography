@@ -1,13 +1,14 @@
 import React from "react";
-import about from "../../static/photos/cuts/about.jpg";
-import ketyStone from "../../static/photos/cuts/KatyStone.svg";
-import watzap from "../../static/photos/cuts/Watsapp.svg";
+import about from "../../../static/photos/cuts/about.jpg";
+import ketyStone from "../../../static/photos/cuts/KatyStone.svg";
+import watzap from "../../../static/photos/cuts/Watsapp.svg";
 
+import classes from "./aboutUs.module.scss";
 export default function AboutUs() {
   return (
-    <div className="about">
-      <div className="aboutSection">
-        <div className="aboutText">
+    <div className={classes.about}>
+      <div className={classes.aboutSection}>
+        <div className={classes.aboutText}>
           <div>נעים מאוד קוראים לי קטי</div>
           <div>:&#41; שמחה שהגעתם לפה</div>
           <br />
@@ -18,21 +19,22 @@ export default function AboutUs() {
             בעיצוב גרפי ונראות ויזואלית בדיגיטל
           </div>
         </div>
-        <img src={ketyStone} className="stamp" />
+        <img src={ketyStone} className={classes.stamp} />
         <a
           href="https://wa.me/+972524550656"
           target="blank"
-          className="watzapWrapper"
+          className={classes.watzapWrapper}
         >
-          <img src={watzap} className="watzapAbout" />
+          <img src={watzap} className={classes.watzapAbout} />
+
           <div className="connectionDetails">
-            <span className="heebo-Bold">זמינה בואצאפ</span>
+            <span className="aboutus_font ">זמינה בואצאפ</span>
             <span className="tel"> קטי 0524550656</span>
           </div>
         </a>
       </div>
-      <div className="aboutPhotoDiv">
-        <img className="aboutPhoto" src={about} />
+      <div className={classes.aboutPhotoDiv}>
+        <img className={classes.aboutPhoto} src={about} />
       </div>
     </div>
   );

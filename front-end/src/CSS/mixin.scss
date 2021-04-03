@@ -1,0 +1,15 @@
+@use './variables';
+@mixin font-Heebo-Medium-gray {
+  font-family: variables.$general-font, sans-serif;
+  color: #515151;
+}
+
+@mixin font-Heebo-Bold-gray {
+  font-family: variables.$general-bold-font, sans-serif;
+  color: #515151;
+}
+
+@mixin font-Heebo-Regular-gray {
+  font-family: variables.$general-regular-font, sans-serif;
+  color: #515151;
+}

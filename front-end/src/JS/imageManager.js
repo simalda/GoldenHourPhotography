@@ -1,4 +1,5 @@
 export function importAll() {
+  // eslint-disable-next-line no-undef
   const r = require.context(
     "../static/photos/galery/",
     false,

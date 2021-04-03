@@ -1,9 +1,9 @@
 import React from "react";
-import "./Q&A.css";
+import classes from "./Q_A.module.scss";
 export default function QuestionsAnswers() {
   return (
-    <div className="outerQADiv">
-      <div className="innerQADiv">
+    <div className={classes.outerQADiv}>
+      <div className={classes.innerQADiv}>
         <h2>Frequently Asked Questions</h2>
 
         <div style={{ height: "0px" }}>
@@ -22,7 +22,7 @@ export default function QuestionsAnswers() {
           <summary>
             Does this product have what I need?
             <svg
-              className="control-icon control-icon-expand"
+              className={`${classes.control_icon} ${classes.control_icon_expand}`}
               width="24"
               height="24"
               role="presentation"
@@ -33,7 +33,7 @@ export default function QuestionsAnswers() {
               />
             </svg>
             <svg
-              className="control-icon control-icon-close"
+              className={`${classes.control_icon} ${classes.control_icon_close}`}
               width="24"
               height="24"
               role="presentation"
@@ -51,7 +51,7 @@ export default function QuestionsAnswers() {
           <summary>
             Can I use it all the time?
             <svg
-              className="control-icon control-icon-expand"
+              className={`${classes.control_icon} ${classes.control_icon_expand}`}
               width="24"
               height="24"
               role="presentation"
@@ -62,7 +62,7 @@ export default function QuestionsAnswers() {
               />
             </svg>
             <svg
-              className="control-icon control-icon-close"
+              className={`${classes.control_icon} ${classes.control_icon_close}`}
               width="24"
               height="24"
               role="presentation"
@@ -80,7 +80,7 @@ export default function QuestionsAnswers() {
           <summary>
             Are there any restrictions?
             <svg
-              className="control-icon control-icon-expand"
+              className={`${classes.control_icon} ${classes.control_icon_expand}`}
               width="24"
               height="24"
               role="presentation"
@@ -91,7 +91,7 @@ export default function QuestionsAnswers() {
               />
             </svg>
             <svg
-              className="control-icon control-icon-close"
+              className={`${classes.control_icon} ${classes.control_icon_close}`}
               width="24"
               height="24"
               role="presentation"

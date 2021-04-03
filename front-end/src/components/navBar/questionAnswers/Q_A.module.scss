@@ -73,21 +73,21 @@ summary::-webkit-details-marker {
   display: none;
 }
 
-.control-icon {
+.control_icon {
   fill: #62909a;
   transition: 0.3s ease;
   pointer-events: none;
 }
 
-.control-icon-close {
+.control_icon_close {
   display: none;
 }
 
-details[open] .control-icon-close {
+details[open] .control_icon_close {
   display: initial;
   transition: 0.3s ease;
 }
 
-details[open] .control-icon-expand {
+details[open] .control_icon_expand {
   display: none;
 }

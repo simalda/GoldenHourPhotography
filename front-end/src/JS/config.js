@@ -54,4 +54,5 @@ export const status = {
   reserved: "Reserved",
 };
 
+// eslint-disable-next-line no-undef
 export const backendUrl = process.env.BACKENDURL;

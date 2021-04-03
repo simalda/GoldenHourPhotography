@@ -1,0 +1,27 @@
+@use '../../CSS/mixin.scss';
+@use '../../CSS/variables.scss';
+
+.happyMoments {
+  padding: 2vh 0vh 2vh 0vh;
+  .imHappyMoments {
+    height: 10vh;
+  }
+}
+
+.buttonArea {
+  background-color: variables.$background-color;
+  padding: 1vh;
+  .zilum {
+    color: variables.$base-color-1;
+    font-family: "Heebo-Bold", sans-serif;
+    font-size: 3vh;
+    .locationIcon {
+      height: 3vh;
+      padding-left: 1vw;
+    }
+  }
+  .greenText {
+    @include mixin.font-Heebo-Regular-gray;
+    margin-bottom: 2vh;
+  }
+}

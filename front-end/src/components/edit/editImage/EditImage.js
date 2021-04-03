@@ -2,10 +2,10 @@ import React from "react";
 
 import history from "../../../JS/history";
 import EditOneImage from "./EditOneImage";
-import Button from "../../Button";
 import Image from "../../../JS/Image";
 import ImageHandler from "../../../JS/ImageHandler";
 
+import classes from "./editImage.module.scss";
 class EditImage extends React.Component {
   constructor(props) {
     super(props);
@@ -51,7 +51,6 @@ class EditImage extends React.Component {
         this.props.imageList[i].eventType,
         this.props.imageList[i].location
       );
-      // if(pathList.includes('http://localhost:3000/static/'+this.props.imageList[i]["name"])){
       newImageList.push(
         <EditOneImage
           key={i}
@@ -65,6 +64,7 @@ class EditImage extends React.Component {
           editImages={() => this.editImages()}
           editOneImage={(image) => this.editOneImage(image)}
           reloadApp={() => this.props.reloadApp()}
+          dictionary={this.props.dictionary}
         />
       );
     }
@@ -79,8 +79,8 @@ class EditImage extends React.Component {
 
   render() {
     return (
-      <div className="mainDiv">
-        <div className="editImageDiv">
+      <div className={classes.mainDiv}>
+        <div className={classes.editImageDiv}>
           <div>image</div>
           <div>name</div>
           <div>image type</div>
@@ -91,9 +91,15 @@ class EditImage extends React.Component {
         </div>
         {this.state.imageList}
 
-        <Button buttonText={"הוספה"} clicked={() => this.addImage()} />
-        <Button buttonText={"שמירה"} clicked={() => this.editImages()} />
-        <Button buttonText={"back"} clicked={() => this.back()} />
+        <button className="button" onClick={() => this.addImage()}>
+          {this.props.dictionary["add"]}
+        </button>
+        <button className="button" onClick={() => this.editImages()}>
+          {this.props.dictionary["save"]}
+        </button>
+        <button className="button" onClick={() => this.back()}>
+          {this.props.dictionary["back"]}
+        </button>
       </div>
     );
   }

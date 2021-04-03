@@ -10,6 +10,7 @@ import TimeUnitHandler from "../../JS/TimeUnitHandler";
 import OrderHandler from "../../JS/Orderhandler";
 import UICalendarManager from "./UICalendarManager";
 
+import classes from "./calendar.module.scss";
 class OrdersCalendar extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +25,6 @@ class OrdersCalendar extends React.Component {
         dateString: "",
       },
       timePicked: false,
-      // avilableTimeSlots: this.props.openDatesForOrder,
       availableDatesFormated: [],
     };
   }
@@ -94,18 +94,10 @@ class OrdersCalendar extends React.Component {
       });
     }
   }
-  // onViewChange(ev) {
-  //   console.log("hi");
-  //   const switchMonth = (calendar, step) =>
-  //     setMonth({
-  //       ...month,
-  //       [calendar]: moment(month[calendar]).add(step, "months"),
-  //     });
-  //   switchMonth(ev, 1);
-  // }
-  // getCurentDateTimeSlot(date) {
-  //   return this.state.calManager.openDaysList[date.getDate() - 1];
-  // }
+
+  getCurentDateTimeSlot(date) {
+    return this.state.calManager.openDaysList[date.getDate() - 1];
+  }
 
   onClick(date) {
     console.log(date);
@@ -153,10 +145,6 @@ class OrdersCalendar extends React.Component {
   }
 
   render() {
-    // const NextArrow = (ev) => (
-    //   <SVG onClick={() => this.onViewChange(ev)} src={rightArrow} />
-    // );
-    // const PrevArrow = calendar => <SVG onClick={() => switchMonth(calendar, -1)} src={ArrowLeftIcon}/>;
     let body = <div></div>;
     if (this.state.isLoading) {
       body = <div>Loading</div>;
@@ -175,7 +163,7 @@ class OrdersCalendar extends React.Component {
       }
       var OkButton = (
         <button
-          className="miniButton2 "
+          className={classes.miniButton2}
           onClick={() => this.onClickOKnotReady()}
         >
           OK
@@ -183,20 +171,23 @@ class OrdersCalendar extends React.Component {
       );
       if (this.state.timePicked) {
         OkButton = (
-          <button className="miniButton2" onClick={() => this.onClickOK()}>
+          <button
+            className={classes.miniButton2}
+            onClick={() => this.onClickOK()}
+          >
             OK
           </button>
         );
         pickedTime = <div>{this.state.time}</div>;
       }
       body = (
-        <div className="calendar popup mainDiv">
-          <div className="calendarWrap">
-            <div className="calendarHeader">
-              <div className="calendarHeaderYear">
+        <div className={`${classes.calendar} popup`}>
+          <div className={classes.calendarWrap}>
+            <div className={classes.calendarHeader}>
+              <div className={classes.calendarHeaderYear}>
                 {this.state.date.getFullYear()}
               </div>
-              <div className="calendarHeaderDate">
+              <div className={classes.calendarHeaderDate}>
                 {dateManager.hebrewDate(this.state.date).dateString}
               </div>
               {pickedTime}
@@ -206,6 +197,7 @@ class OrdersCalendar extends React.Component {
                 if (this.shouldDateBeSelected(date)) {
                   return "dayNotAvailable cellStyle";
                 }
+
                 return "cellStyle";
               }}
               // tileDisabled={this.tileDisabled}
@@ -213,13 +205,12 @@ class OrdersCalendar extends React.Component {
               calendarType="Hebrew"
               locale="HE"
               onChange={(ev) => this.onChange(ev)}
-              // nextLabel={NextArrow()}
               value={this.state.date}
             />
 
-            <div className="calendarFooter">
+            <div className={classes.calendarFooter}>
               <button
-                className="miniButton1"
+                className={classes.miniButton1}
                 onClick={() => this.props.onClickCancelCalendar()}
               >
                 יציאה
