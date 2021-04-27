@@ -18,6 +18,7 @@ export function addNewImage(image) {
   return fetch(`${backendUrl}/addImage`, {
     method: "POST",
     body: imageString,
+    credentials: "same-origin",
   }).then((response) => response.json());
 }
 

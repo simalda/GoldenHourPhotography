@@ -17,34 +17,6 @@ class Map extends React.Component {
       clickedPos: null,
     };
     this.position = [32.8, 35];
-    // this.icons = [
-    //   new L.Icon({
-    //     iconUrl: "./static/Pic_01.jpg",
-    //     iconRetinaUrl: "./static/Pic_01.jpg",
-    //     iconAnchor: [22, 94],
-    //     popupAnchor: [-3, -76],
-    //     shadowUrl: null,
-    //     shadowSize: null,
-    //     shadowAnchor: null,
-    //     iconSize: new L.Point(60, 60),
-    //     className: "leaflet-div-icons",
-    //   }),
-    //   new L.Icon({
-    //     iconUrl: "./static/UnHaifaRahbal.jpg",
-    //     iconRetinaUrl: "./static/UnHaifaRahbal.jpg",
-    //     iconAnchor: [22, 94],
-    //     popupAnchor: [-3, -76],
-    //     shadowUrl: null,
-    //     shadowSize: null,
-    //     shadowAnchor: null,
-    //     iconSize: new L.Point(60, 60),
-    //     className: "leaflet-div-icons",
-    //   }),
-    // ];
-    // this.markerStatesList = [
-    //   [32.704402, 34.935493],
-    //   [32.761082, 35.018606],
-    // ];
   }
 
   LocationMarker(iconPerson) {
@@ -59,7 +31,6 @@ class Map extends React.Component {
     });
 
     return position === null ? null : (
-      // <div></div>
       <Marker position={position} icon={iconPerson}>
         <Popup>You are here</Popup>
       </Marker>
@@ -121,17 +92,10 @@ class Map extends React.Component {
           className={"locationsMap"}
         >
           <TileLayer
-            // attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            // url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {/* <Marker position={this.position} icon={this.iconPerson}>
-            <Popup>
-              שם המקום
-              <button onClick={() => this.clicked()}>לתיאור מפורט</button>
-            </Popup>
-          </Marker> */}
+
           {markerList}
           {editoptions}
         </MapContainer>

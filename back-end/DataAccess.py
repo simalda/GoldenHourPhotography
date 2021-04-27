@@ -62,20 +62,7 @@ class DataAccess:
             types.append(x["type"])
         return types
 
-    
-    def get_all_locations_info(self):
-        self.collection = self.mydb['locationInfo']
-        locations = []
-        result = self.collection.find( )
-        for locaion in result:
-            locations.append({
-            "name":  locaion["name"],
-            "longtitude": locaion["longtitude"],
-            "latitude" : locaion["latitude"]
-        })
-        return locations
-
-    def get_all_locations(self):
+    def get_all_locations_types(self):
         self.collection = self.mydb['locations']
         locations = []
         result = self.collection.find( )
@@ -85,5 +72,6 @@ class DataAccess:
             "locationType": locaion["locationType"]
         })
         return locations
+
 
 

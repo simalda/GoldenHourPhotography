@@ -7,6 +7,11 @@ class LocationHandler {
   getAllLocations() {
     return proxy.getAllLocations();
   }
+
+  // addLocation(){}
+  // removeLocation(location){}
+  // buildLocation(){}
+  // getAllLinksToLocation(){}
 }
 
 export default LocationHandler;

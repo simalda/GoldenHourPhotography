@@ -1,9 +1,10 @@
- from flask import Flask, current_app, flash, jsonify, make_response, redirect, request, url_for
+from flask import Flask, current_app, flash, jsonify, make_response, redirect, request, url_for
 from flask_cors import CORS
 from DataAccess import *
 from DataAccessCalendar import *
 from DataAccessImage import *
 from DataAccessOrders import *
+from DataAccessLocation import *
 from Image import *
 from ImageHandler import *
 from TimeUnit import *
@@ -35,29 +36,11 @@ def check_user(user, password):
     if not result:
         return jsonify("Authorization faled"), 401
     elif result:
-        return jsonify(result["guid"]), 200
-    # if(db.check_user(user, password)):
-    #     response = make_response(                jsonify({"result":True}),                200,      )
-    #     response.headers["Content-Type"] = "application/json"
-    #     return response
-    # else: 
-    #     response = make_response(
-    #             jsonify({"result":False}),
-    #             200,            )
-    #     response.headers["Content-Type"] = "application/json"
-    #     return response
-
-# @app.route('/login', methods=['POST'])
-# def login():
-#     data = json.loads(request.stream.read())
-#     if len(data) == 0:
-#         return jsonify("Bad request"), 400
-#     db = DataAccess()
-#     result = db.check_user(data["user"], data["password"])
-#     if not result:
-#         return jsonify("Authorization faled"), 401
-#     elif result:
-#         return jsonify(result.guid), 200
+        # resp = jsonify(result["guid"]), 200
+        resp = make_response(jsonify(result["guid"]), 200)
+        resp.set_cookie('userID', result["guid"], 3600, secure = True, httponly=True)
+        return resp
+     
 
 @app.route('/addImage', methods=['POST'])
 def add_image():
@@ -178,7 +161,7 @@ def get_orders():
 
 @app.route('/getLocationsInfo')
 def get_locations_info():
-    db = DataAccessImage()
+    db = DataAccessLocation()
     loc_info_handler = LocationHandler(db)
     return jsonify(loc_info_handler.get_all_locations_info())
 
@@ -186,7 +169,7 @@ def get_locations_info():
 def get_locations():
     db = DataAccess()
     loc_info_handler = LocationHandler(db)
-    return jsonify(loc_info_handler.get_all_locations())
+    return jsonify(loc_info_handler.get_all_locations_types())
 
 @app.route('/sendMail', methods=['POST'])
 def send_mail():
