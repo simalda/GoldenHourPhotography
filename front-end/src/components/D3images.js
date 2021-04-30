@@ -6,7 +6,7 @@ import "photo-sphere-viewer/dist/photo-sphere-viewer.css";
 
 import lisa from "../static/photos/galery/pic_18.jpg";
 import zvezda from "../static/photos/zvezda.jpg";
-import atlit from "../static/photos/Atlit_Panorama.jpg";
+import atlit from "../static/photos/photo_sphere/Atlit_Panorama.jpg";
 class D3images extends Component {
   constructor(props) {
     super(props);

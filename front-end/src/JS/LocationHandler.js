@@ -4,11 +4,15 @@ class LocationHandler {
   getAllLocationsInfo() {
     return proxy.getAllLocationsInfo();
   }
+
   getAllLocations() {
     return proxy.getAllLocations();
   }
 
-  // addLocation(){}
+  addNewLocation(location) {
+    return proxy.addNewLocation(location);
+  }
+
   // removeLocation(location){}
   // buildLocation(){}
   // getAllLinksToLocation(){}

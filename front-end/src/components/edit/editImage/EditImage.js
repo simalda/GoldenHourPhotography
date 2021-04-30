@@ -42,7 +42,6 @@ class EditImage extends React.Component {
   }
 
   loadImages() {
-    // let pathList = importImages.importAll();
     let newImageList = [];
     for (let i = 0; i < this.props.imageList.length; i++) {
       const image = new Image(

@@ -1,4 +1,4 @@
-class ImageLinkerHandler {
-  addLinkTo(origin) {}
-  removeLinkFrom(origin) {}
-}
+// class ImageLinkerHandler {
+//   addLinkTo(origin) {}
+//   removeLinkFrom(origin) {}
+// }

@@ -139,6 +139,15 @@ export function getAllLocations() {
     response.json()
   );
 }
+
+export function addNewLocation(location) {
+  const locationString = JSON.stringify(location);
+  return fetch(`${backendUrl}/addLocation`, {
+    method: "POST",
+    body: locationString,
+  }).then((response) => response.json());
+}
+
 export function sendMail(order) {
   const orderString = JSON.stringify(order);
   return fetch(`${backendUrl}/sendMail`, {

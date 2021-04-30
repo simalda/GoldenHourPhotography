@@ -62,16 +62,30 @@ class DataAccess:
             types.append(x["type"])
         return types
 
+    # def get_all_locations_types(self):
+    #     self.collection = self.mydb['locations']
+    #     locations = []
+    #     result = self.collection.find( )
+    #     for locaion in result:
+    #         locations.append({
+    #         "name":  locaion["name"],
+    #         "locationType": locaion["locationType"]
+    #     })
+    #     return locations
+
     def get_all_locations_types(self):
-        self.collection = self.mydb['locations']
-        locations = []
+        self.collection = self.mydb['locationTypes']
+        locationTypes = []
         result = self.collection.find( )
-        for locaion in result:
-            locations.append({
-            "name":  locaion["name"],
-            "locationType": locaion["locationType"]
-        })
-        return locations
+        for location in result:
+            locationTypes.append( location["name"]      )
+        return locationTypes
+
+    def get_all_locations(self):
+        self.collection = self.mydb['locations']
+        result = self.collection.find( )
+        return list(map(lambda location:  location["name"], result))
+         
 
 
 

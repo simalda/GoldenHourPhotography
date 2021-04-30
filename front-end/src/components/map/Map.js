@@ -10,6 +10,7 @@ import L from "leaflet";
 
 import "./map.css";
 
+import history from "../../JS/history";
 class Map extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +18,15 @@ class Map extends React.Component {
       clickedPos: null,
     };
     this.position = [32.8, 35];
+    this.iconPerson = new L.Icon({
+      iconAnchor: [22, 94],
+      popupAnchor: [-3, -76],
+      shadowUrl: null,
+      shadowSize: null,
+      shadowAnchor: null,
+      iconSize: new L.Point(60, 60),
+      className: "leaflet-div-icons",
+    });
   }
 
   LocationMarker(iconPerson) {
@@ -26,6 +36,7 @@ class Map extends React.Component {
         map.on("click", function (e) {
           alert(e.latlng);
           setPosition(e.latlng);
+          history.push("/addLocation");
         });
       },
     });
@@ -76,9 +87,9 @@ class Map extends React.Component {
   }
 
   render() {
-    let editoptions = <div></div>;
-    if (this.props.admin) {
-      editoptions = <this.LocationMarker iconPerson={this.iconPerson} />;
+    let editOptions = <div></div>;
+    if (this.props.admin.length) {
+      editOptions = <this.LocationMarker iconPerson={this.iconPerson} />;
     }
     let markerList = this.createMarkersList();
 
@@ -97,7 +108,7 @@ class Map extends React.Component {
           />
 
           {markerList}
-          {editoptions}
+          {editOptions}
         </MapContainer>
       </div>
     );

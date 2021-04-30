@@ -8,15 +8,20 @@ class LocationHandler():
         for location in locations:
             images_by_location = self.data_access.get_all_images_for_location(location["name"])
             if(len(images_by_location) != 0):
-                location["images"] = images_by_location
+                location["sphereImageList"] = list(filter(lambda image:  image["imageType"]== "sphere", images_by_location))
+                location["regularImageList"] = list(filter(lambda image:   image["imageType"] == "regular", images_by_location))
+           
         return locations
 
     def get_all_locations_types(self):
-        locations = self.data_access.get_all_locations_types()
-        return locations
+        return  self.data_access.get_all_locations_types()
+
+    def get_all_locations(self):
+        return self.data_access.get_all_locations()
 
     def add_location(self, location):
-        pass
+        self.data_access.add_location(location)
+
 
     def remove_location(self, location):
         pass

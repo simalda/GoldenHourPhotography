@@ -10,6 +10,7 @@ from ImageHandler import *
 from TimeUnit import *
 from TimeUnitHandler import *
 from LocationHandler import *
+from Location import *
 from Order import *
 from OrderHandler import * 
 from Mail import *
@@ -18,14 +19,7 @@ app = Flask(__name__)
 app.debug = True
 CORS(app)
 print(__name__)
-
-# @app.before_request
-# def before_request_func():
-#     print("before_request is running!")
-#     if 'admin' in request.cookies:
-#     # do something
-#     else:
-#     # do something else
+ 
 
 @app.route('/login/<user>/<password>')
 def check_user(user, password):
@@ -36,7 +30,6 @@ def check_user(user, password):
     if not result:
         return jsonify("Authorization faled"), 401
     elif result:
-        # resp = jsonify(result["guid"]), 200
         resp = make_response(jsonify(result["guid"]), 200)
         resp.set_cookie('userID', result["guid"], 3600, secure = True, httponly=True)
         return resp
@@ -97,8 +90,8 @@ def add_time_to_calendar():
     data = json.loads(request.stream.read())
     db = DataAccessCalendar()
     tu_handler = TimeUnitHandler(db)
-    timeunit = TimeUnit(data["date"],data["dayOfWeek"],data["time"],data["isWeekly"] )
-    return jsonify(tu_handler.add_time_to_calendar(timeunit))
+    time_unit = TimeUnit(data["date"],data["dayOfWeek"],data["time"],data["isWeekly"] )
+    return jsonify(tu_handler.add_time_to_calendar(time_unit))
 
 @app.route('/deleteTimeUnit', methods=['POST'])
 def delete_time_from_calendar():
@@ -169,7 +162,22 @@ def get_locations_info():
 def get_locations():
     db = DataAccess()
     loc_info_handler = LocationHandler(db)
-    return jsonify(loc_info_handler.get_all_locations_types())
+    return jsonify(loc_info_handler.get_all_locations())
+
+@app.route('/addLocation', methods=['POST'])
+def add_location():
+    data = json.loads(request.stream.read())
+    location = Location(data["name"],data["type"],data["latitude"],data["longtitude"], data["description"] )
+    loc_DB = DataAccessLocation()
+    loc_handler = LocationHandler(loc_DB)
+    loc_handler.add_location(location)
+    print(data)
+    image = Image(data["regularImageList"][0], "regular", "", data["name"])
+    im_DB = DataAccessImage()
+    im_handler = ImageHandler(im_DB)
+    im_handler.add_image(image)
+    return '200'
+
 
 @app.route('/sendMail', methods=['POST'])
 def send_mail():

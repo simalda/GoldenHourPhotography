@@ -9,7 +9,7 @@ import AboutUs from "./navBar/aboutUs/AboutUs";
 import AdminLogin from "./AdminLogin";
 import Footer from "./Footer";
 import Galery from "./navBar/galery/Galery";
-import Location from "./Location";
+import LocationJSX from "./LocationJSX";
 import Map from "./map/Map";
 import MainPage from "./mainPage/MainPage";
 import NavBar from "./navBar/navBarItself/NavBar";
@@ -18,13 +18,16 @@ import OrderDetails from "./OrderDetails";
 import GaleryManager from "./edit/AppManager";
 import AddImage from "./edit/editImage/AddImage";
 import EditImage from "./edit/editImage/EditImage";
-import EditLocation from "./edit/locationsEditor/EditLocation";
+import EditLocation from "./edit/locationsEditor/EditLocations";
+import EditOneLocation from "./edit/locationsEditor/EditOneLocation";
 import OrdersManager from "./OrdersManager";
 import EditCalendar from "./edit/editCalendar/EditCalendar";
 import TimeUnitHandler from "../JS/TimeUnitHandler";
 import LocationHandler from "../JS/LocationHandler";
+import Location from "../JS/Location";
 import Translator from "../JS/Translator";
 import QuestionsAnswers from "./navBar/questionAnswers/QuestionsAnswers";
+import AddLocation from "./edit/locationsEditor/AddLocation";
 
 class App extends Component {
   constructor(props) {
@@ -34,11 +37,11 @@ class App extends Component {
       admin: "",
       loginSucssess: 0,
       imageTypes: [],
-      locationsType: ["les", "kishon", "deserd", "city"],
+      locationTypes: [],
+      diffLocations: [],
       eventTypes: [],
       imageList: [],
       ordersList: [],
-      locationList: [],
       locationsInfo: [],
       locationDescription: {},
       date: new Date(),
@@ -54,8 +57,6 @@ class App extends Component {
 
   componentDidMount() {
     this.reloadApp();
-    // this.getAllOpenDatesMonth();
-    // this.getOpenTimeUnitsForWeek();
   }
   reloadApp() {
     this.getLanguage();
@@ -127,18 +128,23 @@ class App extends Component {
   getLocationsInfo() {
     let locationHandler = new LocationHandler();
     locationHandler.getAllLocationsInfo().then((locations) => {
+      console.log("locaciot Info");
       console.log(locations);
+      const newLocations = locations.map((location) =>
+        Location.deserializeToLocationObject(location)
+      );
       this.setState({
-        locationsInfo: locations,
+        locationsInfo: newLocations,
       });
     });
   }
   getAllLocations() {
     let locationHandler = new LocationHandler();
     locationHandler.getAllLocations().then((locations) => {
+      console.log("All locations");
       console.log(locations);
       this.setState({
-        locationList: locations,
+        diffLocations: locations,
       });
     });
   }
@@ -174,6 +180,14 @@ class App extends Component {
     this.setState({
       order: order,
     });
+  }
+
+  editSpecificLocation(location) {
+    console.log(location);
+    this.setState({
+      locationDescription: location,
+    });
+    history.push("/editOneLocation");
   }
   render() {
     if (!this.state.isloaded) {
@@ -234,7 +248,7 @@ class App extends Component {
             <Route
               path="/location"
               render={(props) => (
-                <Location
+                <LocationJSX
                   {...props}
                   updateOrder={(date, time, hebrewDay, locationDescription) =>
                     this.updateOrder(date, time, hebrewDay, locationDescription)
@@ -248,7 +262,6 @@ class App extends Component {
 
             <Route
               path="/endPage"
-              c
               render={() => (
                 <EndPage
                   locationDescription={this.state.locationDescription}
@@ -270,7 +283,7 @@ class App extends Component {
                 />
               )}
             />
-            {/* <Route path="/appManager/addImage" component={AddImage} /> */}
+
             <Route
               path="/appManager/addImage"
               render={(props) => (
@@ -280,7 +293,7 @@ class App extends Component {
                   imageLocations={this.state.imageLocations}
                   eventTypes={this.state.eventTypes}
                   imageList={this.state.imageList}
-                  locationList={this.state.locationList}
+                  locationTypes={this.state.locationTypes}
                   reloadApp={() => this.reloadApp()}
                   dictionary={this.state.dictionary}
                 />
@@ -295,7 +308,7 @@ class App extends Component {
                   imageLocations={this.state.imageLocations}
                   eventTypes={this.state.eventTypes}
                   imageList={this.state.imageList}
-                  locationList={this.state.locationList}
+                  locationTypes={this.state.locationTypes}
                   deleteImage={(event, name) => this.deleteImage(event, name)}
                   reloadApp={() => this.reloadApp()}
                   dictionary={this.state.dictionary}
@@ -319,27 +332,69 @@ class App extends Component {
             <Route path="/appManager" component={GaleryManager} />
             <Route
               path="/orders"
-              render={(props) => (
-                <OrdersManager
-                  {...props}
-                  // imageTypes={this.state.imageTypes}
-                  // imageLocations={this.state.imageLocations}
-                  // eventTypes={this.state.eventTypes}
-                  // imageList={this.state.imageList}
-                  // deleteImage={(event, name) => this.deleteImage(event, name)}
-                />
-              )}
+              render={(props) => <OrdersManager {...props} />}
             />
             <Route
               path="/editLocations"
               render={(props) => (
                 <EditLocation
                   {...props}
-                  // imageTypes={this.state.imageTypes}
-                  // imageLocations={this.state.imageLocations}
-                  // eventTypes={this.state.eventTypes}
-                  // imageList={this.state.imageList}
-                  // deleteImage={(event, name) => this.deleteImage(event, name)}
+                  locationTypes={this.state.locationTypes}
+                  locationsInfo={this.state.locationsInfo}
+                  editSpecificLocation={(location) =>
+                    this.editSpecificLocation(location)
+                  }
+                  dictionary={this.state.dictionary}
+                />
+              )}
+            />
+            <Route
+              path="/addLocationFromMap"
+              render={(props) => (
+                <Map
+                  {...props}
+                  admin={this.state.admin}
+                  imageTypes={this.state.imageTypes}
+                  imageLocations={this.state.imageLocations}
+                  eventTypes={this.state.eventTypes}
+                  imageList={this.state.imageList}
+                  locationTypes={this.state.locationTypes}
+                  locationsInfo={this.state.locationsInfo}
+                  dictionary={this.state.dictionary}
+                />
+              )}
+            />
+            <Route
+              path="/addLocation"
+              render={(props) => (
+                <AddLocation
+                  {...props}
+                  admin={this.state.admin}
+                  imageTypes={this.state.imageTypes}
+                  imageLocations={this.state.imageLocations}
+                  eventTypes={this.state.eventTypes}
+                  imageList={this.state.imageList}
+                  locationTypes={this.state.locationTypes}
+                  locationsInfo={this.state.locationsInfo}
+                  diffLocations={this.state.diffLocations}
+                  dictionary={this.state.dictionary}
+                  reloadApp={() => this.reloadApp()}
+                />
+              )}
+            />
+            <Route
+              path="/editOneLocation"
+              render={(props) => (
+                <EditOneLocation
+                  {...props}
+                  admin={this.state.admin}
+                  imageTypes={this.state.imageTypes}
+                  eventTypes={this.state.eventTypes}
+                  locationTypes={this.state.locationTypes}
+                  locationsInfo={this.state.locationsInfo}
+                  dictionary={this.state.dictionary}
+                  location={this.state.locationDescription}
+                  diffLocations={this.state.diffLocations}
                 />
               )}
             />

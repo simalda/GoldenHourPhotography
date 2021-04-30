@@ -5,14 +5,15 @@ class DataAccessLocation(DataAccess):
     
     
     def get_all_locations_info(self):
-        self.collection = self.mydb['locationInfo']
+        self.collection = self.mydb['locations']
         locations = []
         result = self.collection.find( )
-        for locaion in result:
+        for location in result:
             locations.append({
-            "name":  locaion["name"],
-            "longtitude": locaion["longtitude"],
-            "latitude" : locaion["latitude"]
+            "name":  location["name"],
+            "type": location["locationType"],
+            "longtitude": location["longtitude"],
+            "latitude" : location["latitude"]
         })
         return locations
 
@@ -29,8 +30,18 @@ class DataAccessLocation(DataAccess):
         })
         return images
 
-    def add_location(self):
-        pass
+    def add_location(self, location):
+        self.collection = self.mydb['locations']
+        self.collection.insert_one(
+        { "name" : location.name,
+            "locationType" : location.location_type,
+            "latitude" : location.latitude,
+            "longtitude" : location.longtitude,
+            "description":location.description
+        }
+        )
+        return True
+
 
     def remove_location(self):
         pass

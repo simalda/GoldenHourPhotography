@@ -5,6 +5,18 @@ class Image {
     this.eventType = eventType;
     this.location = location;
   }
+  copy() {
+    return new Image(this.name, this.imageType, this.eventType, this.location);
+  }
+
+  static deserializeToImageObject(imageJson) {
+    return new Image(
+      imageJson.name,
+      imageJson.imageType,
+      imageJson.eventType,
+      imageJson.location
+    );
+  }
 }
 
 export default Image;

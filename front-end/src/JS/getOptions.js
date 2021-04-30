@@ -1,57 +1,27 @@
 import React from "react";
 
-export function createImageTypeOptions() {
-  const options = [];
-  this.props.imageTypes.map((type, index) => {
-    if (type === this.props.currrentItemType) {
-      options.push(
+export function getOptions(types) {
+  return types.map((type, index) => (
+    <option value={type} selected key={index}>
+      {type}
+    </option>
+  ));
+}
+
+export function getOptionsWithCurrent(options, currentOption) {
+  return options.map((type, index) => {
+    if (type === currentOption) {
+      return (
         <option value={type} selected key={index}>
-          {type}{" "}
+          {type}
         </option>
       );
     } else {
-      options.push(
+      return (
         <option value={type} key={index}>
           {type}
         </option>
       );
     }
   });
-  return options;
-}
-
-export function getImageTypeOptions(imageTypes) {
-  const options = [];
-  imageTypes.map((type, index) => {
-    options.push(
-      <option value={type} key={index}>
-        {type}{" "}
-      </option>
-    );
-  });
-  return options;
-}
-
-export function getImageLocationsOptions(imageLocations) {
-  const options = [];
-  imageLocations.map((location, index) => {
-    options.push(
-      <option value={location.name} selected key={index}>
-        {location.name}
-      </option>
-    );
-  });
-  return options;
-}
-
-export function getEventTypesOptions(eventTypes) {
-  const options = [];
-  eventTypes.map((type, index) => {
-    options.push(
-      <option value={type} selected key={index}>
-        {type}{" "}
-      </option>
-    );
-  });
-  return options;
 }

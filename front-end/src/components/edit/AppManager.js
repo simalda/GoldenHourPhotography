@@ -18,7 +18,7 @@ class AppManager extends React.Component {
   }
 
   editLocation() {
-    history.push("/locationsEditor");
+    history.push("/editLocations");
   }
 
   editCalendar() {
