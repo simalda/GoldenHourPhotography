@@ -1,4 +1,5 @@
 import React from "react";
+import history from "../../../JS/history";
 
 class EditLocations extends React.Component {
   constructor(props) {

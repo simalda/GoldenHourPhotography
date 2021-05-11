@@ -1,6 +1,7 @@
 import React from "react";
 
 import EditOneImage from "../editImage/EditOneImage";
+import history from "../../../JS/history";
 
 class EditOneLocation extends React.Component {
   createPhotoSphereList() {
@@ -24,7 +25,7 @@ class EditOneLocation extends React.Component {
           />
           <button
             className="button"
-            onClick={(image) => this.addConnection(image)}
+            onClick={() => this.props.editPhotoSphereImageConnections(image)}
           >
             {this.props.dictionary["addConnection"]}
           </button>
@@ -47,8 +48,6 @@ class EditOneLocation extends React.Component {
             eventTypes={this.props.eventTypes}
             locationTypes={this.props.locationTypes}
             diffLocations={this.props.diffLocations}
-            editImages={() => this.editImages()}
-            editOneImage={(image) => this.editOneImage(image)}
             reloadApp={() => this.props.reloadApp()}
             dictionary={this.props.dictionary}
           />
@@ -57,6 +56,11 @@ class EditOneLocation extends React.Component {
     );
     return regularPhotoViews;
   }
+
+  addImage() {
+    history.push("/appManager/addImage");
+  }
+
   back() {
     history.goBack();
   }
@@ -70,7 +74,7 @@ class EditOneLocation extends React.Component {
         <div className="editImageDiv">{photoSphereList}</div>
         <div className="editImageDiv">{regularPhotoList}</div>
 
-        <button className="button" onClick={() => this.addLocation()}>
+        <button className="button" onClick={() => this.addImage()}>
           {this.props.dictionary["add"]}
         </button>
         <button className="button" onClick={() => this.back()}>

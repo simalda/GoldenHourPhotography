@@ -15,5 +15,5 @@ class ImageHandler():
     def delete_image(self, image):
         self.data_access.delete_image(image)
 
-    def edit_image(self):
-        self.data_access.edit_image()
+    def edit_image(self, image):
+        self.data_access.edit_image(image)

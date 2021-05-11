@@ -20,6 +20,7 @@ import AddImage from "./edit/editImage/AddImage";
 import EditImage from "./edit/editImage/EditImage";
 import EditLocation from "./edit/locationsEditor/EditLocations";
 import EditOneLocation from "./edit/locationsEditor/EditOneLocation";
+import EditLocationTypes from "./edit/EditLocationTypes";
 import OrdersManager from "./OrdersManager";
 import EditCalendar from "./edit/editCalendar/EditCalendar";
 import TimeUnitHandler from "../JS/TimeUnitHandler";
@@ -28,6 +29,7 @@ import Location from "../JS/Location";
 import Translator from "../JS/Translator";
 import QuestionsAnswers from "./navBar/questionAnswers/QuestionsAnswers";
 import AddLocation from "./edit/locationsEditor/AddLocation";
+import EditSphereImageConnections from "./edit/locationsEditor/EditSphereImageConnections";
 
 class App extends Component {
   constructor(props) {
@@ -65,6 +67,7 @@ class App extends Component {
     this.getAllImages();
     this.getAllAvalableDates();
     this.getLocationsInfo();
+    this.getLocationTypes();
     this.getAllLocations();
     this.setState({ isloaded: true });
   }
@@ -76,11 +79,10 @@ class App extends Component {
     });
   }
 
-  checkFooterPosition() {}
   handleAdminLogin(user, psw) {
     console.log("handleAdminLog");
     proxy.checkUser(user, psw).then((loginResponse) => {
-      if (loginResponse.lenght !== 0) {
+      if (loginResponse.status === 200) {
         console.log(loginResponse);
         history.push("/");
         this.setState({ admin: user, loginSucssess: 1 });
@@ -148,6 +150,17 @@ class App extends Component {
       });
     });
   }
+
+  getLocationTypes() {
+    let locationHandler = new LocationHandler();
+    locationHandler.getLocationTypes().then((types) => {
+      console.log("All locations types");
+      console.log(types);
+      this.setState({
+        locationTypes: types,
+      });
+    });
+  }
   deleteImage(event, name) {
     proxy.deleteImage(name);
     history.push("/appManager/editImage");
@@ -189,6 +202,23 @@ class App extends Component {
     });
     history.push("/editOneLocation");
   }
+
+  addLocation(locationType, latlng) {
+    this.setState({
+      locationType: locationType,
+      latlng: latlng,
+    });
+    history.push("/addLocation");
+  }
+
+  editPhotoSphereImageConnections(image) {
+    console.log(image);
+    this.setState({
+      image: image,
+    });
+    history.push("/editSphereImageConnections");
+  }
+
   render() {
     if (!this.state.isloaded) {
       return <span>wait....</span>;
@@ -220,6 +250,7 @@ class App extends Component {
                     this.handleAdminLogin(user, psw)
                   }
                   returnToLogin={() => this.returnToLogin()}
+                  dictionary={this.state.dictionary}
                 />
               )}
             />
@@ -242,6 +273,9 @@ class App extends Component {
                   locationsInfo={this.state.locationsInfo}
                   locationClicked={(location) => this.locationClicked(location)}
                   dictionary={this.state.dictionary}
+                  addLocation={(locationType, latlng) =>
+                    this.state.addLocation(locationType, latlng)
+                  }
                 />
               )}
             />
@@ -250,6 +284,7 @@ class App extends Component {
               render={(props) => (
                 <LocationJSX
                   {...props}
+                  admin={this.state.admin}
                   updateOrder={(date, time, hebrewDay, locationDescription) =>
                     this.updateOrder(date, time, hebrewDay, locationDescription)
                   }
@@ -378,6 +413,7 @@ class App extends Component {
                   locationsInfo={this.state.locationsInfo}
                   diffLocations={this.state.diffLocations}
                   dictionary={this.state.dictionary}
+                  locationType={this.state.locationType}
                   reloadApp={() => this.reloadApp()}
                 />
               )}
@@ -393,8 +429,37 @@ class App extends Component {
                   locationTypes={this.state.locationTypes}
                   locationsInfo={this.state.locationsInfo}
                   dictionary={this.state.dictionary}
+                  reloadApp={() => this.reloadApp()}
                   location={this.state.locationDescription}
                   diffLocations={this.state.diffLocations}
+                  AddLocation={(type) => this.AddLocation(type)}
+                  editPhotoSphereImageConnections={(image) =>
+                    this.editPhotoSphereImageConnections(image)
+                  }
+                />
+              )}
+            />
+            <Route
+              path="/editLocationTypes"
+              render={(props) => (
+                <EditLocationTypes
+                  {...props}
+                  admin={this.state.admin}
+                  locationTypes={this.state.locationTypes}
+                  dictionary={this.state.dictionary}
+                  reloadApp={() => this.reloadApp()}
+                />
+              )}
+            />
+            <Route
+              path="/editSphereImageConnections"
+              render={(props) => (
+                <EditSphereImageConnections
+                  {...props}
+                  admin={this.state.admin}
+                  dictionary={this.state.dictionary}
+                  reloadApp={() => this.reloadApp()}
+                  mainImage={this.state.image}
                 />
               )}
             />

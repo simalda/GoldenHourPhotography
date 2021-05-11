@@ -1,6 +1,18 @@
 import * as proxy from "./proxy";
 
 class LocationHandler {
+  addLocationType(locationType) {
+    return proxy.addNewLocationType(locationType);
+  }
+
+  addNewLocation(location) {
+    return proxy.addNewLocation(location);
+  }
+
+  deleteLocationType(locationType) {
+    return proxy.deleteLocationType(locationType);
+  }
+
   getAllLocationsInfo() {
     return proxy.getAllLocationsInfo();
   }
@@ -9,13 +21,9 @@ class LocationHandler {
     return proxy.getAllLocations();
   }
 
-  addNewLocation(location) {
-    return proxy.addNewLocation(location);
+  getLocationTypes() {
+    return proxy.getLocationTypes();
   }
-
-  // removeLocation(location){}
-  // buildLocation(){}
-  // getAllLinksToLocation(){}
 }
 
 export default LocationHandler;

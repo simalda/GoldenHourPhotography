@@ -13,6 +13,8 @@ from LocationHandler import *
 from Location import *
 from Order import *
 from OrderHandler import * 
+from ImageLinkerHandler import *
+from ImageLinker import *
 from Mail import *
 import json
 app = Flask(__name__)
@@ -65,15 +67,13 @@ def get_all_images():
     print(db.get_all_images())
     return jsonify(db.get_all_images())
 
-@app.route('/update', methods=['POST'])
-def update_images():
+@app.route('/updateImage', methods=['POST'])
+def update_image():
     data = json.loads(request.stream.read())
     db = DataAccessImage()
     image_handler = ImageHandler(db)
-    image_list = []
-    for im in data:
-        image_list.append( Image(im["name"],im["imageType"],im["eventType"],im["location"]))
-    return jsonify(image_handler.edit_all_images(image_list))
+    image =  Image(data["name"], data["imageType"], data["eventType"], data["location"])
+    return jsonify(image_handler.edit_image(image))
  
 
 @app.route('/delete', methods=['POST'])
@@ -107,6 +107,14 @@ def delete_order():
     db = DataAccessOrders()
     or_handler = OrderHandler(db)
     return jsonify(or_handler.delete_order(data))
+             
+@app.route('/deleteLocationType', methods=['POST'])
+def delete_location_type():
+    data = json.loads(request.stream.read())
+    db = DataAccessLocation()
+    loc_handler = LocationHandler(db)
+    return jsonify(loc_handler.delete_location_type(data))
+
 
 @app.route('/updateOrder', methods=['POST'])
 def update_order():
@@ -164,6 +172,12 @@ def get_locations():
     loc_info_handler = LocationHandler(db)
     return jsonify(loc_info_handler.get_all_locations())
 
+@app.route('/getLocationTypes')
+def get_location_types():
+    db = DataAccess()
+    loc_info_handler = LocationHandler(db)
+    return jsonify(loc_info_handler.get_all_locations_types())
+
 @app.route('/addLocation', methods=['POST'])
 def add_location():
     data = json.loads(request.stream.read())
@@ -178,13 +192,37 @@ def add_location():
     im_handler.add_image(image)
     return '200'
 
+@app.route('/addLocationType', methods=['POST'])
+def add_location_type():
+    location_type = json.loads(request.stream.read())
+    loc_DB = DataAccessLocation()
+    loc_handler = LocationHandler(loc_DB)       
+    return  jsonify(loc_handler.add_location_type(location_type))
+
 
 @app.route('/sendMail', methods=['POST'])
 def send_mail():
     data = json.loads(request.stream.read())
-    order =Order( data["date"], data["time"],data["name"],data["telefon"],data["email"],data["location"],  data["eventType"],data["note"])    
+    order = Order(data["date"], data["time"], data["name"], data["telefon"], data["email"], data["location"], data["eventType"], data["note"])    
     return 
  
+
+@app.route('/upsertLink', methods=['POST'])
+def upsert_link():
+    data = json.loads(request.stream.read())
+    db = DataAccessLocation()
+    link_handler = ImageLinkerHandler(db)
+    link =  ImageLinker(data["origin"], data["destination"], data["latitude"], data["longtitude"])
+    return jsonify(link_handler.upsert_link(link))
+
+@app.route('/getLinksToImage', methods=['POST'])
+def get_links():
+    data = json.loads(request.stream.read())
+    db = DataAccessLocation()
+    link_handler = ImageLinkerHandler(db)
+    image = Image(data["name"],data["imageType"],data["eventType"],data["location"])
+    return jsonify(link_handler.get_links_for_image(image))
+
 
 if __name__ == "__main__":
     app.run(port=5000)

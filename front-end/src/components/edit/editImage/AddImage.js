@@ -1,7 +1,7 @@
 import React from "react";
 
 import history from "../../../JS/history";
-// import * as proxy from "../JS/proxy";
+
 import * as selectoptions from "../../../JS/getOptions";
 import Image from "../../../JS/Image";
 import ImageHandler from "../../../JS/ImageHandler";
@@ -34,20 +34,17 @@ class OrdersCalendar extends React.Component {
     });
   }
 
-  ChangeName(event) {
+  changeName(event) {
     this.setState({ name: event.target.value });
   }
-  ChangeImageType(event) {
+  changeImageType(event) {
     this.setState({ imageType: event.target.value });
   }
-  ChangeImageLocation(event) {
+  changeImageLocation(event) {
     this.setState({ imageLocation: event.target.value });
   }
-  ChangeImageViewType(event) {
+  changeImageViewType(event) {
     this.setState({ imageViewType: event.target.value });
-  }
-  ChangeBannerAppearance(event) {
-    this.setState({ bannerApearence: event.target.value });
   }
 
   mySubmitHandler(event) {
@@ -76,15 +73,11 @@ class OrdersCalendar extends React.Component {
     );
   }
   render() {
-    const ImageTypeOptions = selectoptions.getImageTypeOptions(
-      this.props.imageTypes
+    const ImageTypeOptions = selectoptions.getOptions(this.props.imageTypes);
+    const ImageLocationsOptions = selectoptions.getOptions(
+      this.props.locationTypes
     );
-    const ImageLocationsOptions = selectoptions.getImageLocationsOptions(
-      this.props.locationList
-    );
-    const EventTypesOptions = selectoptions.getEventTypesOptions(
-      this.props.eventTypes
-    );
+    const EventTypesOptions = selectoptions.getOptions(this.props.eventTypes);
     if (this.state.isNameInputDisabled) {
       document.getElementById("name").disabled = true;
     }
@@ -104,7 +97,7 @@ class OrdersCalendar extends React.Component {
             className={classes.inputImageManagment}
             type="text"
             value={this.state.name}
-            onChange={(event) => this.ChangeName(event)}
+            onChange={(event) => this.changeName(event)}
           />
           <div>{this.state.name}</div>
           <p className={classes.par}>Image type:</p>
@@ -112,7 +105,7 @@ class OrdersCalendar extends React.Component {
             name="imageType"
             id="imType"
             className={classes.selectImageManagment}
-            onChange={(event) => this.ChangeImageType(event)}
+            onChange={(event) => this.changeImageType(event)}
           >
             {ImageTypeOptions}
           </select>
@@ -121,7 +114,7 @@ class OrdersCalendar extends React.Component {
             name="location"
             id="imLoc"
             className={classes.selectImageManagment}
-            onChange={(event) => this.ChangeImageLocation(event)}
+            onChange={(event) => this.changeImageLocation(event)}
           >
             {ImageLocationsOptions}
           </select>
@@ -130,7 +123,7 @@ class OrdersCalendar extends React.Component {
             name="imViewType"
             id="imViewType"
             className={classes.selectImageManagment}
-            onChange={(event) => this.ChangeImageViewType(event)}
+            onChange={(event) => this.changeImageViewType(event)}
           >
             {EventTypesOptions}
           </select>

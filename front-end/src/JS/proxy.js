@@ -8,7 +8,7 @@ export function checkUser(user, password) {
   return fetch(`${backendUrl}/login/${userEncoded}/${passwordEncoded}`).then(
     (response) => {
       console.log(response);
-      return response.json();
+      return response;
     }
   );
 }
@@ -59,6 +59,13 @@ export function updateImages(imageSet) {
   }
 }
 
+export function updateImage(image) {
+  const imageString = JSON.stringify(image);
+  return fetch(`${backendUrl}/updateImage`, {
+    method: "POST",
+    body: imageString,
+  }).then((response) => response.json());
+}
 export function addNewTimeUnit(timeUnit) {
   const timeUnitString = JSON.stringify(timeUnit);
   return fetch("${backendUrl}/addTimeUnit", {
@@ -109,15 +116,23 @@ export function addOrder(order) {
 
 export function deleteOrder(orderId) {
   const orderIdString = JSON.stringify(orderId);
-  return fetch("${backendUrl}/deleteOrder", {
+  return fetch(`${backendUrl}/deleteOrder`, {
     method: "POST",
     body: orderIdString,
   }).then((response) => response.json());
 }
 
+export function deleteLocationType(locationType) {
+  const locationTypeString = JSON.stringify(locationType);
+  return fetch(`${backendUrl}/deleteLocationType`, {
+    method: "POST",
+    body: locationTypeString,
+  }).then((response) => response.json());
+}
+
 export function updateOrder(order) {
   const orderString = JSON.stringify(order);
-  return fetch("${backendUrl}/updateOrder", {
+  return fetch(`${backendUrl}/updateOrder`, {
     method: "POST",
     body: orderString,
   }).then((response) => response.json());
@@ -140,9 +155,23 @@ export function getAllLocations() {
   );
 }
 
+export function getLocationTypes() {
+  return fetch(`${backendUrl}/getLocationTypes`).then((response) =>
+    response.json()
+  );
+}
+
 export function addNewLocation(location) {
   const locationString = JSON.stringify(location);
   return fetch(`${backendUrl}/addLocation`, {
+    method: "POST",
+    body: locationString,
+  }).then((response) => response.json());
+}
+
+export function addNewLocationType(locationType) {
+  const locationString = JSON.stringify(locationType);
+  return fetch(`${backendUrl}/addLocationType`, {
     method: "POST",
     body: locationString,
   }).then((response) => response.json());
@@ -153,5 +182,21 @@ export function sendMail(order) {
   return fetch(`${backendUrl}/sendMail`, {
     method: "POST",
     body: orderString,
+  }).then((response) => response.json());
+}
+
+export function upsertLink(link) {
+  const linkString = JSON.stringify(link);
+  return fetch(`${backendUrl}/upsertLink`, {
+    method: "POST",
+    body: linkString,
+  }).then((response) => response.json());
+}
+
+export function getAllLinksToImage(origin) {
+  const originString = JSON.stringify(origin);
+  return fetch(`${backendUrl}/getLinksToImage`, {
+    method: "POST",
+    body: originString,
   }).then((response) => response.json());
 }

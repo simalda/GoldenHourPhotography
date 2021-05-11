@@ -13,8 +13,8 @@ class ImageHandler {
     return proxy.deleteImage(image);
   }
 
-  updateImages(imageList) {
-    proxy.updateImages(imageList);
+  updateImage(image) {
+    proxy.updateImage(image);
   }
 }
 

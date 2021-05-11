@@ -26,7 +26,7 @@ class Location extends React.Component {
     });
   }
   createPathList() {
-    return this.props.locationDescription.images.map(
+    return this.props.locationDescription.regularImageList.map(
       (image) => "./static/" + image.name
     );
   }
@@ -52,7 +52,10 @@ class Location extends React.Component {
     return (
       <div className="mainDiv">
         <div className="3d" style={{ height: "40hv" }}>
-          <D3images />
+          <D3images
+            admin={this.props.admin}
+            locationDescription={this.props.locationDescription}
+          />
           <div className="D3banner">
             <span className="D3bannerLeft">
               <img

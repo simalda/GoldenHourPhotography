@@ -9,6 +9,9 @@ export function getOptions(types) {
 }
 
 export function getOptionsWithCurrent(options, currentOption) {
+  if (options.includes(currentOption)) {
+    options.push("");
+  }
   return options.map((type, index) => {
     if (type === currentOption) {
       return (

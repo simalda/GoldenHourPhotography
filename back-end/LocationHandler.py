@@ -22,6 +22,11 @@ class LocationHandler():
     def add_location(self, location):
         self.data_access.add_location(location)
 
+    def add_location_type(self, location_type):
+        self.data_access.add_location_type(location_type)
+
+    def delete_location_type(self, location_type):
+        self.data_access.delete_location_type(location_type)
 
     def remove_location(self, location):
         pass

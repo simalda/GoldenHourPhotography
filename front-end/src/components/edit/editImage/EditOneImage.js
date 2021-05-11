@@ -7,6 +7,7 @@ import { Fragment } from "react";
 import * as selectoptions from "../../../JS/getOptions";
 
 import classes from "./editImage.module.scss";
+import ImageHandler from "../../../JS/ImageHandler";
 class EditOneImage extends React.Component {
   constructor(props) {
     super(props);
@@ -15,93 +16,60 @@ class EditOneImage extends React.Component {
     };
   }
 
-  // createImageTypeOptions() {
-  //   const options = [];
-  //   this.props.imageTypes.map((type, index) => {
-  //     if (type === this.props.image.imageType) {
-  //       options.push(
-  //         <option value={type} selected key={index}>
-  //           {type}
-  //         </option>
-  //       );
-  //     } else {
-  //       options.push(
-  //         <option value={type} key={index}>
-  //           {type}
-  //         </option>
-  //       );
-  //     }
-  //   });
-  //   return options;
-  // }
-
-  // createImageLocations() {
-  //   const options = [];
-  //   this.props.locationTypes.map((location, index) => {
-  //     if (location.name === this.props.image.location) {
-  //       options.push(
-  //         <option value={location.name} selected key={index}>
-  //           {location.name}
-  //         </option>
-  //       );
-  //     } else {
-  //       options.push(
-  //         <option value={location.name} key={index}>
-  //           {location.name}
-  //         </option>
-  //       );
-  //     }
-  //   });
-  //   return options;
-  // }
-
-  // createEventTypes() {
-  //   const options = [];
-  //   this.props.eventTypes.map((type, index) => {
-  //     if (type === this.props.image.eventType) {
-  //       options.push(
-  //         <option value={type} selected key={index}>
-  //           {type}
-  //         </option>
-  //       );
-  //     } else {
-  //       options.push(
-  //         <option value={type} key={index}>
-  //           {type}
-  //         </option>
-  //       );
-  //     }
-  //   });
-  //   return options;
-  // }
-
-  ChangeImageType(event) {
+  changeImageType(e) {
     this.setState((state) => {
       //state.image.imageType = event.target.value;
-      return { image: { ...state.image, imageType: event.target.value } };
+      return {
+        image: {
+          ...state.image,
+          imageType: e.options[e.options.selectedIndex].value,
+        },
+      };
       //return { image: state.image };
     });
     //this.setState({ name: event.target.value });
   }
-  updateListImagesToResaveimageType(e) {
-    const image = new Image(
-      this.props.image.name,
-      e.options[e.options.selectedIndex].value,
-      this.props.image.eventType,
-      this.props.image.location
-    );
-    this.props.editOneImage(image);
+
+  changeEventType(e) {
+    this.setState((state) => {
+      return {
+        image: {
+          ...state.image,
+          eventType: e.options[e.options.selectedIndex].value,
+        },
+      };
+    });
   }
 
-  updateListImagesToResaveEventType(e) {
-    const image = new Image(
-      this.props.image.name,
-      this.props.image.imageType,
-      e.options[e.options.selectedIndex].value,
-      this.props.image.location
-    );
-    this.props.editOneImage(image);
+  changeLocation(e) {
+    this.setState((state) => {
+      return {
+        image: {
+          ...state.image,
+          location: e.options[e.options.selectedIndex].value,
+        },
+      };
+    });
   }
+  // updateListImagesToResaveimageType(e) {
+  //   const image = new Image(
+  //     this.props.image.name,
+  //     e.options[e.options.selectedIndex].value,
+  //     this.props.image.eventType,
+  //     this.props.image.location
+  //   );
+  //   this.props.editOneImage(image);
+  // }
+
+  // updateListImagesToResaveEventType(e) {
+  //   const image = new Image(
+  //     this.props.image.name,
+  //     this.props.image.imageType,
+  //     e.options[e.options.selectedIndex].value,
+  //     this.props.image.location
+  //   );
+  //   this.props.editOneImage(image);
+  // }
 
   updateListImagesToResaveLocation(e) {
     const image = new Image(
@@ -130,6 +98,11 @@ class EditOneImage extends React.Component {
     );
   }
 
+  saveImage() {
+    const imHandler = new ImageHandler();
+    imHandler.updateImage(this.state.image);
+    this.props.reloadApp();
+  }
   render() {
     const ImageTypeOptions = selectoptions.getOptionsWithCurrent(
       this.props.imageTypes,
@@ -158,9 +131,7 @@ class EditOneImage extends React.Component {
             name="imageType"
             id="imType"
             className={classes.selectImageManagment}
-            onChange={(event) =>
-              this.updateListImagesToResaveimageType(event.currentTarget)
-            }
+            onChange={(event) => this.changeImageType(event.currentTarget)}
           >
             {ImageTypeOptions}
           </select>
@@ -168,9 +139,7 @@ class EditOneImage extends React.Component {
             name="eventType"
             id="eventType"
             className={classes.selectImageManagment}
-            onChange={(event) =>
-              this.updateListImagesToResaveEventType(event.currentTarget)
-            }
+            onChange={(event) => this.changeEventType(event.currentTarget)}
           >
             event
             {EventTypes}
@@ -179,15 +148,13 @@ class EditOneImage extends React.Component {
             name="locationName"
             id="location"
             className={classes.selectImageManagment}
-            onChange={(event) =>
-              this.updateListImagesToResaveLocation(event.currentTarget)
-            }
+            onChange={(event) => this.changeLocation(event.currentTarget)}
           >
             {LocationOptions}
           </select>
           <button
             className="button"
-            onClick={() => this.props.editImages()}
+            onClick={() => this.saveImage()}
             style={{ width: "10vw" }}
           >
             {this.props.dictionary["save"]}

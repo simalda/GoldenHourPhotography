@@ -3,7 +3,6 @@ import React from "react";
 class AdminLogin extends React.Component {
   constructor(props) {
     super(props);
-    this.buttonText = "שליחה";
     this.state = { user: "", psw: "" };
   }
 
@@ -28,7 +27,7 @@ class AdminLogin extends React.Component {
         <div className="popup">
           Login denied
           <button className="button" onClick={() => this.props.returnToLogin()}>
-            Back
+            {this.props.dictionary["back"]}
           </button>
         </div>
       );
@@ -53,7 +52,7 @@ class AdminLogin extends React.Component {
             onChange={(event) => this.handleChangePsw(event)}
           />
           <button className="button" type="submit">
-            Submit
+            {this.props.dictionary["send"]}
           </button>
         </form>
       );

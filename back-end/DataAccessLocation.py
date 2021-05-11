@@ -42,17 +42,50 @@ class DataAccessLocation(DataAccess):
         )
         return True
 
+    def add_location_type(self, location_type):
+        self.collection = self.mydb['locationTypes']
+        self.collection.insert_one({"name" : location_type})
+        return True
 
-    def remove_location(self):
+    def delete_location_type(self, location_type):
+        self.collection = self.mydb['locationTypes']
+        myquery = { "name":location_type}
+        self.collection.delete_one(myquery)
+        self.collection = self.mydb['locations']
+        myquery = { "locationType": location_type }
+        newvalues = { "$set": {"locationType":  "" } }     
+        self.collection.update_one(myquery, newvalues)
+
+
+    def delete_location(self):
         pass
 
-    def add_link_to(self):
-        pass
+    def upsert_link(self, link):
+        self.collection = self.mydb['imageLinker']
+        result = self.collection.find({"origin" : link.origin, "destination": link.destination})
 
-    def get_all_links(self):
-        pass
+        if len(result):
+            myquery = {"origin" : link.origin, "destination": link.destination, "latitude": link.latitude,"longtitude": link.longtitude}
+            newvalues = { "$set": {"origin" : link.origin, "destination": link.destination, "latitude": link.latitude,"longtitude": link.longtitude} }
+
+            query = self.collection.update_one(myquery, newvalues)
+            print(query.modified_count, "documents updated.")
+        else:
+            self.collection.insert_one({"origin" : link.origin, "destination": link.destination, "latitude": link.latitude,"longtitude": link.longtitude})
+            return True
+         
+
+    def get_links_for_image(self, image):
+        self.collection = self.mydb['imageLinker']
+        result = self.collection.find({ "origin" : image.name } )
+        links = list(map(lambda link: {
+            "origin":link["origin"],
+            "destination" : link["destination"],
+            "latitude" :link["latitude"],
+            "longtitude": link["longtitude"]
+        },result)) 
+        return links
 
     def remove_links_from(self):
         pass
 
-    

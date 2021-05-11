@@ -51,14 +51,14 @@ class AddLocation extends React.Component {
     }
   }
 
-  ChangeName(event) {
+  changeName(event) {
     this.setState({ name: event.target.value });
   }
 
-  ChangeLocationType(event) {
+  changeLocationType(event) {
     this.setState({ type: event.target.value });
   }
-  ChangeDescription(event) {
+  changeDescription(event) {
     this.setState({ description: event.target.value });
   }
   onUploadImage(event) {
@@ -89,7 +89,7 @@ class AddLocation extends React.Component {
             className={classes.inputImageManagment}
             type="text"
             value={this.state.name}
-            onChange={(event) => this.ChangeName(event)}
+            onChange={(event) => this.changeName(event)}
           />
           <div>{this.state.name}</div>
           <p className={classes.par}>Location type:</p>
@@ -97,7 +97,7 @@ class AddLocation extends React.Component {
             name="locationType"
             id="locType"
             className={classes.selectImageManagment}
-            onChange={(event) => this.ChangeLocationType(event)}
+            onChange={(event) => this.changeLocationType(event)}
           >
             {LocationTypeOptions}
           </select>
@@ -112,7 +112,7 @@ class AddLocation extends React.Component {
             className={classes.inputImageManagment}
             type="text"
             value={this.state.description}
-            onChange={(event) => this.ChangeDescription(event)}
+            onChange={(event) => this.changeDescription(event)}
           />
           <p className={classes.par}>Name of location:</p>
           <input
