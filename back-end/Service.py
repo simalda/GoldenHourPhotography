@@ -1,4 +1,6 @@
+import os
 from flask import Flask, current_app, flash, jsonify, make_response, redirect, request, url_for
+from werkzeug.utils import secure_filename
 from flask_cors import CORS
 from DataAccess import *
 from DataAccessCalendar import *
@@ -17,11 +19,35 @@ from ImageLinkerHandler import *
 from ImageLinker import *
 from Mail import *
 import json
+import FileManipulations
 app = Flask(__name__)
 app.debug = True
+
 CORS(app)
-print(__name__)
- 
+
+UPLOAD_FOLDER = r'C:\Users\simal\Projects_Git\GoldenHourPhotography\front-end\src\static\photos\galery\test'
+ALLOWED_EXTENSIONS = {'jpg', 'jpeg'}
+app.config ['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+    file = request.files['file']
+    if file.filename == '':
+        flash('No selected file')
+        return redirect(request.url)
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return redirect(url_for('uploaded_file',
+                                    filename=filename))
+    
 
 @app.route('/login/<user>/<password>')
 def check_user(user, password):
