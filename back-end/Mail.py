@@ -19,7 +19,7 @@ class Mail():
         # Create message container - the correct MIME type is multipart/alternative.
         msg = MIMEMultipart('alternative')
         msg['Subject'] = "Golden Hour Photography"
-        # msg['From'] = me
+        # msg['From'] = me 
         # msg['To'] = 'simalda83@gmail.com'
         # password = self.password
 

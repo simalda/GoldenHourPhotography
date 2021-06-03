@@ -1,0 +1,42 @@
+name: goldenhourphotography
+
+services:
+  - name: "back-end"
+    environment_slug: python
+    run_command: gunicorn --worker-tmp-dir /dev/shm Service:app
+    github:
+      repo: AdiK87/GoldenHourPhotography
+      branch: master
+      deploy_on_push: true
+    source_dir: "back-end"
+    routes:
+      - path: /back-end
+    http_port: 5000
+    envs:
+      - key: DBNAME
+        value: "Dont commit in this value"
+        scope: RUN_TIME
+        type: SECRET
+      - key: DBURL
+        value: "Dont commit in this value"
+        scope: RUN_TIME
+        type: SECRET
+
+static_sites:
+  - name: "front-end"
+    environment_slug: node-js
+    build_command: npm run build
+    github:
+      repo: AdiK87/GoldenHourPhotography
+      branch: master
+      deploy_on_push: true
+    source_dir: front-end
+    index_document: index.html
+    catchall_document: index.html
+    routes:
+      - path: /
+    envs:
+      - key: BACKENDURL
+        value: "https://goldenhourphotography-ucvq5.ondigitalocean.app/back-end"
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
