@@ -10,7 +10,7 @@ class EditOneLocation extends React.Component {
         <div key={index}>
           <EditOneImage
             key={index}
-            path={"/static/" + image.name}
+            path={image.path}
             index={index}
             image={image}
             imageTypes={this.props.imageTypes}
@@ -40,7 +40,7 @@ class EditOneLocation extends React.Component {
         <div key={index}>
           <EditOneImage
             key={index}
-            path={"/static/" + image.name}
+            path={image.path}
             index={index}
             image={image}
             imageTypes={this.props.imageTypes}

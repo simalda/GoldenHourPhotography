@@ -1,15 +1,18 @@
-[{
-  "_id": {
-    "$oid": "6025a24055e2374b4cf3bce7"
+[
+  {
+    "_id": {
+      "$oid": "6025a24055e2374b4cf3bce7"
+    },
+    "name": "atlit",
+    "latitude": 34.935493,
+    "longitude": 32.704402
   },
-  "name": "atlit",
-  "latitude": 34.935493,
-  "longtitude": 32.704402
-},{
-  "_id": {
-    "$oid": "6025a2b955e2374b4cf3bce9"
-  },
-  "name": "university",
-  "latitude": 35.018606,
-  "longtitude": 32.761082
-}]
+  {
+    "_id": {
+      "$oid": "6025a2b955e2374b4cf3bce9"
+    },
+    "name": "university",
+    "latitude": 35.018606,
+    "longitude": 32.761082
+  }
+]

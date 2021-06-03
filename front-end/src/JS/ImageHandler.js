@@ -16,6 +16,9 @@ class ImageHandler {
   updateImage(image) {
     proxy.updateImage(image);
   }
+  saveFile(file) {
+    return proxy.saveFile(file);
+  }
 }
 
 export default ImageHandler;

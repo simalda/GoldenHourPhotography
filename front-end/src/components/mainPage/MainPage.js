@@ -24,6 +24,9 @@ class MainPage extends React.Component {
 
   render() {
     var adminButton = <div></div>;
+    const sliderImageList = this.props.imageList.filter(
+      (image) => image.imageType === "regular"
+    );
     if (this.props.admin) {
       adminButton = (
         <div>
@@ -40,7 +43,7 @@ class MainPage extends React.Component {
         <div className={classes.happyMoments}>
           <img className={classes.imHappyMoments} src={happyMoments} />
         </div>
-        <Slider pathList={[]} />
+        <Slider pathList={[]} imageList={sliderImageList} />
         <div className={classes.buttonArea}>
           <div className={classes.zilum}>
             {this.props.dictionary["naturePhotos"]}

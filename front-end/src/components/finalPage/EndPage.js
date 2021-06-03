@@ -8,7 +8,7 @@ class EndPage extends React.Component {
   constructor(props) {
     super(props);
     this.position = [
-      this.props.locationDescription.longtitude,
+      this.props.locationDescription.longitude,
       this.props.locationDescription.latitude,
     ];
   }

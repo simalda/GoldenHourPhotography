@@ -27,6 +27,7 @@ import TimeUnitHandler from "../JS/TimeUnitHandler";
 import LocationHandler from "../JS/LocationHandler";
 import Location from "../JS/Location";
 import Translator from "../JS/Translator";
+import Image from "../JS/Image";
 import QuestionsAnswers from "./navBar/questionAnswers/QuestionsAnswers";
 import AddLocation from "./edit/locationsEditor/AddLocation";
 import EditSphereImageConnections from "./edit/locationsEditor/EditSphereImageConnections";
@@ -69,7 +70,6 @@ class App extends Component {
     this.getLocationsInfo();
     this.getLocationTypes();
     this.getAllLocations();
-    this.setState({ isloaded: true });
   }
   getLanguage() {
     const translator = new Translator();
@@ -121,8 +121,18 @@ class App extends Component {
   getAllImages() {
     proxy.getAllImages().then((images) => {
       console.log(images);
+      const imageList = images[0].map(
+        (image) =>
+          new Image(
+            image.name,
+            image.imageType,
+            image.eventType,
+            image.location,
+            image.path
+          )
+      );
       this.setState({
-        imageList: images,
+        imageList: imageList,
       });
     });
   }
@@ -140,6 +150,7 @@ class App extends Component {
       });
     });
   }
+
   getAllLocations() {
     let locationHandler = new LocationHandler();
     locationHandler.getAllLocations().then((locations) => {
@@ -147,6 +158,7 @@ class App extends Component {
       console.log(locations);
       this.setState({
         diffLocations: locations,
+        isloaded: true,
       });
     });
   }
@@ -203,9 +215,9 @@ class App extends Component {
     history.push("/editOneLocation");
   }
 
-  addLocation(locationType, latlng) {
+  addLocation(locationName, latlng) {
     this.setState({
-      locationType: locationType,
+      locationName: locationName,
       latlng: latlng,
     });
     history.push("/addLocation");
@@ -218,7 +230,24 @@ class App extends Component {
     });
     history.push("/editSphereImageConnections");
   }
-
+  addNewLocation(location) {
+    let locHandler = new LocationHandler();
+    locHandler.addNewLocation(location).then(
+      (loginResponse) => {
+        console.log(loginResponse);
+        alert("Saved");
+        this.setState({
+          locationDescription: location,
+        });
+        this.reloadApp();
+        history.push("/editOneLocation");
+      },
+      (result) => {
+        console.log(result);
+        alert(" Not Saved :" + result);
+      }
+    );
+  }
   render() {
     if (!this.state.isloaded) {
       return <span>wait....</span>;
@@ -235,6 +264,7 @@ class App extends Component {
                 <MainPage
                   {...props}
                   admin={this.state.admin}
+                  imageList={this.state.imageList}
                   dictionary={this.state.dictionary}
                 />
               )}
@@ -273,9 +303,6 @@ class App extends Component {
                   locationsInfo={this.state.locationsInfo}
                   locationClicked={(location) => this.locationClicked(location)}
                   dictionary={this.state.dictionary}
-                  addLocation={(locationType, latlng) =>
-                    this.state.addLocation(locationType, latlng)
-                  }
                 />
               )}
             />
@@ -325,10 +352,11 @@ class App extends Component {
                 <AddImage
                   {...props}
                   imageTypes={this.state.imageTypes}
-                  imageLocations={this.state.imageLocations}
+                  imageLocations={this.state.diffLocations}
                   eventTypes={this.state.eventTypes}
                   imageList={this.state.imageList}
                   locationTypes={this.state.locationTypes}
+                  location={this.state.locationDescription}
                   reloadApp={() => this.reloadApp()}
                   dictionary={this.state.dictionary}
                 />
@@ -340,7 +368,7 @@ class App extends Component {
                 <EditImage
                   {...props}
                   imageTypes={this.state.imageTypes}
-                  imageLocations={this.state.imageLocations}
+                  imageLocations={this.state.diffLocations}
                   eventTypes={this.state.eventTypes}
                   imageList={this.state.imageList}
                   locationTypes={this.state.locationTypes}
@@ -357,7 +385,7 @@ class App extends Component {
                   {...props}
                   admin={this.state.admin}
                   imageTypes={this.state.imageTypes}
-                  imageLocations={this.state.imageLocations}
+                  imageLocations={this.state.diffLocations}
                   eventTypes={this.state.eventTypes}
                   imageList={this.state.imageList}
                 />
@@ -390,12 +418,15 @@ class App extends Component {
                   {...props}
                   admin={this.state.admin}
                   imageTypes={this.state.imageTypes}
-                  imageLocations={this.state.imageLocations}
+                  imageLocations={this.state.diffLocations}
                   eventTypes={this.state.eventTypes}
                   imageList={this.state.imageList}
                   locationTypes={this.state.locationTypes}
                   locationsInfo={this.state.locationsInfo}
                   dictionary={this.state.dictionary}
+                  addLocation={(locationType, latlng) =>
+                    this.addLocation(locationType, latlng)
+                  }
                 />
               )}
             />
@@ -406,14 +437,14 @@ class App extends Component {
                   {...props}
                   admin={this.state.admin}
                   imageTypes={this.state.imageTypes}
-                  imageLocations={this.state.imageLocations}
+                  imageLocations={this.state.diffLocations}
                   eventTypes={this.state.eventTypes}
-                  imageList={this.state.imageList}
                   locationTypes={this.state.locationTypes}
                   locationsInfo={this.state.locationsInfo}
-                  diffLocations={this.state.diffLocations}
                   dictionary={this.state.dictionary}
-                  locationType={this.state.locationType}
+                  locationName={this.state.locationName}
+                  latlng={this.state.latlng}
+                  addNewLocation={(location) => this.addNewLocation(location)}
                   reloadApp={() => this.reloadApp()}
                 />
               )}
@@ -432,7 +463,7 @@ class App extends Component {
                   reloadApp={() => this.reloadApp()}
                   location={this.state.locationDescription}
                   diffLocations={this.state.diffLocations}
-                  AddLocation={(type) => this.AddLocation(type)}
+                  // AddLocation={(type) => this.AddLocation(type)}
                   editPhotoSphereImageConnections={(image) =>
                     this.editPhotoSphereImageConnections(image)
                   }
@@ -459,7 +490,8 @@ class App extends Component {
                   admin={this.state.admin}
                   dictionary={this.state.dictionary}
                   reloadApp={() => this.reloadApp()}
-                  mainImage={this.state.image}
+                  image={this.state.image}
+                  locationDescription={this.state.locationDescription}
                 />
               )}
             />

@@ -1,9 +1,10 @@
 class ImageLinker {
-  constructor(origin, destination, latitude, longtitude) {
+  constructor(origin, destination, destinationImagePath, latitude, longitude) {
     this.origin = origin;
     this.destination = destination;
+    this.destinationImagePath = destinationImagePath;
     this.latitude = latitude;
-    this.longtitude = longtitude;
+    this.longitude = longitude;
   }
 }
 

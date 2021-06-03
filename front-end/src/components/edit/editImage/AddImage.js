@@ -5,17 +5,19 @@ import history from "../../../JS/history";
 import * as selectoptions from "../../../JS/getOptions";
 import Image from "../../../JS/Image";
 import ImageHandler from "../../../JS/ImageHandler";
+import { convertDateToDateArrayDDMMYYYY } from "../../../JS/dateManipulations";
 
 import classes from "./editImage.module.scss";
+import Translator from "../../../JS/Translator";
 class OrdersCalendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       image: null,
-      imageType: "regular",
-      imageLocation: "city",
-      imageViewType: "family",
+      imageType: "",
+      imageLocation: "",
+      imageViewType: "",
       bannerApearence: false,
       isNameInputDisabled: false,
     };
@@ -27,10 +29,14 @@ class OrdersCalendar extends React.Component {
   onUploadImage(event) {
     var str = event.target.value;
     var res = str.split("\\");
+    const files = event.target.files;
+    const formData = new FormData();
+    formData.append("file", files[0]);
     this.setState({
       name: res[res.length - 1],
       image: event.target.value,
       isNameInputDisabled: true,
+      file: formData,
     });
   }
 
@@ -49,49 +55,86 @@ class OrdersCalendar extends React.Component {
 
   mySubmitHandler(event) {
     event.preventDefault();
+    const shortDdateArray = convertDateToDateArrayDDMMYYYY(
+      new Date(Date.now())
+    );
+    const nameOfImageToSendToDB =
+      shortDdateArray[0] +
+      "_" +
+      shortDdateArray[1] +
+      "_" +
+      shortDdateArray[2] +
+      "_" +
+      this.state.name;
+    const newFile = this.state.file;
+    newFile.append("name", nameOfImageToSendToDB);
+    const translator = new Translator();
+
     const image = new Image(
-      this.state.name,
-      this.state.imageType,
-      this.state.imageViewType,
-      this.state.imageLocation
+      nameOfImageToSendToDB,
+      translator.translateToEnglish(this.state.imageType),
+      translator.translateToEnglish(this.state.imageViewType),
+      this.props.location.name
     );
     let imHandler = new ImageHandler();
-
-    imHandler.addNewImage(image).then(
+    imHandler.saveFile(newFile).then(
       (loginResponse) => {
         console.log(loginResponse);
-        alert("Saved");
-        this.props.reloadApp();
-        history.push("/appManager ");
+        imHandler.addNewImage(image).then(
+          (loginResponse) => {
+            console.log(loginResponse);
+            alert("Saved");
+            this.props.reloadApp();
+            history.push("/editOneLocation");
+          },
+          (result) => {
+            console.log(result);
+            alert(
+              " Not Saved returned with code:" +
+                result.status +
+                result.statusText
+            );
+            this.props.reloadApp();
+            history.push("/editOneLocation");
+          }
+        );
       },
       (result) => {
         console.log(result);
-        alert(" Not Saved :" + result);
-        this.props.reloadApp();
-        history.push("/appManager");
+        alert(
+          " Not Saved returned with code:" + result.status + result.statusText
+        );
       }
     );
   }
   render() {
-    const ImageTypeOptions = selectoptions.getOptions(this.props.imageTypes);
-    const ImageLocationsOptions = selectoptions.getOptions(
-      this.props.locationTypes
+    const translator = new Translator();
+    const ImageTypeOptions = selectoptions.getOptions(
+      translator.translateArray(this.props.imageTypes)
     );
-    const EventTypesOptions = selectoptions.getOptions(this.props.eventTypes);
+    const ImageLocationsOptions = selectoptions.getOptionsWithCurrent(
+      this.props.imageLocations,
+      this.props.location.name
+    );
+    const EventTypesOptions = selectoptions.getOptions(
+      translator.translateArray(this.props.eventTypes)
+    );
     if (this.state.isNameInputDisabled) {
       document.getElementById("name").disabled = true;
     }
     return (
-      <div className="popup" style={{ color: "white", paddingTop: "0vh" }}>
+      <div className="popup" style={{ paddingTop: "0vh" }}>
         <form onSubmit={(event) => this.mySubmitHandler(event)}>
-          <h1>Feel the fields </h1>
+          <h1>{this.props.dictionary["Feel the fields"]} </h1>
           <input
             type="file"
             id="input"
             multiple
             onChange={(event) => this.onUploadImage(event)}
           ></input>
-          <p className={classes.par}>Name of image:</p>
+          <p className={classes.par}>
+            :{this.props.dictionary["Name of image"]}
+          </p>
           <input
             id="name"
             className={classes.inputImageManagment}
@@ -100,7 +143,7 @@ class OrdersCalendar extends React.Component {
             onChange={(event) => this.changeName(event)}
           />
           <div>{this.state.name}</div>
-          <p className={classes.par}>Image type:</p>
+          <p className={classes.par}>:{this.props.dictionary["Image type"]}</p>
           <select
             name="imageType"
             id="imType"
@@ -109,7 +152,9 @@ class OrdersCalendar extends React.Component {
           >
             {ImageTypeOptions}
           </select>
-          <p className={classes.par}>Image location:</p>
+          <p className={classes.par}>
+            :{this.props.dictionary["Image location"]}
+          </p>
           <select
             name="location"
             id="imLoc"
@@ -118,7 +163,7 @@ class OrdersCalendar extends React.Component {
           >
             {ImageLocationsOptions}
           </select>
-          <p className={classes.par}>Image view type:</p>
+          <p className={classes.par}>:{this.props.dictionary["Event type"]}</p>
           <select
             name="imViewType"
             id="imViewType"
@@ -127,7 +172,6 @@ class OrdersCalendar extends React.Component {
           >
             {EventTypesOptions}
           </select>
-          <p className={classes.par}>Should appear at baner:</p>
 
           <div>
             <button className="button" type="submit">

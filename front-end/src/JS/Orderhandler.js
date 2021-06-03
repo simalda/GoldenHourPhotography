@@ -13,9 +13,6 @@ class OrderHandler {
   updateOrder(order) {
     return proxy.updateOrder(order);
   }
-  // getOtheReport(image) {
-  //   return proxy.deleteImage(image);
-  // }
 }
 
 export default OrderHandler;

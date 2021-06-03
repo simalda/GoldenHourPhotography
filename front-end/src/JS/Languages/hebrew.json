@@ -5,6 +5,10 @@
   "infant": "תינוקות",
   "other": "אחר",
 
+  "regular": "רגיל",
+  "sphere": "ספרה",
+  "gif": "גיפ",
+
   "atlit": "עתלית",
   "university": "אוניברסיטה",
   "dado": "דדו",
@@ -24,5 +28,11 @@
 
   "naturePhotos": " צילומים בטבע",
   "siteDescription": "באיזור חיפה והסביבה | צילומי משפחה, ילדים, הריון, תדמית ועוד",
-  "savePlace": "שירינו לי מקום"
+  "savePlace": "שירינו לי מקום",
+
+  "Feel the fields": "מלא את השדות",
+  "Name of image": "שם התמונה",
+  "Image type": "טיפוס התמונה",
+  "Image location": "מיקום של התמונה",
+  "Event type": "סוג אירוע"
 }

@@ -10,8 +10,16 @@ class Translator {
   }
 
   translate(word) {
-    console.log(this.dictionary);
     return this.dictionary[word];
+  }
+  translateToEnglish(value) {
+    return Object.keys(this.dictionary).find(
+      (key) => this.dictionary[key] === value
+    );
+  }
+
+  translateArray(arrayOfWords) {
+    return arrayOfWords.map((word) => this.dictionary[word]);
   }
 }
 

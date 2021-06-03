@@ -313,7 +313,7 @@ class EditCalendar extends React.Component {
             {calBody}
             {popup}
           </div>
-          <button className="button" onCklick={() => history.goBack()}>
+          <button className="button" onClick={() => this.back()}>
             {this.props.dictionary["back"]}
           </button>
         </div>

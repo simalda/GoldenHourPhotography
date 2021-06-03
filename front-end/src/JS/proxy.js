@@ -18,10 +18,30 @@ export function addNewImage(image) {
   return fetch(`${backendUrl}/addImage`, {
     method: "POST",
     body: imageString,
-    credentials: "same-origin",
-  }).then((response) => response.json());
+    // credentials: "include",
+  }).then((response) => {
+    console.log(response);
+    if (response.status !== 200) {
+      return Promise.reject(response);
+    } else if (response.status === 200) {
+      return response.json();
+    }
+  });
 }
 
+export function saveFile(file) {
+  return fetch(`${backendUrl}/saveImageFile`, {
+    method: "POST",
+    body: file,
+  }).then((response) => {
+    console.log(response);
+    if (response.status !== 200) {
+      return Promise.reject(response);
+    } else if (response.status === 200) {
+      return response.json();
+    }
+  });
+}
 export function getAllImageTypes() {
   return fetch(`${backendUrl}/getAllImageTypes`).then((response) =>
     response.json()
@@ -76,7 +96,7 @@ export function addNewTimeUnit(timeUnit) {
 
 export function deleteTimeUnit(timeUnit) {
   const timeUnitString = JSON.stringify(timeUnit);
-  return fetch("${backendUrl}/deleteTimeUnit", {
+  return fetch(`${backendUrl}/deleteTimeUnit`, {
     method: "POST",
     body: timeUnitString,
   }).then((response) => response.json());
@@ -155,6 +175,12 @@ export function getAllLocations() {
   );
 }
 
+export function getLocationsName() {
+  return fetch(`${backendUrl}/getLocationsName`).then((response) =>
+    response.json()
+  );
+}
+
 export function getLocationTypes() {
   return fetch(`${backendUrl}/getLocationTypes`).then((response) =>
     response.json()
@@ -198,5 +224,13 @@ export function getAllLinksToImage(origin) {
   return fetch(`${backendUrl}/getLinksToImage`, {
     method: "POST",
     body: originString,
+  }).then((response) => response.json());
+}
+
+export function deleteLink(link) {
+  const linkString = JSON.stringify(link);
+  return fetch(`${backendUrl}/deleteLink`, {
+    method: "POST",
+    body: linkString,
   }).then((response) => response.json());
 }

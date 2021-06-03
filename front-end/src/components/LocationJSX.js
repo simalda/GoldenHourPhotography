@@ -4,6 +4,7 @@ import Slider from "./slider/Slider";
 import D3images from "./D3images";
 import OrdersCalendar from "./ordersCalendar/OrdersCalendar";
 import arrow from "../static/photos/cuts/Arrow_Left.svg";
+import ImageLinkerHandler from "../JS/ImageLinkerHandler";
 
 class Location extends React.Component {
   constructor(props) {
@@ -11,9 +12,22 @@ class Location extends React.Component {
     this.state = {
       popupTag: false,
       pathList: this.createPathList(),
+      connections: [],
+      isLoaded: false,
     };
   }
 
+  componentDidMount() {
+    const linkerHandler = new ImageLinkerHandler();
+    linkerHandler
+      .getConnections(this.props.locationDescription.sphereImageList[0])
+      .then((result) =>
+        this.setState({
+          connections: result,
+          isLoaded: true,
+        })
+      );
+  }
   clicked() {
     this.setState({
       popupTag: true,
@@ -27,7 +41,7 @@ class Location extends React.Component {
   }
   createPathList() {
     return this.props.locationDescription.regularImageList.map(
-      (image) => "./static/" + image.name
+      (image) => image.path
     );
   }
   render() {
@@ -49,12 +63,17 @@ class Location extends React.Component {
         />
       );
     }
+    if (!this.state.isLoaded) {
+      return <span>wait....</span>;
+    }
     return (
       <div className="mainDiv">
         <div className="3d" style={{ height: "40hv" }}>
           <D3images
             admin={this.props.admin}
             locationDescription={this.props.locationDescription}
+            panorama={this.props.locationDescription.sphereImageList[0]}
+            connections={this.state.connections}
           />
           <div className="D3banner">
             <span className="D3bannerLeft">

@@ -1,5 +1,5 @@
 import os
-from flask import Flask, current_app, flash, jsonify, make_response, redirect, request, url_for
+from flask import Flask, current_app, flash, jsonify, make_response, redirect, request, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 from DataAccess import *
@@ -18,6 +18,7 @@ from OrderHandler import *
 from ImageLinkerHandler import *
 from ImageLinker import *
 from Mail import *
+from ConfigProvider import *
 import json
 import FileManipulations
 app = Flask(__name__)
@@ -25,15 +26,14 @@ app.debug = True
 
 CORS(app)
 
-UPLOAD_FOLDER = r'C:\Users\simal\Projects_Git\GoldenHourPhotography\front-end\src\static\photos\galery\test'
-ALLOWED_EXTENSIONS = {'jpg', 'jpeg'}
-app.config ['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+app.config ['UPLOAD_FOLDER'] = ConfigProvider.UPLOAD_FOLDER
 
 def allowed_file(filename):
     return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+           filename.rsplit('.', 1)[1].lower() in ConfigProvider.ALLOWED_EXTENSIONS
 
-@app.route('/', methods=['POST'])
+@app.route('/saveImageFile', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
         flash('No file part')
@@ -43,11 +43,15 @@ def upload_file():
         flash('No selected file')
         return redirect(request.url)
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return redirect(url_for('uploaded_file',
-                                    filename=filename))
-    
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], request.form['name']))
+        resp = make_response(jsonify("Saved", 200))
+        return resp
+
+@app.route('/getImageFile/<fileName>', methods=['GET'])
+def get_image_file(fileName):
+    return send_from_directory(UPLOAD_FOLDER, fileName,as_attachment=False)
+
+
 
 @app.route('/login/<user>/<password>')
 def check_user(user, password):
@@ -63,17 +67,25 @@ def check_user(user, password):
         return resp
      
 
+# @app.route('/addImage', methods=['POST'])
+# def add_image():
+#     if 'admin' in request.cookies:
+#         data = json.loads(request.stream.read())
+#         db = DataAccessImage()
+#         image_handler = ImageHandler(db)
+#         image = Image(data["name"],data["imageType"],data["eventType"],data["location"])
+#         return jsonify(image_handler.add_image(image))
+#     else:
+#         return jsonify("Unauthorized"), 401
+
 @app.route('/addImage', methods=['POST'])
 def add_image():
-    if 'admin' in request.cookies:
-        data = json.loads(request.stream.read())
-        db = DataAccessImage()
-        image_handler = ImageHandler(db)
-        image = Image(data["name"],data["imageType"],data["eventType"],data["location"])
-        return jsonify(image_handler.add_image(image))
-    else:
-        return jsonify("Unauthorized"), 401
-
+    data = json.loads(request.stream.read())
+    db = DataAccessImage()
+    image_handler = ImageHandler(db)
+    image = Image(data["name"],data["imageType"],data["eventType"],data["location"])
+    return jsonify(image_handler.add_image(image))
+    
 
 @app.route('/getAllImageTypes') 
 def get_all_image_types():
@@ -90,8 +102,12 @@ def get_all_event_types():
 @app.route('/getAllImages') 
 def get_all_images():
     db = DataAccessImage()
-    print(db.get_all_images())
-    return jsonify(db.get_all_images())
+    images_from_DB = db.get_all_images()
+    print(images_from_DB)
+    for image in images_from_DB:
+         image['path']=ConfigProvider.PHOTOS_BASE_URL+image['name']
+    resp = make_response(jsonify(images_from_DB, 200))
+    return resp
 
 @app.route('/updateImage', methods=['POST'])
 def update_image():
@@ -198,6 +214,9 @@ def get_locations():
     loc_info_handler = LocationHandler(db)
     return jsonify(loc_info_handler.get_all_locations())
 
+
+
+
 @app.route('/getLocationTypes')
 def get_location_types():
     db = DataAccess()
@@ -207,12 +226,12 @@ def get_location_types():
 @app.route('/addLocation', methods=['POST'])
 def add_location():
     data = json.loads(request.stream.read())
-    location = Location(data["name"],data["type"],data["latitude"],data["longtitude"], data["description"] )
+    location = Location(data["name"],data["type"],data["latitude"],data["longitude"], data["description"] )
     loc_DB = DataAccessLocation()
     loc_handler = LocationHandler(loc_DB)
     loc_handler.add_location(location)
     print(data)
-    image = Image(data["regularImageList"][0], "regular", "", data["name"])
+    image = Image(data["sphereImageList"][0]['name'], "sphere", data["type"], data["name"])
     im_DB = DataAccessImage()
     im_handler = ImageHandler(im_DB)
     im_handler.add_image(image)
@@ -238,7 +257,7 @@ def upsert_link():
     data = json.loads(request.stream.read())
     db = DataAccessLocation()
     link_handler = ImageLinkerHandler(db)
-    link =  ImageLinker(data["origin"], data["destination"], data["latitude"], data["longtitude"])
+    link =  ImageLinker(data["origin"], data["destination"], data["latitude"], data["longitude"])
     return jsonify(link_handler.upsert_link(link))
 
 @app.route('/getLinksToImage', methods=['POST'])
@@ -249,6 +268,13 @@ def get_links():
     image = Image(data["name"],data["imageType"],data["eventType"],data["location"])
     return jsonify(link_handler.get_links_for_image(image))
 
+@app.route('/deleteLink', methods=['POST'])
+def delete_link():
+    data = json.loads(request.stream.read())
+    db = DataAccessLocation()
+    link_handler = ImageLinkerHandler(db)
+    link =  ImageLinker(data["origin"], data["destination"], data["latitude"], data["longitude"])
+    return jsonify(link_handler.delete_link(link))
 
 if __name__ == "__main__":
     app.run(port=5000)

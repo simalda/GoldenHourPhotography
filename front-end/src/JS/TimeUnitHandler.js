@@ -17,9 +17,7 @@ class TimeUnitHandler {
   getSingleTimeSlots() {
     return proxy.getSingleTimeSlots();
   }
-  // getOpenTimeSlots() {
-  //   return proxy.getOpenSlots();
-  // }
+
   deleteTimeUnit(timeUnit) {
     return proxy.deleteTimeUnit(timeUnit);
   }

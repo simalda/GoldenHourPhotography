@@ -5,7 +5,7 @@ class Location {
     name,
     type = null,
     latitude,
-    longtitude,
+    longitude,
     description = null,
     sphereImageList,
     regularImageList
@@ -13,24 +13,28 @@ class Location {
     this.name = name;
     this.type = type;
     this.latitude = latitude;
-    this.longtitude = longtitude;
+    this.longitude = longitude;
     this.description = description;
     this.sphereImageList = sphereImageList;
     this.regularImageList = regularImageList;
   }
   static deserializeToLocationObject(locationJson) {
-    const newSphereImages = locationJson.sphereImageList.map((image) =>
-      Image.deserializeToImageObject(image)
-    );
-    const newRegularImages = locationJson.regularImageList.map((image) =>
-      Image.deserializeToImageObject(image)
-    );
+    if (locationJson.sphereImageList !== undefined) {
+      var newSphereImages = locationJson.sphereImageList.map((image) =>
+        Image.deserializeToImageObject(image)
+      );
+    }
+    if (locationJson.regularImageList !== undefined) {
+      var newRegularImages = locationJson.regularImageList.map((image) =>
+        Image.deserializeToImageObject(image)
+      );
+    }
 
     return new Location(
       locationJson.name,
       locationJson.type,
       locationJson.latitude,
-      locationJson.longtitude,
+      locationJson.longitude,
       locationJson.description,
       newSphereImages,
       newRegularImages

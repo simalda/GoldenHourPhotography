@@ -34,7 +34,7 @@ class DataAccessImage(DataAccess):
     def get_all_images(self):
         self.collection = self.mydb['images']
         images = []
-        result = self.collection.find( )
+        result = self.collection.find()
         for image in result:
             images.append({
             "name":image["name"],

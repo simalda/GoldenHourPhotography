@@ -4,17 +4,13 @@ import * as PhotosphereViewer from "photo-sphere-viewer";
 
 import "photo-sphere-viewer/dist/photo-sphere-viewer.css";
 
-import ImageLinkerHandler from "../JS/ImageLinkerHandler";
-import lisa from "../static/photos/galery/pic_18.jpg";
-// import zvezda from "../static/photos/zvezda.jpg";
-// import atlit from "../static/photos/photo_sphere/Atlit_Panorama.jpg";
+import ImageLinker from "../JS/ImageLinker";
 class D3images extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      panorama:
-        "./static/" + this.props.locationDescription.sphereImageList[0].name,
-      image: this.props.locationDescription.sphereImageList[0],
+      panorama: this.props.panorama.path,
+      image: this.props.panorama,
       markers: [],
     };
     this.divStyle = {
@@ -24,7 +20,7 @@ class D3images extends Component {
   }
 
   componentDidMount() {
-    this.createMarkers();
+    const markers = this.createMarkers();
     this.viewer = new PhotosphereViewer.Viewer({
       navbar: false,
       container: document.querySelector("#viewer"),
@@ -34,29 +30,7 @@ class D3images extends Component {
         [
           PhotoSphereViewer.MarkersPlugin,
           {
-            markers: [
-              ...this.state.markers,
-              {
-                id: "new-marker",
-                longitude: "45deg",
-                latitude: "0deg",
-                width: 100,
-                height: 100,
-                image: lisa,
-                className: "imageMarker",
-                tooltip: "Adam. <b>Click me!</b>",
-              },
-              {
-                // circle marker
-                id: "circle",
-                circle: 20,
-                height: 30,
-                x: 0.3,
-                y: 0.2,
-                tooltip: "A circle marker",
-                className: "imageMarker",
-              },
-            ],
+            markers: [...markers],
           },
         ],
       ],
@@ -65,55 +39,62 @@ class D3images extends Component {
     const markersPlugin = this.viewer.getPlugin(
       PhotoSphereViewer.MarkersPlugin
     );
-    if (this.props.admin.length !== 0) {
+    if (!this.props.admin.length) {
+      markersPlugin.on("select-marker", (e, marker) =>
+        this.changePanorama(e, marker)
+      );
+    } else if (this.props.admin.length) {
       this.viewer.on("click", (e, data) => {
         console.log(
           `${data.rightclick ? "right clicked" : "clicked"} at longitude: ${
             data.longitude
           } latitude: ${data.latitude}`
         );
+        const linker = new ImageLinker(
+          this.state.image.name,
+          "",
+          "",
+          data.latitude,
+          data.longitude
+        );
+        this.props.openDestinations(linker);
+      });
+      markersPlugin.on("select-marker", (e, marker) => {
+        const splitPath = marker.config.image.split("/");
+        const imName = splitPath[splitPath.length - 1];
+        const linker = new ImageLinker(
+          this.state.image.name,
+          imName,
+          marker.config.image,
+          marker.props.position.latitude,
+          marker.props.position.longitude
+        );
+        this.props.openDestinations(linker);
       });
     }
-    // markersPlugin.on("select-marker", (e, marker) => {
-    //   markersPlugin.updateMarker({
-    //     id: marker.id,
-    //     image: lisa,
-    //   });  });
-    markersPlugin.on("select-marker", (e, marker) => this.TestClick(e, marker));
-
-    // viewer.on("click", (marker) => {
-    //   if (marker.id === "imageLisa") {
-    //     viewer.setPanorama(lisa, null, true);
-    //   }
-    // });
   }
+
   createMarkers() {
-    const linkHandler = new ImageLinkerHandler();
-    linkHandler.getAllLinksToImage(this.state.image).then((connections) => {
-      const markers = connections.map((connection) => ({
-        id: connection.destination,
-        longitude: connection.longitude,
-        latitude: connection.latitude,
-        image: "./static/" + connection.destination,
-        width: 62,
-        height: 62,
-        tooltip: {
-          content: "Click, to see that location",
-          position: "bottom center",
-        },
-        className: "imageMarker",
-      }));
-      this.setState({
-        markes: markers,
-      });
-    });
+    return this.props.connections.map((connection) => ({
+      id: connection.destination,
+      longitude: connection.longitude,
+      latitude: connection.latitude,
+      image: connection.destinationImagePath,
+      width: 62,
+      height: 62,
+      tooltip: {
+        content: "Click, to see that location",
+      },
+      className: "imageMarker",
+    }));
   }
 
   componentDidUpdate() {
     this.viewer.setPanorama(this.state.panorama, undefined, true);
+    this.viewer.plugins.markers.setMarkers(this.state.markers);
   }
 
-  TestClick(e, marker) {
+  changePanorama(e, marker) {
     console.log(`Cursor is over marker ${marker.config.image}`);
     this.setState({
       panorama: marker.config.image,

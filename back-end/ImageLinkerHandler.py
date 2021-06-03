@@ -2,8 +2,8 @@ class ImageLinkerHandler():
     def __init__(self, data_access):
         self.data_access = data_access
 
-    def remove_link_from(self, origin):
-        pass
+    def delete_link(self, link):
+         self.data_access.delete_link(link)
 
     def upsert_link(self, link):
         self.data_access.upsert_link(link)

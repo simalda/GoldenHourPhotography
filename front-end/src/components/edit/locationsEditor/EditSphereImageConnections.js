@@ -3,9 +3,11 @@ import D3images from "../../D3images";
 import * as selectoptions from "../../../JS/getOptions";
 import ImageLinkerHandler from "../../../JS/ImageLinkerHandler";
 import ImageLinker from "../../../JS/ImageLinker";
+import history from "../../../JS/history";
+import { Fragment } from "react";
 
 const photoSphereImage = "PhotoImage";
-const updateDeleteScreen = "UpdateDeleteScreen";
+// const updateDeleteScreen = "UpdateDeleteScreen";
 const editOneConnetion = "EditOneConnection";
 
 class EditSphereImageConnections extends React.Component {
@@ -13,29 +15,47 @@ class EditSphereImageConnections extends React.Component {
     super(props);
     this.state = {
       whatToShow: photoSphereImage,
-      image: {},
-      linker: new ImageLinker(),
+      linker: new ImageLinker(this.props.image.name, "", "", "", ""),
     };
   }
-  openUpdateDeleteScreen() {
-    return (
-      <div>
-        <button className="button" type="submit">
-          {this.props.dictionary["edit"]}
-        </button>
 
-        <button className="button" onClick={() => this.back()}>
-          {this.props.dictionary["delete"]}
-        </button>
-      </div>
+  componentDidMount() {
+    const linkerHandler = new ImageLinkerHandler();
+    linkerHandler.getConnections(this.props.image).then((result) =>
+      this.setState({
+        connections: result,
+      })
     );
   }
+
+  // openUpdateDeleteScreen() {
+  //   return (
+  //     <div>
+  //       <button className="button" type="submit">
+  //         {this.props.dictionary["edit"]}
+  //       </button>
+
+  //       <button className="button" onClick={() => this.back()}>
+  //         {this.props.dictionary["delete"]}
+  //       </button>
+  //     </div>
+  //   );
+  // }
   changeImage(event) {
-    this.setState({ image: event.target.value });
+    this.setState((state) => {
+      return {
+        whatToShow: editOneConnetion,
+        linker: {
+          ...state.linker,
+          destination: event.target.value,
+        },
+      };
+    });
   }
   handleOneConnection() {
-    const ImageOptions = selectoptions.getOptions(
-      this.props.locationDescription.sphereImageList
+    const ImageOptions = selectoptions.getOptionsWithCurrent(
+      this.props.locationDescription.sphereImageList.map((image) => image.name),
+      this.state.linker.destination
     );
     return (
       <div>
@@ -47,38 +67,64 @@ class EditSphereImageConnections extends React.Component {
         >
           {ImageOptions}
         </select>
-        <div></div>
-        <div></div>
-        <button className="button" onClick={() => this.back()}>
+        <div>{this.state.linker.longitude}</div>
+        <div>{this.state.linker.latitude}</div>
+        <button className="button" onClick={() => this.upsertConnection()}>
           {this.props.dictionary["save"]}
+        </button>
+
+        <button className="button" onClick={() => this.deleteConnection()}>
+          {this.props.dictionary["delete"]}
+        </button>
+
+        <button className="button" onClick={() => history.goBack()}>
+          {this.props.dictionary["back"]}
         </button>
       </div>
     );
   }
-  addNewConnection() {
-    const linkerHandler = new ImageLinkerHandler();
-    linkerHandler.addConnection(this.state.connection);
+  openDestinations(linker) {
+    this.setState({
+      whatToShow: editOneConnetion,
+      linker: linker,
+    });
   }
-  updateConnection() {}
-  deleteConnection() {}
+
+  upsertConnection() {
+    const linkerHandler = new ImageLinkerHandler();
+    linkerHandler.upsertLink(this.state.linker);
+    this.props.reloadApp();
+  }
+  deleteConnection() {
+    const linkerHandler = new ImageLinkerHandler();
+    linkerHandler.deleteLink(this.state.linker);
+    this.props.reloadApp();
+  }
   render() {
-    let displayed = <div></div>;
-    if (this.state.whatToShow === photoSphereImage) {
-      displayed = (
-        <D3images
-          location={this.props.locationDescription}
-          admin={this.props.admin}
-          addNewConnection={(connection) => this.addNewConnection(connection)}
-          updateConnection={(connection) => this.updateConnection(connection)}
-          deleteConnection={(connection) => this.deleteConnection(connection)}
-        />
-      );
-    } else if (this.state.whatToShow === updateDeleteScreen) {
-      displayed = this.openUpdateDeleteScreen();
-    } else if (this.state.whatToShow === editOneConnetion) {
-      displayed = this.handleOneConnection();
+    if (!this.state.connections) {
+      return null;
     }
-    return { displayed };
+    if (this.state.whatToShow === photoSphereImage) {
+      return (
+        <Fragment>
+          <D3images
+            locationDescription={this.props.locationDescription}
+            admin={this.props.admin}
+            openDestinations={(data) => this.openDestinations(data)}
+            panorama={this.props.image}
+            connections={this.state.connections}
+          />
+          <button className="button" onClick={() => history.goBack()}>
+            {this.props.dictionary["back"]}
+          </button>
+        </Fragment>
+      );
+      // } else if (this.state.whatToShow === updateDeleteScreen) {
+      //   return this.openUpdateDeleteScreen();
+    } else if (this.state.whatToShow === editOneConnetion) {
+      return this.handleOneConnection();
+    }
+    return <div></div>;
   }
 }
 

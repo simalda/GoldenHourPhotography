@@ -8,6 +8,7 @@ import * as selectoptions from "../../../JS/getOptions";
 
 import classes from "./editImage.module.scss";
 import ImageHandler from "../../../JS/ImageHandler";
+import Translator from "../../../JS/Translator";
 class EditOneImage extends React.Component {
   constructor(props) {
     super(props);
@@ -51,25 +52,6 @@ class EditOneImage extends React.Component {
       };
     });
   }
-  // updateListImagesToResaveimageType(e) {
-  //   const image = new Image(
-  //     this.props.image.name,
-  //     e.options[e.options.selectedIndex].value,
-  //     this.props.image.eventType,
-  //     this.props.image.location
-  //   );
-  //   this.props.editOneImage(image);
-  // }
-
-  // updateListImagesToResaveEventType(e) {
-  //   const image = new Image(
-  //     this.props.image.name,
-  //     this.props.image.imageType,
-  //     e.options[e.options.selectedIndex].value,
-  //     this.props.image.location
-  //   );
-  //   this.props.editOneImage(image);
-  // }
 
   updateListImagesToResaveLocation(e) {
     const image = new Image(
@@ -104,17 +86,18 @@ class EditOneImage extends React.Component {
     this.props.reloadApp();
   }
   render() {
+    const translator = new Translator();
     const ImageTypeOptions = selectoptions.getOptionsWithCurrent(
-      this.props.imageTypes,
-      this.state.image.imageType
+      translator.translateArray(this.props.imageTypes),
+      translator.translate(this.state.image.imageType)
     );
     const LocationOptions = selectoptions.getOptionsWithCurrent(
       this.props.diffLocations,
       this.state.image.location
     );
     const EventTypes = selectoptions.getOptionsWithCurrent(
-      this.props.eventTypes,
-      this.state.image.eventType
+      translator.translateArray(this.props.eventTypes),
+      translator.translate(this.state.image.eventType)
     );
     return (
       <Fragment>

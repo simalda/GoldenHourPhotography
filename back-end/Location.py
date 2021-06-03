@@ -1,10 +1,10 @@
 
 
 class Location():
-    def __init__(self, name, location_type, latitude, longtitude, description = ""):        
+    def __init__(self, name, location_type, latitude, longitude, description = ""):        
         self.name = name
         self.location_type = location_type
         self.latitude = latitude
-        self.longtitude = longtitude
+        self.longitude = longitude
         self.description = description
          

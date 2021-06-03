@@ -1,6 +1,6 @@
 import React from "react";
 
-import * as imageManager from "../../JS/imageManager";
+// import * as imageManager from "../../JS/imageManager";
 
 class Slider extends React.Component {
   constructor(props) {
@@ -29,10 +29,14 @@ class Slider extends React.Component {
   }
 
   loadImages() {
-    const pathList = imageManager.importAll();
+    const pathList = this.props.imageList.map((image) => image.path);
     this.setState({
       imagePathList: pathList,
     });
+    // const pathList = imageManager.importAll();
+    // this.setState({
+    //   imagePathList: pathList,
+    // });
   }
 
   render() {
