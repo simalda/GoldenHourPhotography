@@ -1,0 +1,402 @@
+@use 'mixin';
+@use 'variables';
+@use 'fonts';
+@import "../components/ordersCalendar/calendar.module.scss";
+@import "../components/slider/slider.scss";
+
+#app {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+html {
+  height: 100%;
+}
+.frame {
+  height: 100%;
+  padding-top: 7vh;
+  text-align: center;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+input,
+select,
+option {
+  height: 4vh;
+  border-radius: 30px;
+  width: 17vw;
+  direction: rtl;
+  font-size: 2vh;
+  @include mixin.font-Heebo-Medium-gray;
+  margin: 1.5vh;
+  padding-right: 1vw;
+  border-color: #ede7e7;
+  outline: none;
+}
+
+.connectionDetails {
+  float: right;
+  padding-right: 1vw;
+  padding-top: 1.7vh;
+  font-size: 1vw;
+  @media screen and (max-width: 600px) {
+    font-size: 2.4vh;
+    display: inline-grid;
+  }
+  .aboutus_font {
+    @include mixin.font-Heebo-Bold-gray;
+  }
+  .tel {
+    padding-right: 0.7vw;
+    @include mixin.font-Heebo-Medium-gray;
+  }
+}
+
+.white {
+  background-color: white;
+}
+label {
+  align-self: end;
+  justify-self: center;
+}
+.justCenter {
+  justify-self: center;
+}
+
+.diagonaled {
+  transform: rotate(-5deg);
+  font-family: blackjack;
+  font-size: 2vh;
+  display: inline-block;
+  padding-top: 1vh;
+}
+
+/*admin*/
+#adminLogin {
+  padding-top: 7vh;
+  display: grid;
+  grid-template-rows: 10% 20% 10% 20% 30%;
+  height: 35vh;
+  justify-content: center;
+}
+/*buttons*/
+.button {
+  border: 0px;
+  background-color: variables.$base-color-1;
+  border-radius: 3vh;
+  width: 17vw;
+  height: 6vh;
+  color: white;
+  font-size: 2vh;
+  font-family: "Heebo-Medium", sans-serif;
+  margin: 2vh;
+  justify-self: center;
+  outline: none;
+  cursor: pointer;
+}
+.button:hover,
+.buttonPopupMarker:hover {
+  background-color: variables.$base-color-2;
+  color: #515151;
+}
+.buttonPopupMarker {
+  border: 0px;
+  background-color: variables.$base-color-1;
+  border-radius: 3vh;
+  width: 90%;
+  height: 3vh;
+  color: white;
+  font-family: "Heebo-Medium", sans-serif;
+  margin: 1vh;
+  justify-self: center;
+  outline: none;
+  cursor: pointer;
+  display: block;
+}
+
+.rtl {
+  direction: rtl;
+}
+.orderDetailsEventType {
+  justify-self: right;
+  width: 18vw;
+  text-align-last: right;
+}
+
+/*footer*/
+.icon {
+  padding: 2vh 1vw;
+  height: 4vh;
+}
+.footer {
+  background-color: variables.$background-color;
+  text-align: center;
+  height: 8vh;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+/*location*/
+
+.photosFromThere {
+  height: 5vh;
+  text-align: center;
+  color: #515151;
+}
+/*map*/
+
+.leaflet-div-icons {
+  border: 2px solid variables.$base-color-2;
+  border-radius: 50%;
+  font-family: "Heebo-Medium", sans-serif;
+}
+
+.divContainsOrderDetails {
+  display: grid;
+  grid-template-columns: 20% 20% 20%;
+  justify-content: center;
+}
+.divContainsOrderDetails {
+  justify-content: center;
+}
+
+.divOrderDetail {
+  display: grid;
+  grid-template-rows: 30% 30% 30%;
+  @include mixin.font-Heebo-Medium-gray;
+  font-size: 2vh;
+  justify-content: right;
+  background-color: variables.$base-color-2;
+  height: 8vh;
+  width: 12vw;
+  justify-self: right;
+  border-radius: 10px;
+  padding: 2vw;
+}
+
+@media screen and (max-width: 600px) {
+  .imHappyMoments {
+    width: 90vw;
+  }
+
+  .endPageRecomendations {
+    width: 90%;
+  }
+
+  .button {
+    margin-bottom: 2vw;
+    width: 70vw;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .buttonArea {
+    background-color: #f8f8f8;
+    padding: 1vh;
+    height: 25vh;
+    padding: 5vh 0vh;
+  }
+  .containerImages {
+    height: 35vh;
+  }
+  .containerImages .galery {
+    height: 35vh;
+    padding: 1vw;
+  }
+  #container-main {
+    padding-top: 7vh;
+  }
+  .footer {
+    height: 8vh;
+    margin-top: 0px;
+  }
+  .icon {
+    padding: 2vh 1vh;
+    height: 4vh;
+  }
+
+  .calendarHeader {
+    height: 12vh;
+  }
+
+  .divContainsOrderDetails {
+    grid-template-rows: 20% 60% 20%;
+    grid-template-columns: none;
+  }
+  .divPaymentDescription {
+    order: 3;
+  }
+  .userDetails {
+    order: 2;
+  }
+  .divOrderDetail {
+    order: 1;
+    width: 100vw;
+    height: 12vh;
+  }
+  input {
+    width: 80vw;
+  }
+  .headerDetails {
+    display: none;
+  }
+}
+
+.close {
+  display: none;
+}
+
+/*order details*/
+
+.userDetails {
+  text-align: center;
+  display: grid;
+  grid-template-rows: 15% 15% 15% 15% 15% 15%;
+  justify-content: center;
+}
+.userDetailsEdit {
+  text-align: center;
+  display: grid;
+  grid-template-rows: repeat(auto, 9);
+  justify-content: center;
+  order: 3;
+}
+.headerDetails {
+  padding-top: 5vh;
+  font-size: 3vh;
+  @include mixin.font-Heebo-Medium-gray;
+  text-align: center;
+  margin-top: 4vh;
+  margin-bottom: 2vh;
+}
+
+.divPaymentDescription {
+  display: grid;
+  grid-template-rows: 15% 15% 25%;
+  @include mixin.font-Heebo-Medium-gray;
+  font-size: 2vh;
+}
+
+.sale {
+  font-family: blackjack;
+}
+
+.saleAmount {
+  background-color: variables.$base-color-2;
+  height: 3vh;
+  display: inline-block;
+  padding: 1vh;
+  border-radius: 3vh;
+  margin-right: 1vw;
+}
+.basePrice {
+  text-decoration: line-through;
+}
+
+.preSaleDescription {
+  margin-top: 2vh;
+}
+
+/*photos*/
+.galery {
+  height: 60vh;
+  padding: 0.3vw;
+  border-radius: 20px;
+}
+
+/*popup*/
+.popup {
+  display: block;
+  position: fixed;
+  z-index: 100;
+  padding-top: 20vh;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: variables.$base-color-2;
+  font-size: 2vh;
+  color: variables.$base-color-3;
+}
+
+.locationName {
+  height: 3vh;
+  background-color: variables.$base-color-2;
+  font-size: 2vh;
+  @include mixin.font-Heebo-Medium-gray;
+  text-align: center;
+}
+
+/*slider*/
+
+.sliderMainDiv {
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+  justify-items: center;
+}
+
+.arrow {
+  height: 4vh;
+  align-self: center;
+}
+.none {
+  display: none;
+}
+
+.D3banner {
+  position: relative;
+  height: 4vh;
+  width: 30vw;
+  text-align: center;
+  display: inline-block;
+  background-color: variables.$base-color-2;
+  color: #515151;
+  bottom: 10vh;
+  border-radius: 3vh;
+  @include mixin.font-Heebo-Medium-gray;
+  padding-top: 1vh;
+  font-size: 2vh;
+}
+
+.D3bannerLeft {
+  float: left;
+  padding-left: 1vw;
+}
+.D3bannerArrow {
+  height: 1.6vh;
+  padding-right: 1vw;
+}
+
+.D3bannerRight {
+  float: right;
+  padding-right: 3vw;
+}
+
+.imageMarker {
+  border-radius: 50%;
+  border: variables.$base-color-1 solid 3px;
+  cursor: pointer;
+}
+
+.leaflet-popup-content {
+  height: 5vh;
+  text-align: center;
+  width: 8vw;
+}
+
+//bezdomnyy
+.locationItem {
+  height: 3.5vh;
+}
+
+.watzap {
+  float: right;
+  padding-top: 1.7vh;
+  padding-right: 3vw;
+  height: 2.8vh;
+}

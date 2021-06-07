@@ -1,0 +1,20 @@
+.containerImages {
+  position: relative;
+  height: 60vh;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: grab;
+
+  &.is-grabbing {
+    cursor: grabbing;
+  }
+}
+
+.innerDiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 60vh;
+  pointer-events: none;
+}

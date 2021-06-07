@@ -1,0 +1,38 @@
+{
+  "pregnancy": "הריון",
+  "event": "ארוע",
+  "family": "משפחה",
+  "infant": "תינוקות",
+  "other": "אחר",
+
+  "regular": "רגיל",
+  "sphere": "ספרה",
+  "gif": "גיפ",
+
+  "atlit": "עתלית",
+  "university": "אוניברסיטה",
+  "dado": "דדו",
+
+  "date": "תאריך",
+  "time": "שעה",
+
+  "back": "חזרה",
+  "send": "שליחה",
+  "save": "שמירה",
+  "delete": "מחיקה",
+  "manageSite": "ניהול  אתר",
+  "chooseLocation": "בחרו מיקום",
+  "add": "הוספה",
+  "addConnection": "עריכת קישורים לתמונה  זו",
+  "edit": "עריכה",
+
+  "naturePhotos": " צילומים בטבע",
+  "siteDescription": "באיזור חיפה והסביבה | צילומי משפחה, ילדים, הריון, תדמית ועוד",
+  "savePlace": "שירינו לי מקום",
+
+  "Feel the fields": "מלא את השדות",
+  "Name of image": "שם התמונה",
+  "Image type": "טיפוס התמונה",
+  "Image location": "מיקום של התמונה",
+  "Event type": "סוג אירוע"
+}

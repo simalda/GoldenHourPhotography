@@ -1,0 +1,49 @@
+[{
+  "_id": {
+    "$oid": "6025c604a986c923f0f6e91c"
+  },
+  "name": "UnHaifaRahbal.jpg",
+  "imageType": "regular",
+  "eventType": "other",
+  "location": "university"
+},{
+  "_id": {
+    "$oid": "6025c655a986c923f0f6e91e"
+  },
+  "name": "pic_13.jpg",
+  "imageType": "regular",
+  "eventType": "family",
+  "location": "atlit"
+},{
+  "_id": {
+    "$oid": "6025c65ba986c923f0f6e91f"
+  },
+  "name": "pic_14.jpg",
+  "imageType": "regular",
+  "eventType": "family",
+  "location": "atlit"
+},{
+  "_id": {
+    "$oid": "6025c661a986c923f0f6e920"
+  },
+  "name": "pic_15.jpg",
+  "imageType": "regular",
+  "eventType": "family",
+  "location": "atlit"
+},{
+  "_id": {
+    "$oid": "60423dcecb58ac51da8a9e45"
+  },
+  "name": "pic_12.jpg",
+  "imageType": "regular",
+  "eventType": "infant",
+  "location": "city"
+},{
+  "_id": {
+    "$oid": "60423dfecb58ac51da8a9e60"
+  },
+  "name": "pic_11.jpg",
+  "imageType": "regular",
+  "eventType": "pregnancy",
+  "location": "atlit"
+}]

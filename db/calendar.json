@@ -1,0 +1,164 @@
+[{
+  "_id": {
+    "$oid": "60136dcc536bbca91a56d545"
+  },
+  "date": null,
+  "dayOfWeek": 1,
+  "time": "10:00 - 11:00",
+  "isWeekly": true,
+  "orderId": null
+},{
+  "_id": {
+    "$oid": "60136fbd536bbca91a56d576"
+  },
+  "date": "2021-01-28T02:15:23.438Z",
+  "dayOfWeek": 4,
+  "time": "10:00 - 11:00",
+  "isWeekly": false,
+  "orderId": null
+},{
+  "_id": {
+    "$oid": "60136fc6536bbca91a56d57d"
+  },
+  "date": "2021-01-29T02:15:32.800Z",
+  "dayOfWeek": 5,
+  "time": "10:00 - 11:00",
+  "isWeekly": false,
+  "orderId": null
+},{
+  "_id": {
+    "$oid": "60140b195b77fde86140cb2c"
+  },
+  "date": null,
+  "dayOfWeek": 1,
+  "time": "16:00 - 17:00",
+  "isWeekly": true
+},{
+  "_id": {
+    "$oid": "60140b4c5b77fde86140cb35"
+  },
+  "date": "2021-01-26T13:19:06.703Z",
+  "dayOfWeek": 2,
+  "time": "16:00 - 17:00",
+  "isWeekly": false
+},{
+  "_id": {
+    "$oid": "60140b5b5b77fde86140cb3e"
+  },
+  "date": null,
+  "dayOfWeek": 0,
+  "time": "16:00 - 17:00",
+  "isWeekly": true
+},{
+  "_id": {
+    "$oid": "60145b105b77fde86140cdbf"
+  },
+  "date": null,
+  "dayOfWeek": 6,
+  "time": "10:00 - 11:00",
+  "isWeekly": true
+},{
+  "_id": {
+    "$oid": "60145f7c5b77fde86140ce19"
+  },
+  "date": null,
+  "dayOfWeek": 1,
+  "time": "10:00 - 11:00",
+  "isWeekly": true
+},{
+  "_id": {
+    "$oid": "601460c15b77fde86140ce2a"
+  },
+  "date": "2021-01-27T19:23:42.733Z",
+  "dayOfWeek": 3,
+  "time": "16:00 - 17:00",
+  "isWeekly": false
+},{
+  "_id": {
+    "$oid": "601472f85b77fde86140ce49"
+  },
+  "date": null,
+  "dayOfWeek": 6,
+  "time": "10:00 - 11:00",
+  "isWeekly": true
+},{
+  "_id": {
+    "$oid": "6014736b5b77fde86140ce4c"
+  },
+  "date": null,
+  "dayOfWeek": 6,
+  "time": "11:00 - 12:00",
+  "isWeekly": true
+},{
+  "_id": {
+    "$oid": "6014776b5b77fde86140cebf"
+  },
+  "date": "2021-01-27T21:00:25.527Z",
+  "dayOfWeek": 3,
+  "time": "15:00 - 16:00",
+  "isWeekly": false
+},{
+  "_id": {
+    "$oid": "601477705b77fde86140cec8"
+  },
+  "date": null,
+  "dayOfWeek": 3,
+  "time": "14:00 - 15:00",
+  "isWeekly": true
+},{
+  "_id": {
+    "$oid": "602801f941b9d7ec58d79463"
+  },
+  "date": null,
+  "dayOfWeek": 5,
+  "time": "11:00 - 12:00",
+  "isWeekly": true
+},{
+  "_id": {
+    "$oid": "6040380ae8ad857e920be547"
+  },
+  "date": "2021-04-02T00:22:14.003Z",
+  "dayOfWeek": 5,
+  "time": "10:00 - 11:00",
+  "isWeekly": false
+},{
+  "_id": {
+    "$oid": "60403875e8ad857e920be584"
+  },
+  "date": "2021-03-05T01:31:24.049Z",
+  "dayOfWeek": 5,
+  "time": "10:00 - 11:00",
+  "isWeekly": false
+},{
+  "_id": {
+    "$oid": "604038e4e8ad857e920be59d"
+  },
+  "date": "2021-03-06T01:33:17.117Z",
+  "dayOfWeek": 6,
+  "time": "12:00 - 13:00",
+  "isWeekly": false
+},{
+  "_id": {
+    "$oid": "60403910e8ad857e920be5b8"
+  },
+  "date": "2021-03-06T01:34:03.034Z",
+  "dayOfWeek": 6,
+  "time": "13:00 - 14:00",
+  "isWeekly": false
+},{
+  "_id": {
+    "$oid": "60403936e8ad857e920be5df"
+  },
+  "date": null,
+  "dayOfWeek": 6,
+  "time": "14:00 - 15:00",
+  "isWeekly": true
+},{
+  "_id": {
+    "$oid": "60415af111598a287c9d0305"
+  },
+  "date": "2021-02-27T22:10:34.175Z",
+  "dayOfWeek": 0,
+  "time": "10:00 - 11:00",
+  "isWeekly": false
+}]

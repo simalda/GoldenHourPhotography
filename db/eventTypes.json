@@ -1,0 +1,26 @@
+[{
+  "_id": {
+    "$oid": "5ff5cbfa58dab73b9c3dfbde"
+  },
+  "type": "pregnancy"
+},{
+  "_id": {
+    "$oid": "5ff5cc0a58dab73b9c3dfbdf"
+  },
+  "type": "event"
+},{
+  "_id": {
+    "$oid": "5ff5cc1458dab73b9c3dfbe0"
+  },
+  "type": "family"
+},{
+  "_id": {
+    "$oid": "5ff5cc1b58dab73b9c3dfbe1"
+  },
+  "type": "infant"
+},{
+  "_id": {
+    "$oid": "5ff5cc2458dab73b9c3dfbe2"
+  },
+  "type": "other"
+}]

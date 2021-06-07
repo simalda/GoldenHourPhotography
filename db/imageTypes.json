@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "5ff5a3a958dab73b9c3dfbdb"
+  },
+  "type": "regular"
+},{
+  "_id": {
+    "$oid": "5ff5a3be58dab73b9c3dfbdc"
+  },
+  "type": "sphere"
+},{
+  "_id": {
+    "$oid": "5ff5a3c758dab73b9c3dfbdd"
+  },
+  "type": "gif"
+}]
