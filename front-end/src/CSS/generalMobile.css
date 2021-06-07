@@ -1,0 +1,373 @@
+@font-face {
+  font-family: Heebo-Medium;
+  src: url(../static/fonts/heebo/Heebo-Medium.ttf);
+}
+@font-face {
+  font-family: Heebo-Bold;
+  src: url(../static/fonts/heebo/Heebo-Bold.ttf);
+}
+@font-face {
+  font-family: blackjack;
+  src: url(../static/fonts/blackjack/blackjack.otf);
+}
+
+@import "./calendar.css";
+
+.body {
+  margin: 0;
+  padding: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, "Heebo" ,
+      sans-serif; */
+  /* -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; */
+}
+input {
+  height: 4vh;
+  border-radius: 30px;
+  width: 20vw;
+  text-align: right;
+  font-size: 2vh;
+  font-family: "Heebo-Medium";
+  color: #515151;
+  margin: 0.5vh;
+  padding-right: 1vw;
+}
+label {
+  align-self: end;
+  justify-self: center;
+}
+
+.mainDiv {
+  padding-top: 6vh;
+  text-align: center;
+}
+.diagonaled {
+  transform: rotate(-5deg);
+  font-family: blackjack;
+  font-size: 2vh;
+  display: inline-block;
+  padding-top: 1vh;
+}
+
+/*main*/
+#container-main {
+  text-align: center;
+  padding-top: 7vh;
+}
+.happyMoments {
+  height: 7vh;
+  padding-top: 6vh;
+}
+.about {
+  padding-top: 2vh;
+  display: grid;
+  grid-template-rows: 50% 50%;
+  justify-content: right;
+  height: 50vh;
+}
+
+.aboutText {
+  display: grid;
+  grid-template-rows: 60% 20% 20%;
+  justify-items: end;
+  margin-right: 1vw;
+}
+.buttonArea {
+  background-color: #f8f8f8;
+  padding: 1vh;
+}
+
+/*admin*/
+#adminLogin {
+  padding-top: 7vh;
+  display: grid;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+  height: 25vh;
+  justify-content: center;
+}
+/*buttons*/
+.button {
+  border: 0px;
+  background-color: #62909a;
+  border-radius: 3vh;
+  width: 80vw;
+  height: 6vh;
+  color: white;
+  font-size: 2vh;
+  font-family: "Heebo-Medium", sans-serif;
+  margin: 2vh;
+  justify-self: center;
+}
+.zilum {
+  color: #62909a;
+  font-family: "Heebo-Bold", sans-serif;
+  font-size: 3vh;
+}
+.greenText {
+  color: #62909a;
+  font-family: "Heebo-Medium", sans-serif;
+  margin-bottom: 2vh;
+}
+/* edit image*/
+.editImage {
+  height: 8vh;
+}
+.editImageDiv {
+  display: grid;
+  grid-template-columns: 10% 10% 10% 10% 10% 10% 10%;
+}
+/*end page*/
+.endPage {
+  color: #515151;
+  text-align: center;
+  font-size: 1.5vh;
+  font-family: "Heebo-Medium", sans-serif;
+}
+.vase {
+  display: inline-block;
+  bottom: 6vh;
+  right: 1vw;
+  width: 30vw;
+  position: relative;
+  background-color: #f1dddc;
+  height: 4vh;
+  border-radius: 4vh;
+}
+.endPageDate {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  height: 10vh;
+}
+
+.endPageDateHeader {
+  font-size: 2vh;
+  font-family: "Heebo-Bold";
+  margin: 1vh;
+}
+.endPageRecomendations {
+  display: inline-grid;
+  grid-template-rows: 30% 30%;
+  height: 10vh;
+  width: 25vw;
+}
+.endPageWatsap {
+  display: grid;
+  grid-template-rows: 50% 50%;
+}
+/*footer*/
+.icon {
+  padding: 1vw;
+}
+.footer {
+  background-color: #f8f8f8;
+  text-align: center;
+  margin-top: 2vh;
+}
+
+/*location*/
+
+.photosFromThere {
+  height: 5vh;
+  text-align: center;
+  color: #515151;
+}
+/*map*/
+/* #mapid {
+    height: 180px;
+    width: 500px;
+    padding-top: 7vh;
+  } */
+.leaflet-container {
+  height: 80vh;
+  width: 100vw;
+}
+
+.leaflet-div-icons {
+  border: 2px solid #f1dddc;
+  border-radius: 50%;
+  font-family: "Heebo-Medium", sans-serif;
+}
+/*nav bar*/
+.navbar-text {
+  color: #515151;
+  display: inline-block;
+  width: 10vh;
+  text-align: center;
+  font-size: 1.4vh;
+  padding-top: 1.7vh;
+  font-family: "Heebo-Medium", sans-serif;
+  text-decoration: none;
+}
+
+.nav {
+  background-color: #f1dddc;
+  height: 5vh;
+  text-align: center;
+}
+
+.links {
+  width: 70vh;
+  margin: auto;
+  display: inline-block;
+}
+
+.connectionDetails {
+  float: right;
+  padding-right: 1vh;
+  padding-top: 1.7vh;
+  font-size: 1.4vh;
+}
+.heebo-Bold {
+  font-family: "Heebo-Bold", sans-serif;
+  color: #515151;
+}
+.tel {
+  padding-right: 2vh;
+  font-family: "Heebo-Medium", sans-serif;
+  color: #515151;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.logo {
+  float: left;
+  margin-left: 2vw;
+  padding-top: 0.7vh;
+  height: 4vh;
+}
+.watzap {
+  float: right;
+  padding-top: 1.7vh;
+  padding-right: 3vw;
+}
+
+.watzapAbout {
+  float: right;
+  padding-top: 1.7vh;
+}
+
+/*order details*/
+
+.userDetails {
+  text-align: center;
+  display: grid;
+  grid-template-rows: 15% 15% 15% 15% 15% 15%;
+  justify-content: center;
+}
+.headerDetails {
+  padding-top: 5vh;
+  font-size: 3vh;
+  font-family: "Heebo-Medium";
+  text-align: center;
+  margin-top: 4vh;
+  color: #515151;
+  margin-bottom: 2vh;
+}
+.divContainsOrderDetails {
+  display: grid;
+  grid-template-columns: 20% 20% 20%;
+  justify-content: center;
+}
+
+.divOrderDetail {
+  display: grid;
+  grid-template-rows: 30% 30% 30%;
+  font-family: "Heebo-Medium";
+  font-size: 2vh;
+  justify-content: right;
+  background-color: #f1dddc;
+  height: 8vh;
+  width: 12vw;
+  justify-self: right;
+  border-radius: 10px;
+  padding: 2vw;
+  color: #515151;
+}
+
+.divPaymentDescription {
+  display: grid;
+  grid-template-rows: 15% 15% 25%;
+  font-family: "Heebo-Medium";
+  font-size: 2vh;
+  color: #515151;
+}
+
+.sale {
+  font-family: blackjack;
+}
+
+.saleAmount {
+  background-color: #f1dddc;
+  height: 3vh;
+  display: inline-block;
+  padding: 1vh;
+  border-radius: 3vh;
+  margin-right: 1vw;
+}
+.basePrice {
+  text-decoration: line-through;
+}
+
+.preSaleDescription {
+  margin-top: 2vh;
+}
+
+/*photos*/
+.galery {
+  height: 40vh;
+  padding: 0.5vw;
+  border-radius: 10%;
+}
+
+.aboutPhoto {
+  height: 23vh;
+}
+
+/*popup*/
+.popup {
+  display: block;
+  position: fixed;
+  z-index: 100;
+  padding-top: 20vh;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.locationName {
+  height: 3vh;
+  background-color: #f1dddc;
+  font-size: 2vh;
+  font-family: "Heebo-Medium", sans-serif;
+  color: #515151;
+  text-align: center;
+}
+
+/*slider*/
+
+.slider {
+  white-space: nowrap;
+  width: 97%;
+  overflow: hidden;
+  display: inline-block;
+}
+.sliderMainDiv {
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+}
+
+.arrow {
+  height: 4vh;
+  align-self: center;
+}
+.none {
+  display: none;
+}

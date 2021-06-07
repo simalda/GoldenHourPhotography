@@ -1,0 +1,116 @@
+@use '../../../CSS/mixin.scss';
+@use '../../../CSS/function.scss';
+@use '../../../CSS/variables.scss';
+
+.about {
+  padding-top: 4vh;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding-bottom: function.footer-space(variables.$footer-height, 2);
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 10fr 80fr 10fr;
+    height: fit-content;
+    grid-template-rows: 1fr;
+  }
+  .aboutSection {
+    display: grid;
+    justify-items: end;
+    margin-right: 1vw;
+    text-align: end;
+    align-content: start;
+    padding-top: 1vh;
+
+    @media screen and (max-width: 600px) {
+      grid-row: 2;
+      grid-template-columns: 10fr 80fr 10fr;
+      grid-column: 1 / span 3;
+      height: fit-content;
+    }
+    .aboutText {
+      width: 20vw;
+      @include mixin.font-Heebo-Medium-gray;
+      padding-top: 1vh;
+      line-height: 1.6;
+      font-size: 1.6vh;
+      @media screen and (max-width: 600px) {
+        width: unset;
+        font-size: 2vh;
+        text-align: right;
+        grid-row: 1;
+        grid-column: 2;
+      }
+    }
+    .stamp {
+      padding-top: 2vh;
+      @media screen and (max-width: 600px) {
+        grid-row: 2;
+        grid-column: 2;
+      }
+    }
+    .watzapWrapper {
+      @media screen and (max-width: 600px) {
+        grid-column: 2;
+        grid-row: 3;
+      }
+      .watzapAbout {
+        float: right;
+        padding-top: 1.7vh;
+        height: 2.8vh;
+        @media screen and (max-width: 600px) {
+          height: 3vh;
+        }
+      }
+    }
+  }
+
+  .aboutPhotoDiv {
+    display: grid;
+
+    @media screen and (max-width: 600px) {
+      grid-column: 2;
+      grid-row: 1;
+      max-width: 100%;
+      height: fit-content;
+    }
+    .aboutPhoto {
+      height: 40vh;
+      border-radius: 3%;
+      @media screen and (max-width: 600px) {
+        max-width: 100%;
+        height: unset;
+      }
+    }
+  }
+}
+
+.watzapWrapper {
+  @media screen and (max-width: 600px) {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  .watzapAbout {
+    float: right;
+    padding-top: 1.7vh;
+    height: 2.8vh;
+    @media screen and (max-width: 600px) {
+      height: 3vh;
+    }
+  }
+  .connectionDetails {
+    float: right;
+    padding-right: 1vw;
+    padding-top: 1.7vh;
+    font-size: 1vw;
+    @media screen and (max-width: 600px) {
+      font-size: 2.4vh;
+      display: inline-grid;
+    }
+    .aboutus_font {
+      @include mixin.font-Heebo-Bold-gray;
+    }
+    .tel {
+      padding-right: 0.7vw;
+      @include mixin.font-Heebo-Medium-gray;
+    }
+  }
+}

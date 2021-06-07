@@ -1,0 +1,47 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "start",
+      "path": "front-end/",
+      "problemMatcher": [],
+      "label": "npm: start - front-end",
+      "detail": "Starts the front-end"
+    },
+    {
+      "label": "Pylint everything",
+      "type": "shell",
+      "command": "cmd.exe /c 'python -m pylint --msg-template \"{path}:{line}:{column}:{category}:{symbol} - {msg}\" \"${workspaceFolder}/back-end/\" '",
+      "problemMatcher": {
+        "owner": "python",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^(.+):(\\d+):(\\d+):(\\w+):(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      }
+    },
+	{
+		"label": "Pylint everything unformatted",
+		"type": "shell",
+		"command": "cmd.exe /c 'python -m pylint \"${workspaceFolder}/back-end/\" '",
+		"problemMatcher": {
+		  "owner": "python",
+		  "fileLocation": ["relative", "${workspaceFolder}"],
+		  "pattern": {
+			"regexp": "^(.+):(\\d+):(\\d+):(\\w+):(.*)$",
+			"file": 1,
+			"line": 2,
+			"column": 3,
+			"severity": 4,
+			"message": 5
+		  }
+		}
+	  }
+  ]
+}

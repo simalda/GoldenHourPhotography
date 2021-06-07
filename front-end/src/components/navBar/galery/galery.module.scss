@@ -1,0 +1,12 @@
+.gallery_wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  margin-left: -8px;
+  width: 100%;
+  .galeryView {
+    height: 25vh;
+    padding: 0.5vw;
+    float: left;
+    border-radius: 5vh;
+  }
+}
