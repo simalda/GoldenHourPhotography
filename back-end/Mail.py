@@ -16,14 +16,10 @@ class Mail():
         print(order.email)
         me = self.sender
         you = self.recipient
-        # Create message container - the correct MIME type is multipart/alternative.
         msg = MIMEMultipart('alternative')
         msg['Subject'] = "Golden Hour Photography"
-        # msg['From'] = me 
-        # msg['To'] = 'simalda83@gmail.com'
-        # password = self.password
+       
 
-        # Create the body of the message (a plain-text and an HTML version).
         text = "Hi!\nHow are you?"
         email_content_head = """
         <html>

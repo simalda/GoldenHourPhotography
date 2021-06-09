@@ -85,7 +85,7 @@ class Location extends React.Component {
               <span style={{ color: "#515151", opacity: 0.5 }}>הבא</span> 1/3{" "}
             </span>
             <span className="D3bannerRight">
-              {this.props.dictionary[this.props.locationDescription.name]}
+              {this.props.locationDescription.name}
             </span>
           </div>
         </div>
@@ -94,7 +94,7 @@ class Location extends React.Component {
         </div>
         <Slider pathList={this.state.pathList} />
         <div>
-          <button className="button" clicked={() => this.clicked()}>
+          <button className="button" onClick={() => this.clicked()}>
             {this.props.dictionary["savePlace"]}
           </button>
         </div>

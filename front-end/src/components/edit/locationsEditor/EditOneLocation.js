@@ -66,6 +66,9 @@ class EditOneLocation extends React.Component {
   }
 
   render() {
+    if (!this.props.isloaded) {
+      return <span>wait....</span>;
+    }
     let photoSphereList = this.createPhotoSphereList();
     let regularPhotoList = this.createRegularPhotoList();
     return (

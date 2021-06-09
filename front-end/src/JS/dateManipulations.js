@@ -19,7 +19,10 @@ export function convertDateToDateStringDDMMYYYY(date) {
   shortDate = dd + "." + mm + "." + yyyy;
   return shortDate;
 }
-
+export function createDateDMYfromString(dateString) {
+  const date = new Date(dateString);
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
 export function createDate(year, month, day) {
   return new Date(year, month, day);
 }
@@ -82,7 +85,7 @@ export function countStartDate(date) {
   return new Date(
     startDate.getFullYear(),
     startDate.getMonth(),
-    startDate.getDay()
+    startDate.getDate()
   );
 }
 export function countEndDate(date) {

@@ -10,7 +10,7 @@ import AdminLogin from "./AdminLogin";
 import Footer from "./Footer";
 import Galery from "./navBar/galery/Galery";
 import LocationJSX from "./LocationJSX";
-import Map from "./map/Map";
+import MapJSX from "./map/MapJSX";
 import MainPage from "./mainPage/MainPage";
 import NavBar from "./navBar/navBarItself/NavBar";
 import EndPage from "./finalPage/EndPage";
@@ -47,11 +47,11 @@ class App extends Component {
       ordersList: [],
       locationsInfo: [],
       locationDescription: {},
-      date: new Date(),
-      calendar: {
-        month: new Date().getMonth(),
-        year: new Date().getFullYear(),
-      },
+      // date: new Date(),
+      // calendar: {
+      //   month: new Date().getMonth(),
+      //   year: new Date().getFullYear(),
+      // },
       timeSlotList: [],
       openDatesForOrder: [],
       footerPositionClass: "",
@@ -59,17 +59,36 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.reloadApp();
+    this.reloadApp().then();
   }
-  reloadApp() {
-    this.getLanguage();
-    this.getAllImageTypes();
-    this.getAllEventTypes();
-    this.getAllImages();
-    this.getAllAvalableDates();
-    this.getLocationsInfo();
-    this.getLocationTypes();
-    this.getAllLocations();
+
+  resolve(result) {
+    history.push(result);
+  }
+  reject(reason) {
+    alert(reason);
+    console.log(reason);
+  }
+  reloadApp(path) {
+    this.setState({
+      isloaded: false,
+    });
+    return new Promise((resolve, reject) => {
+      this.getLanguage();
+      this.getAllImageTypes();
+      this.getAllEventTypes();
+      this.getAllImages();
+      this.getAllAvalableDates();
+      this.getLocationsInfo();
+      this.getLocationTypes();
+      this.getAllLocations();
+      if (!this.state.isloaded) {
+        resolve(path); ///?????
+        // history.push(path);
+      } else {
+        reject("Reload app failed. Please check logs for more info"); //???
+      }
+    });
   }
   getLanguage() {
     const translator = new Translator();
@@ -101,12 +120,17 @@ class App extends Component {
   }
 
   getAllImageTypes() {
-    proxy.getAllImageTypes().then((types) => {
-      console.log(types);
-      this.setState({
-        imageTypes: types,
-      });
-    });
+    proxy.getAllImageTypes().then(
+      (types) => {
+        console.log(types);
+        this.setState({
+          imageTypes: types,
+        });
+      },
+      (reason) => {
+        console.log(reason);
+      }
+    );
   }
 
   getAllEventTypes() {
@@ -142,11 +166,21 @@ class App extends Component {
     locationHandler.getAllLocationsInfo().then((locations) => {
       console.log("locaciot Info");
       console.log(locations);
-      const newLocations = locations.map((location) =>
-        Location.deserializeToLocationObject(location)
+      var locationMap = new Map();
+      locations.forEach((location) => {
+        locationMap.set(
+          location.name,
+          Location.deserializeToLocationObject(location)
+        );
+      });
+      const newLocations = locations.map(
+        (location) => (
+          location.name, Location.deserializeToLocationObject(location)
+        )
       );
       this.setState({
         locationsInfo: newLocations,
+        locationsInfoMap: locationMap,
       });
     });
   }
@@ -297,7 +331,7 @@ class App extends Component {
             <Route
               path="/locations"
               render={(props) => (
-                <Map
+                <MapJSX
                   {...props}
                   admin={this.state.admin}
                   locationsInfo={this.state.locationsInfo}
@@ -315,7 +349,7 @@ class App extends Component {
                   updateOrder={(date, time, hebrewDay, locationDescription) =>
                     this.updateOrder(date, time, hebrewDay, locationDescription)
                   }
-                  calendar={this.state.calendar}
+                  // calendar={this.state.calendar}
                   locationDescription={this.state.locationDescription}
                   dictionary={this.state.dictionary}
                 />
@@ -357,7 +391,7 @@ class App extends Component {
                   imageList={this.state.imageList}
                   locationTypes={this.state.locationTypes}
                   location={this.state.locationDescription}
-                  reloadApp={() => this.reloadApp()}
+                  reloadApp={(path) => this.reloadApp(path)}
                   dictionary={this.state.dictionary}
                 />
               )}
@@ -381,7 +415,7 @@ class App extends Component {
             <Route
               path="/appManager/locationsEditor"
               render={(props) => (
-                <Map
+                <MapJSX
                   {...props}
                   admin={this.state.admin}
                   imageTypes={this.state.imageTypes}
@@ -414,7 +448,7 @@ class App extends Component {
             <Route
               path="/addLocationFromMap"
               render={(props) => (
-                <Map
+                <MapJSX
                   {...props}
                   admin={this.state.admin}
                   imageTypes={this.state.imageTypes}
@@ -460,13 +494,16 @@ class App extends Component {
                   locationTypes={this.state.locationTypes}
                   locationsInfo={this.state.locationsInfo}
                   dictionary={this.state.dictionary}
-                  reloadApp={() => this.reloadApp()}
-                  location={this.state.locationDescription}
+                  reloadApp={(path) => this.reloadApp(path)}
+                  location={this.state.locationsInfoMap.get(
+                    this.state.locationDescription.name
+                  )}
                   diffLocations={this.state.diffLocations}
                   // AddLocation={(type) => this.AddLocation(type)}
                   editPhotoSphereImageConnections={(image) =>
                     this.editPhotoSphereImageConnections(image)
                   }
+                  isloaded={this.state.isloaded}
                 />
               )}
             />

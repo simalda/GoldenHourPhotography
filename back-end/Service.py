@@ -1,4 +1,8 @@
 import os
+import sys
+import logging
+import logging.handlers
+from concurrent_log_handler import ConcurrentRotatingFileHandler
 from flask import Flask, current_app, flash, jsonify, make_response, redirect, request, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
@@ -26,6 +30,11 @@ app.debug = True
 
 CORS(app)
 
+handler = ConcurrentRotatingFileHandler('Log/log', maxBytes=10*1024*1024, backupCount=5)
+logging.basicConfig( level=logging.DEBUG, handlers=[handler],format='%(asctime)s %(name)-12s %(levelname)-8s %(message)-3000s',
+                    datefmt='%d-%m-%y %H:%M')
+
+logger = logging.getLogger(__name__)
 
 app.config ['UPLOAD_FOLDER'] = ConfigProvider.UPLOAD_FOLDER
 
@@ -103,7 +112,7 @@ def get_all_event_types():
 def get_all_images():
     db = DataAccessImage()
     images_from_DB = db.get_all_images()
-    print(images_from_DB)
+    logger.info('In FUNCTION %s list of all images returned from DB: %s\n', 'get_all_images', images_from_DB)
     for image in images_from_DB:
          image['path']=ConfigProvider.PHOTOS_BASE_URL+image['name']
     resp = make_response(jsonify(images_from_DB, 200))
@@ -229,8 +238,8 @@ def add_location():
     location = Location(data["name"],data["type"],data["latitude"],data["longitude"], data["description"] )
     loc_DB = DataAccessLocation()
     loc_handler = LocationHandler(loc_DB)
-    loc_handler.add_location(location)
-    print(data)
+    loc_handler.add_location(location) 
+    logger.info('In FUNCTION %s data of new location  that need to be added to Db: %s\n', 'add_location', data)
     image = Image(data["sphereImageList"][0]['name'], "sphere", data["type"], data["name"])
     im_DB = DataAccessImage()
     im_handler = ImageHandler(im_DB)

@@ -17,43 +17,33 @@ class DataAccessCalendar(DataAccess):
 
     def get_time_slots(self):
         self.collection = self.mydb['calendar']
-        slots = []
-        result = self.collection.find( )
-        for slot in result:
-            slots.append({
+        return list(map(lambda slot: {
             "date":  slot["date"],
             "dayOfWeek": slot["dayOfWeek"],
             "time" : slot["time"],
             "isWeekly" : slot["isWeekly"]           
-        })
-        return slots
+        }, self.collection.find()))
+         
  
  
     def get_weekly_open_slots(self):
         self.collection = self.mydb['calendar']
-        slots = []
-        result = self.collection.find( {"isWeekly":True})
-        for slot in result:
-            slots.append({
+        return list(map(lambda slot: {
             "date":  slot["date"],
             "dayOfWeek": slot["dayOfWeek"],
             "time" : slot["time"],
             "isWeekly" : slot["isWeekly"]           
-        })
-        return slots
+        }, self.collection.find({"isWeekly":True})))
+         
 
     def get_single_open_slots(self):
         self.collection = self.mydb['calendar']
-        slots = []
-        result = self.collection.find( {"isWeekly":False})
-        for slot in result:
-            slots.append({
+        return list(map(lambda slot: {
             "date":  slot["date"],
             "dayOfWeek": slot["dayOfWeek"],
             "time" : slot["time"],
             "isWeekly" : slot["isWeekly"]           
-        })
-        return slots
-     
+        }, self.collection.find({"isWeekly":False})))
+         
 
     

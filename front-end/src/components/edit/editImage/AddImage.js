@@ -84,8 +84,10 @@ class OrdersCalendar extends React.Component {
           (loginResponse) => {
             console.log(loginResponse);
             alert("Saved");
-            this.props.reloadApp();
-            history.push("/editOneLocation");
+            this.props
+              .reloadApp("/editOneLocation")
+              .then(() => history.push("/editOneLocation"));
+            // history.push("/editOneLocation");
           },
           (result) => {
             console.log(result);

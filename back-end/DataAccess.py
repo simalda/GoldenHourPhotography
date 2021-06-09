@@ -28,8 +28,6 @@ class DataAccess:
         hash_from_d_b = hashlib.sha256()
         hash_to_check.update(str.encode(psw))
         hash_from_d_b.update(str.encode(user_data_from_d_b['password']))
-        print(user_data_from_d_b['password'])
-        print(hash_to_check.hexdigest())
         if user_data_from_d_b['username'] == user  and user_data_from_d_b['password'] == hash_to_check.hexdigest():
             guid = self.start_session(user)
             return {"result": True, "guid": guid}
@@ -50,27 +48,20 @@ class DataAccess:
 
     def get_all_image_types(self):
         self.collection = self.mydb['imageTypes']
-        types = []
-        for image_type in self.collection.find():
-            types.append(image_type["type"])
-        return types
+        return list(map(lambda image_type:image_type["type"],self.collection.find()))
+        
 
     def get_all_event_types(self):
         self.collection = self.mydb['eventTypes']
-        types = []
-        for x in self.collection.find():
-            types.append(x["type"])
-        return types
+        return list(map(lambda type: type["type"],self.collection.find()))
+        
 
   
 
     def get_all_locations_types(self):
         self.collection = self.mydb['locationTypes']
-        locationTypes = []
-        result = self.collection.find( )
-        for location in result:
-            locationTypes.append( location["name"]      )
-        return locationTypes
+        return list(map(lambda location: location["name"], self.collection.find()))
+       
 
     def get_all_locations(self):
         self.collection = self.mydb['locations']

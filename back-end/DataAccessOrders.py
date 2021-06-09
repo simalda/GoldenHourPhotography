@@ -30,11 +30,8 @@ class DataAccessOrders(DataAccess):
         return True
 
     def get_orders(self):
-        orders = []
         self.collection = self.mydb['orders']
-        result = self.collection.find( )     
-        for order in result:
-            orders.append({
+        return list(map(lambda order: {
             "id":str(order.get('_id')),
             "date":  order["date"],
             "time" : order["time"],
@@ -44,7 +41,7 @@ class DataAccessOrders(DataAccess):
             "location":order["location"],
             "eventType":order["eventType"],
             "note":order["note"],             
-        })
-        return orders
+        } ,self.collection.find()))
+         
 
  

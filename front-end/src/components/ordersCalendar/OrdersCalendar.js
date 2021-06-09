@@ -8,9 +8,11 @@ import history from "../../JS/history";
 import * as dateManager from "../../JS/dateManipulations";
 import TimeUnitHandler from "../../JS/TimeUnitHandler";
 import OrderHandler from "../../JS/Orderhandler";
-import UICalendarManager from "./UICalendarManager";
+// import UICalendarManager from "./UICalendarManager";
 
 import classes from "./calendar.module.scss";
+// import { registerButton } from "photo-sphere-viewer";
+import OneDayTimeSlot from "../../JS/OneDayTimeSlot";
 class OrdersCalendar extends React.Component {
   constructor(props) {
     super(props);
@@ -39,7 +41,12 @@ class OrdersCalendar extends React.Component {
     let timeUnitsSingle = await this.getTimeUnitsSingleFromDB();
     let timeUnitsWeekly = await this.getTimeUnitsWeeklyFromDB();
     let orders = await this.getOrdersFromDB();
-    this.getCalendarTable(timeUnitsSingle, timeUnitsWeekly, orders);
+    this.setState({
+      timeUnitSingleList: timeUnitsSingle,
+      timeUnitWeeklyList: timeUnitsWeekly,
+      ordersList: orders,
+      isLoading: false,
+    });
   }
   getTimeUnitsSingleFromDB() {
     const tu = new TimeUnitHandler();
@@ -52,25 +59,6 @@ class OrdersCalendar extends React.Component {
   getOrdersFromDB() {
     const orderHandler = new OrderHandler();
     return orderHandler.getOrders();
-  }
-
-  getCalendarTable(timeUnitSingleList, timeUnitWeeklyList, ordersList) {
-    let calManager = new UICalendarManager(
-      this.props.calendar.month,
-      this.props.calendar.year
-    );
-    calManager.getInfoAboutDays(
-      timeUnitSingleList,
-      timeUnitWeeklyList,
-      ordersList
-    );
-    this.setState({
-      timeUnitSingleList,
-      timeUnitWeeklyList,
-      ordersList,
-      calManager,
-      isLoading: false,
-    });
   }
 
   onChange(ev) {
@@ -96,7 +84,14 @@ class OrdersCalendar extends React.Component {
   }
 
   getCurentDateTimeSlot(date) {
-    return this.state.calManager.openDaysList[date.getDate() - 1];
+    const currentTimeSlot = new OneDayTimeSlot(date);
+    currentTimeSlot.fillOneDayTimeSlot(
+      date,
+      this.state.timeUnitSingleList,
+      this.state.timeUnitWeeklyList,
+      this.state.ordersList
+    );
+    return currentTimeSlot;
   }
 
   onClick(date) {
@@ -181,7 +176,10 @@ class OrdersCalendar extends React.Component {
         pickedTime = <div>{this.state.time}</div>;
       }
       body = (
-        <div className={`${classes.calendar} popup`}>
+        <div
+          className={`${classes.calendar} popup`}
+          style={{ backgroundColor: "rgb(61 61 61 / 80%)" }}
+        >
           <div className={classes.calendarWrap}>
             <div className={classes.calendarHeader}>
               <div className={classes.calendarHeaderYear}>
@@ -197,11 +195,8 @@ class OrdersCalendar extends React.Component {
                 if (this.shouldDateBeSelected(date)) {
                   return "dayNotAvailable cellStyle";
                 }
-
                 return "cellStyle";
               }}
-              // tileDisabled={this.tileDisabled}
-              // tileClassName="react-calendar__tile--active2"
               calendarType="Hebrew"
               locale="HE"
               onChange={(ev) => this.onChange(ev)}

@@ -19,8 +19,8 @@ class EditCalendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: dateManager.countStartDate(this.props.date),
-      endDate: dateManager.countEndDate(this.props.date),
+      startDate: dateManager.countStartDate(new Date()),
+      endDate: dateManager.countEndDate(new Date()),
       isLoading: true,
       popupReservedTimeSlotClicked: false,
       popupCloseTimeSlotClicked: false,
