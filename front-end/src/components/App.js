@@ -181,13 +181,14 @@ class App extends Component {
       this.setState({
         locationsInfo: newLocations,
         locationsInfoMap: locationMap,
+        isloaded: true,
       });
     });
   }
 
   getAllLocations() {
     let locationHandler = new LocationHandler();
-    locationHandler.getAllLocations().then((locations) => {
+    locationHandler.getLocationsName().then((locations) => {
       console.log("All locations");
       console.log(locations);
       this.setState({

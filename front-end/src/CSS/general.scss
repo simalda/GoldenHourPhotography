@@ -71,9 +71,9 @@ label {
 .diagonaled {
   transform: rotate(-5deg);
   font-family: blackjack;
-  font-size: 2vh;
+  font-size: 4vh;
   display: inline-block;
-  padding-top: 1vh;
+  padding-top: 2vh;
 }
 
 /*admin*/
@@ -89,7 +89,7 @@ label {
   border: 0px;
   background-color: variables.$base-color-1;
   border-radius: 3vh;
-  width: 17vw;
+  width: 15vw;
   height: 6vh;
   color: white;
   font-size: 2vh;
@@ -130,13 +130,13 @@ label {
 
 /*footer*/
 .icon {
-  padding: 2vh 1vw;
-  height: 4vh;
+  padding: 3.5vh 1vw;
+  height: 3.5vh;
 }
 .footer {
   background-color: variables.$background-color;
   text-align: center;
-  height: 8vh;
+  height: 11vh;
   grid-row-start: 2;
   grid-row-end: 3;
 }
@@ -144,7 +144,7 @@ label {
 /*location*/
 
 .photosFromThere {
-  height: 5vh;
+  height: 10vh;
   text-align: center;
   color: #515151;
 }
@@ -303,9 +303,9 @@ label {
 
 /*photos*/
 .galery {
-  height: 60vh;
+  height: 59vh;
   padding: 0.3vw;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 /*popup*/
@@ -347,9 +347,12 @@ label {
 .none {
   display: none;
 }
+.d3 {
+  position: relative;
+}
 
 .D3banner {
-  position: relative;
+  position: absolute;
   height: 4vh;
   width: 30vw;
   text-align: center;
@@ -361,6 +364,10 @@ label {
   @include mixin.font-Heebo-Medium-gray;
   padding-top: 1vh;
   font-size: 2vh;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
 }
 
 .D3bannerLeft {
@@ -387,6 +394,7 @@ label {
   // height: 5vh;
   text-align: center;
   width: 14vw;
+  height: 14vh;
 }
 
 //bezdomnyy

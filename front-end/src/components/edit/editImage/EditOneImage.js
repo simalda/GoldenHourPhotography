@@ -19,16 +19,13 @@ class EditOneImage extends React.Component {
 
   changeImageType(e) {
     this.setState((state) => {
-      //state.image.imageType = event.target.value;
       return {
         image: {
           ...state.image,
           imageType: e.options[e.options.selectedIndex].value,
         },
       };
-      //return { image: state.image };
     });
-    //this.setState({ name: event.target.value });
   }
 
   changeEventType(e) {
@@ -74,7 +71,6 @@ class EditOneImage extends React.Component {
       (result) => {
         console.log(result);
         alert(" Not Saved :" + result);
-        // history.push("/appManager");
         this.props.reloadApp();
       }
     );

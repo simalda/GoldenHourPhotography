@@ -3,7 +3,7 @@
 @use '../../../CSS/variables.scss';
 
 .about {
-  padding-top: 4vh;
+  padding-top: 10vh;
   display: grid;
   grid-template-columns: 50% 50%;
   padding-bottom: function.footer-space(variables.$footer-height, 2);

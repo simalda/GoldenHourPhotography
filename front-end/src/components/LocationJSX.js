@@ -68,7 +68,7 @@ class Location extends React.Component {
     }
     return (
       <div className="mainDiv">
-        <div className="3d" style={{ height: "40hv" }}>
+        <div className="d3">
           <D3images
             admin={this.props.admin}
             locationDescription={this.props.locationDescription}

@@ -26,7 +26,7 @@ function MapJSX(props) {
 
   return (
     <div id="mapid" className="">
-      <div className="locationName">ביחרו מקום</div>
+      {/* <div className="locationName">ביחרו מקום</div> */}
       <MapContainer
         center={position}
         zoom={12}
@@ -97,15 +97,17 @@ function createMarkersList(props) {
       markers.push(
         <Marker position={position} icon={icon} key={index}>
           <Popup>
-            <span style={{ height: "1vh", fontSize: "1.5vh" }}>
-              {locationDesc.name}
-            </span>
-            <button
-              className="buttonPopupMarker"
-              onClick={() => props.locationClicked(locationDesc)}
-            >
-              לתיאור מפורט
-            </button>
+            <div style={{ paddingTop: "5vh" }}>
+              <span style={{ height: "1vh", fontSize: "2vh" }}>
+                {locationDesc.name}
+              </span>
+              <button
+                className="buttonPopupMarker"
+                onClick={() => props.locationClicked(locationDesc)}
+              >
+                לתיאור מפורט
+              </button>
+            </div>
           </Popup>
         </Marker>
       );

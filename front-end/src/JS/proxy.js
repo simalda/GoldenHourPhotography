@@ -15,10 +15,9 @@ export function checkUser(user, password) {
 
 export function addNewImage(image) {
   const imageString = JSON.stringify(image);
-  return fetch(`${backendUrl}/addImage`, {
+  return fetch(`${backendUrl}/image`, {
     method: "POST",
     body: imageString,
-    // credentials: "include",
   }).then((response) => {
     console.log(response);
     if (response.status !== 200) {
@@ -30,7 +29,7 @@ export function addNewImage(image) {
 }
 
 export function saveFile(file) {
-  return fetch(`${backendUrl}/saveImageFile`, {
+  return fetch(`${backendUrl}/image-file`, {
     method: "POST",
     body: file,
   }).then((response) => {
@@ -43,21 +42,15 @@ export function saveFile(file) {
   });
 }
 export function getAllImageTypes() {
-  return fetch(`${backendUrl}/getAllImageTypes`).then((response) =>
-    response.json()
-  );
+  return fetch(`${backendUrl}/image-types`).then((response) => response.json());
 }
 
 export function getAllEventTypes() {
-  return fetch(`${backendUrl}/getAllEventTypes`).then((response) =>
-    response.json()
-  );
+  return fetch(`${backendUrl}/event-types`).then((response) => response.json());
 }
 
 export function getAllImages() {
-  return fetch(`${backendUrl}/getAllImages`).then((response) =>
-    response.json()
-  );
+  return fetch(`${backendUrl}/image`).then((response) => response.json());
 }
 
 export function deleteImage(image) {
@@ -81,14 +74,14 @@ export function updateImages(imageSet) {
 
 export function updateImage(image) {
   const imageString = JSON.stringify(image);
-  return fetch(`${backendUrl}/updateImage`, {
+  return fetch(`${backendUrl}/update-image`, {
     method: "POST",
     body: imageString,
   }).then((response) => response.json());
 }
 export function addNewTimeUnit(timeUnit) {
   const timeUnitString = JSON.stringify(timeUnit);
-  return fetch("${backendUrl}/addTimeUnit", {
+  return fetch("${backendUrl}/time-unit", {
     method: "POST",
     body: timeUnitString,
   }).then((response) => response.json());
@@ -96,39 +89,37 @@ export function addNewTimeUnit(timeUnit) {
 
 export function deleteTimeUnit(timeUnit) {
   const timeUnitString = JSON.stringify(timeUnit);
-  return fetch(`${backendUrl}/deleteTimeUnit`, {
+  return fetch(`${backendUrl}/delete-time-unit`, {
     method: "POST",
     body: timeUnitString,
   }).then((response) => response.json());
 }
 
 export function getTimeSlots() {
-  return fetch(`${backendUrl}/getTimeSlots`).then((response) =>
-    response.json()
-  );
+  return fetch(`${backendUrl}/time-slots`).then((response) => response.json());
 }
 
-export function getOpenSlots() {
-  return fetch(`${backendUrl}/getOpenSlots`).then((response) =>
-    response.json()
-  );
-}
+// export function getOpenSlots() {
+//   return fetch(`${backendUrl}/getOpenSlots`).then((response) =>
+//     response.json()
+//   );
+// }
 
 export function getTimeSlotsWeekly() {
-  return fetch(`${backendUrl}/getWeeklyOpenSlots`).then((response) =>
+  return fetch(`${backendUrl}/weekly-open-slots`).then((response) =>
     response.json()
   );
 }
 
 export function getSingleTimeSlots() {
-  return fetch(`${backendUrl}/getSingleOpenSlots`).then((response) =>
+  return fetch(`${backendUrl}/single-open-slots`).then((response) =>
     response.json()
   );
 }
 
 export function addOrder(order) {
   const orderString = JSON.stringify(order);
-  return fetch(`${backendUrl}/addorder`, {
+  return fetch(`${backendUrl}/order`, {
     method: "POST",
     body: orderString,
   }).then((response) => response.json());
@@ -136,7 +127,7 @@ export function addOrder(order) {
 
 export function deleteOrder(orderId) {
   const orderIdString = JSON.stringify(orderId);
-  return fetch(`${backendUrl}/deleteOrder`, {
+  return fetch(`${backendUrl}/delete-order`, {
     method: "POST",
     body: orderIdString,
   }).then((response) => response.json());
@@ -144,7 +135,7 @@ export function deleteOrder(orderId) {
 
 export function deleteLocationType(locationType) {
   const locationTypeString = JSON.stringify(locationType);
-  return fetch(`${backendUrl}/deleteLocationType`, {
+  return fetch(`${backendUrl}/delete-location-type`, {
     method: "POST",
     body: locationTypeString,
   }).then((response) => response.json());
@@ -152,44 +143,40 @@ export function deleteLocationType(locationType) {
 
 export function updateOrder(order) {
   const orderString = JSON.stringify(order);
-  return fetch(`${backendUrl}/updateOrder`, {
+  return fetch(`${backendUrl}/update-order`, {
     method: "POST",
     body: orderString,
   }).then((response) => response.json());
 }
 export function getOrders() {
-  return fetch(`${backendUrl}/getOrders`).then((response) => response.json());
+  return fetch(`${backendUrl}/orders`).then((response) => response.json());
 }
-
-export function getCalendarDataAndOrders() {}
 
 export function getAllLocationsInfo() {
-  return fetch(`${backendUrl}/getLocationsInfo`).then((response) =>
-    response.json()
-  );
+  return fetch(`${backendUrl}/locations`).then((response) => response.json());
 }
 
-export function getAllLocations() {
-  return fetch(`${backendUrl}/getLocations`).then((response) =>
-    response.json()
-  );
-}
+// export function getAllLocations() {
+//   return fetch(`${backendUrl}/getLocations`).then((response) =>
+//     response.json()
+//   );
+// }
 
 export function getLocationsName() {
-  return fetch(`${backendUrl}/getLocationsName`).then((response) =>
+  return fetch(`${backendUrl}/locations-names`).then((response) =>
     response.json()
   );
 }
 
 export function getLocationTypes() {
-  return fetch(`${backendUrl}/getLocationTypes`).then((response) =>
+  return fetch(`${backendUrl}/location-types`).then((response) =>
     response.json()
   );
 }
 
 export function addNewLocation(location) {
   const locationString = JSON.stringify(location);
-  return fetch(`${backendUrl}/addLocation`, {
+  return fetch(`${backendUrl}/location`, {
     method: "POST",
     body: locationString,
   }).then((response) => response.json());
@@ -197,7 +184,7 @@ export function addNewLocation(location) {
 
 export function addNewLocationType(locationType) {
   const locationString = JSON.stringify(locationType);
-  return fetch(`${backendUrl}/addLocationType`, {
+  return fetch(`${backendUrl}/location-types`, {
     method: "POST",
     body: locationString,
   }).then((response) => response.json());
@@ -205,7 +192,7 @@ export function addNewLocationType(locationType) {
 
 export function sendMail(order) {
   const orderString = JSON.stringify(order);
-  return fetch(`${backendUrl}/sendMail`, {
+  return fetch(`${backendUrl}/send-mail`, {
     method: "POST",
     body: orderString,
   }).then((response) => response.json());
@@ -213,7 +200,7 @@ export function sendMail(order) {
 
 export function upsertLink(link) {
   const linkString = JSON.stringify(link);
-  return fetch(`${backendUrl}/upsertLink`, {
+  return fetch(`${backendUrl}/upsert-link`, {
     method: "POST",
     body: linkString,
   }).then((response) => response.json());
@@ -221,7 +208,7 @@ export function upsertLink(link) {
 
 export function getAllLinksToImage(origin) {
   const originString = JSON.stringify(origin);
-  return fetch(`${backendUrl}/getLinksToImage`, {
+  return fetch(`${backendUrl}/links-to-image`, {
     method: "POST",
     body: originString,
   }).then((response) => response.json());
@@ -229,7 +216,7 @@ export function getAllLinksToImage(origin) {
 
 export function deleteLink(link) {
   const linkString = JSON.stringify(link);
-  return fetch(`${backendUrl}/deleteLink`, {
+  return fetch(`${backendUrl}/delete-link`, {
     method: "POST",
     body: linkString,
   }).then((response) => response.json());

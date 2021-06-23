@@ -17,8 +17,8 @@ class LocationHandler {
     return proxy.getAllLocationsInfo();
   }
 
-  getAllLocations() {
-    return proxy.getAllLocations();
+  getLocationsName() {
+    return proxy.getLocationsName();
   }
 
   getLocationTypes() {

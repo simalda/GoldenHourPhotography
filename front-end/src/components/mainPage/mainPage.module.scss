@@ -10,7 +10,8 @@
 
 .buttonArea {
   background-color: variables.$background-color;
-  padding: 1vh;
+  padding: 3vh;
+  margin-top: 0.6vw;
   .zilum {
     color: variables.$base-color-1;
     font-family: "Heebo-Bold", sans-serif;
@@ -21,7 +22,7 @@
     }
   }
   .greenText {
-    @include mixin.font-Heebo-Regular-gray;
+    @include mixin.font-Heebo-Medium-gray;
     margin-bottom: 2vh;
   }
 }

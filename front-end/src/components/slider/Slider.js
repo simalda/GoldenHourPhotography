@@ -1,7 +1,5 @@
 import React from "react";
 
-// import * as imageManager from "../../JS/imageManager";
-
 class Slider extends React.Component {
   constructor(props) {
     super(props);
@@ -20,16 +18,17 @@ class Slider extends React.Component {
       });
     }
   }
-  // componentWillUnmount(){
-  //   slider.removeEvents()
-  // }
+
   componentDidUpdate() {
     const slider = new SliderMoves(this.sliderRef, this.state.imagePathList);
     slider.init();
   }
 
   loadImages() {
-    const pathList = this.props.imageList.map((image) => image.path);
+    const filteredPathList = this.props.imageList.filter(
+      (image) => image.imageType === "regular"
+    );
+    const pathList = filteredPathList.map((image) => image.path);
     this.setState({
       imagePathList: pathList,
     });
@@ -85,7 +84,6 @@ class SliderMoves {
       innerDiv.appendChild(imgToAddIntoDiv[i]);
     }
     containerDiv.appendChild(innerDiv);
-    // this.node.appendChild(containerDiv);
     this.node.innerHTML = containerDiv.outerHTML;
     this.slider = document.querySelector(".containerImages");
     this.sliderInner = document.querySelector(".innerDiv");
