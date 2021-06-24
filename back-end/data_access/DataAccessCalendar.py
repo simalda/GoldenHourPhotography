@@ -1,4 +1,4 @@
-from DataAccess import DataAccess
+from data_access.DataAccess import DataAccess
 
 class DataAccessCalendar(DataAccess):
     
@@ -21,7 +21,7 @@ class DataAccessCalendar(DataAccess):
             "date":  slot["date"],
             "dayOfWeek": slot["dayOfWeek"],
             "time" : slot["time"],
-            "isWeekly" : slot["isWeekly"]           
+            "isWeekly" : slot["isWeekly"]
         }, self.collection.find()))
          
  
@@ -32,7 +32,7 @@ class DataAccessCalendar(DataAccess):
             "date":  slot["date"],
             "dayOfWeek": slot["dayOfWeek"],
             "time" : slot["time"],
-            "isWeekly" : slot["isWeekly"]           
+            "isWeekly" : slot["isWeekly"]
         }, self.collection.find({"isWeekly":True})))
          
 
@@ -42,7 +42,7 @@ class DataAccessCalendar(DataAccess):
             "date":  slot["date"],
             "dayOfWeek": slot["dayOfWeek"],
             "time" : slot["time"],
-            "isWeekly" : slot["isWeekly"]           
+            "isWeekly" : slot["isWeekly"]
         }, self.collection.find({"isWeekly":False})))
          
 

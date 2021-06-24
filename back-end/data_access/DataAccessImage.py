@@ -1,4 +1,4 @@
-from DataAccess import DataAccess
+from .DataAccess import DataAccess
 import logging
 logger = logging.getLogger(__name__)
 

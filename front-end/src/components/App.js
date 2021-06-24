@@ -157,6 +157,7 @@ class App extends Component {
       );
       this.setState({
         imageList: imageList,
+        isloaded: true,
       });
     });
   }
@@ -181,7 +182,6 @@ class App extends Component {
       this.setState({
         locationsInfo: newLocations,
         locationsInfoMap: locationMap,
-        isloaded: true,
       });
     });
   }
@@ -193,7 +193,6 @@ class App extends Component {
       console.log(locations);
       this.setState({
         diffLocations: locations,
-        isloaded: true,
       });
     });
   }
@@ -500,7 +499,6 @@ class App extends Component {
                     this.state.locationDescription.name
                   )}
                   diffLocations={this.state.diffLocations}
-                  // AddLocation={(type) => this.AddLocation(type)}
                   editPhotoSphereImageConnections={(image) =>
                     this.editPhotoSphereImageConnections(image)
                   }

@@ -1,5 +1,5 @@
 
-from DataAccess import DataAccess
+from .DataAccess import DataAccess
 from ConfigProvider import *
 import logging
 logger = logging.getLogger(__name__)
