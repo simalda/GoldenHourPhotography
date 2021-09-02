@@ -52,6 +52,7 @@ class EditOneImage extends React.Component {
 
   updateListImagesToResaveLocation(e) {
     const image = new Image(
+      this.props.image.id,
       this.props.image.name,
       this.props.image.imageType,
       this.props.image.eventType,

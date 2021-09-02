@@ -7,7 +7,6 @@ class ImageLinkerHandler {
 
   getAllLinksToImage(origin) {
     return proxy.getAllLinksToImage(origin);
-    // .then(x=> x?x:[]);
   }
 
   deleteLink(link) {

@@ -45,6 +45,7 @@ class EditImage extends React.Component {
     let newImageList = [];
     for (let i = 0; i < this.props.imageList.length; i++) {
       const image = new Image(
+        this.props.imageList[i].id,
         this.props.imageList[i].name,
         this.props.imageList[i].imageType,
         this.props.imageList[i].eventType,

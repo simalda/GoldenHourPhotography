@@ -9,9 +9,9 @@
       "type": "python",
       "request": "launch",
       "module": "flask",
-      "cwd": "${workspaceFolder}\\back-end",
+      "cwd": "${workspaceFolder}\\backend",
       "env": {
-        "FLASK_APP": "Service.py",
+        "FLASK_APP": "service\\Service_general.py",
         "FLASK_ENV": "development"
       },
       "args": ["run"]

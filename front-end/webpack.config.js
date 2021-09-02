@@ -10,13 +10,9 @@ const devMode = process.env.NODE_ENV !== "production";
 
 const plugins = [];
 if (!devMode) {
-  // enable in production only
   plugins.push(new MiniCssExtractPlugin());
 }
 
-// const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
-// const isEnvDevelopment = "development";
-// const isEnvProduction = "production";
 module.exports = {
   entry: "./src/index.js",
   output: {
@@ -35,7 +31,6 @@ module.exports = {
       },
       {
         test: /\.(s[ac]ss|css)$/,
-        // use: ["style-loader", "css-loader", "sass-loader"],
         use: [
           "style-loader",
           {
@@ -53,7 +48,6 @@ module.exports = {
       },
       {
         test: /\.(s[ac]ss|css)$/,
-        // use: ["style-loader", "css-loader", "sass-loader"],
         use: ["style-loader", "css-loader", "sass-loader"],
         exclude: /\.module\.(s[ac]ss|css)$/,
       },

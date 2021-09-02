@@ -189,7 +189,13 @@ class EditCalendar extends React.Component {
   }
   openTimeUnitWeekly(timeSlot) {
     let timeHandler = new TimeUnitHandler();
-    let timeUnit = new TimeUnit(null, timeSlot.dayOfWeek, timeSlot.time, true);
+    let timeUnit = new TimeUnit(
+      null,
+      null,
+      timeSlot.dayOfWeek,
+      timeSlot.time,
+      true
+    );
     timeHandler.addNewTimeUnit(timeUnit);
     this.setState({
       popupCloseTimeSlotClicked: false,

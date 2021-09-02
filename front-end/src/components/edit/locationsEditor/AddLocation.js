@@ -35,6 +35,7 @@ class AddLocation extends React.Component {
     const newFile = this.state.imageFile;
     newFile.append("name", nameOfImageToSendToDB);
     const newImage = new Image(
+      null,
       nameOfImageToSendToDB,
       "sphere",
       this.state.type,

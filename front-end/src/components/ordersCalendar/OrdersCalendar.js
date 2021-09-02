@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-// import SVG from "react-inlinesvg";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import PopupTime from "./PopupTime";
@@ -8,10 +7,8 @@ import history from "../../JS/history";
 import * as dateManager from "../../JS/dateManipulations";
 import TimeUnitHandler from "../../JS/TimeUnitHandler";
 import OrderHandler from "../../JS/Orderhandler";
-// import UICalendarManager from "./UICalendarManager";
 
 import classes from "./calendar.module.scss";
-// import { registerButton } from "photo-sphere-viewer";
 import OneDayTimeSlot from "../../JS/OneDayTimeSlot";
 class OrdersCalendar extends React.Component {
   constructor(props) {
@@ -31,9 +28,6 @@ class OrdersCalendar extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.dateFormatedopenDates();
-  // }
   componentDidMount() {
     this.updateTable();
   }

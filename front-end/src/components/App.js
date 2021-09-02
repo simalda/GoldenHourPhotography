@@ -47,11 +47,6 @@ class App extends Component {
       ordersList: [],
       locationsInfo: [],
       locationDescription: {},
-      // date: new Date(),
-      // calendar: {
-      //   month: new Date().getMonth(),
-      //   year: new Date().getFullYear(),
-      // },
       timeSlotList: [],
       openDatesForOrder: [],
       footerPositionClass: "",
@@ -83,8 +78,7 @@ class App extends Component {
       this.getLocationTypes();
       this.getAllLocations();
       if (!this.state.isloaded) {
-        resolve(path); ///?????
-        // history.push(path);
+        resolve(path);
       } else {
         reject("Reload app failed. Please check logs for more info"); //???
       }
@@ -145,15 +139,8 @@ class App extends Component {
   getAllImages() {
     proxy.getAllImages().then((images) => {
       console.log(images);
-      const imageList = images[0].map(
-        (image) =>
-          new Image(
-            image.name,
-            image.imageType,
-            image.eventType,
-            image.location,
-            image.path
-          )
+      const imageList = images.map((image) =>
+        Image.deserializeToImageObject(image)
       );
       this.setState({
         imageList: imageList,
@@ -349,7 +336,6 @@ class App extends Component {
                   updateOrder={(date, time, hebrewDay, locationDescription) =>
                     this.updateOrder(date, time, hebrewDay, locationDescription)
                   }
-                  // calendar={this.state.calendar}
                   locationDescription={this.state.locationDescription}
                   dictionary={this.state.dictionary}
                 />

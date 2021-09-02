@@ -1,6 +1,5 @@
 import * as proxy from "./proxy";
 import history from "./history";
-// import globalState from "./globalState";
 
 export function performLogin(user, password) {
   return proxy.checkUser(user, password).then((loginResponse) => {

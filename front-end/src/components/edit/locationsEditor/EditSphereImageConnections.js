@@ -7,7 +7,6 @@ import history from "../../../JS/history";
 import { Fragment } from "react";
 
 const photoSphereImage = "PhotoImage";
-// const updateDeleteScreen = "UpdateDeleteScreen";
 const editOneConnetion = "EditOneConnection";
 
 class EditSphereImageConnections extends React.Component {
@@ -28,19 +27,6 @@ class EditSphereImageConnections extends React.Component {
     );
   }
 
-  // openUpdateDeleteScreen() {
-  //   return (
-  //     <div>
-  //       <button className="button" type="submit">
-  //         {this.props.dictionary["edit"]}
-  //       </button>
-
-  //       <button className="button" onClick={() => this.back()}>
-  //         {this.props.dictionary["delete"]}
-  //       </button>
-  //     </div>
-  //   );
-  // }
   changeImage(event) {
     this.setState((state) => {
       return {
@@ -119,8 +105,6 @@ class EditSphereImageConnections extends React.Component {
           </button>
         </Fragment>
       );
-      // } else if (this.state.whatToShow === updateDeleteScreen) {
-      //   return this.openUpdateDeleteScreen();
     } else if (this.state.whatToShow === editOneConnetion) {
       return this.handleOneConnection();
     }

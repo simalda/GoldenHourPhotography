@@ -110,7 +110,6 @@ export function getAllDatesBydayOfWeek(year, month, dayOfWeek) {
   let dateWithCorrectDayOfWeek = new Date(
     date0.setDate(date.getDate() - date.getDay() + dayOfWeek)
   );
-  // const dateWithCorrectDayOfWeek_Day = dateWithCorrectDayOfWeek.getDay();
   let i = 0;
   if (dateWithCorrectDayOfWeek < date) {
     i = 1;

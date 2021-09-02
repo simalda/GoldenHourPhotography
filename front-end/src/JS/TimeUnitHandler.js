@@ -1,6 +1,5 @@
 import * as proxy from "../JS/proxy";
 import TimeSlotManager from "../components/edit/editCalendar/TimeSlotManager";
-// import * as dateManager from "../../../JS/dateManipulations";
 import TimeUnit from "./TimeUnit";
 
 class TimeUnitHandler {
@@ -24,7 +23,6 @@ class TimeUnitHandler {
 
   getOpenTimeUnitsForWeek(startDate, endDate) {
     const tsManager = new TimeSlotManager();
-    // const timeSlotsForWeek = tsManager
     tsManager
       .getOpenTimeSlotsForWeek(startDate, endDate)
       .then((timeSlotsForWeek) =>

@@ -10,9 +10,16 @@ class Translator {
   }
 
   translate(word) {
+    if (word === "") {
+      return "";
+    }
     return this.dictionary[word];
   }
+
   translateToEnglish(value) {
+    if (value === "") {
+      return "";
+    }
     return Object.keys(this.dictionary).find(
       (key) => this.dictionary[key] === value
     );

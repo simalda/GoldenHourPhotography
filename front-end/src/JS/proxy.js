@@ -8,6 +8,7 @@ export function checkUser(user, password) {
   return fetch(`${backendUrl}/login/${userEncoded}/${passwordEncoded}`).then(
     (response) => {
       console.log(response);
+      response.json().then((token) => sessionStorage.setItem("token", token));
       return response;
     }
   );
@@ -18,6 +19,7 @@ export function addNewImage(image) {
   return fetch(`${backendUrl}/image`, {
     method: "POST",
     body: imageString,
+    headers: { Authorization: sessionStorage.getItem("token") },
   }).then((response) => {
     console.log(response);
     if (response.status !== 200) {
@@ -56,9 +58,15 @@ export function getAllImages() {
 export function deleteImage(image) {
   const imageString = JSON.stringify(image);
   return fetch(`${backendUrl}/delete`, {
-    method: "POST",
+    method: "DELETE",
     body: imageString,
-  }).then((response) => response.json());
+  }).then((response) => {
+    if (response.status === 200 || response.status === 204) {
+      return true;
+    } else {
+      return response.json();
+    }
+  });
 }
 
 export function updateImages(imageSet) {
@@ -89,21 +97,21 @@ export function addNewTimeUnit(timeUnit) {
 
 export function deleteTimeUnit(timeUnit) {
   const timeUnitString = JSON.stringify(timeUnit);
-  return fetch(`${backendUrl}/delete-time-unit`, {
-    method: "POST",
+  return fetch(`${backendUrl}/time-unit`, {
+    method: "DELETE",
     body: timeUnitString,
-  }).then((response) => response.json());
+  }).then((response) => {
+    if (response.status === 200 || response.status === 204) {
+      return true;
+    } else {
+      return response.json();
+    }
+  });
 }
 
 export function getTimeSlots() {
   return fetch(`${backendUrl}/time-slots`).then((response) => response.json());
 }
-
-// export function getOpenSlots() {
-//   return fetch(`${backendUrl}/getOpenSlots`).then((response) =>
-//     response.json()
-//   );
-// }
 
 export function getTimeSlotsWeekly() {
   return fetch(`${backendUrl}/weekly-open-slots`).then((response) =>
@@ -127,16 +135,22 @@ export function addOrder(order) {
 
 export function deleteOrder(orderId) {
   const orderIdString = JSON.stringify(orderId);
-  return fetch(`${backendUrl}/delete-order`, {
-    method: "POST",
+  return fetch(`${backendUrl}/order`, {
+    method: "DELETE",
     body: orderIdString,
-  }).then((response) => response.json());
+  }).then((response) => {
+    if (response.status === 200 || response.status === 204) {
+      return true;
+    } else {
+      return response.json();
+    }
+  });
 }
 
 export function deleteLocationType(locationType) {
   const locationTypeString = JSON.stringify(locationType);
-  return fetch(`${backendUrl}/delete-location-type`, {
-    method: "POST",
+  return fetch(`${backendUrl}/location-types`, {
+    method: "DELETE",
     body: locationTypeString,
   }).then((response) => response.json());
 }
@@ -155,12 +169,6 @@ export function getOrders() {
 export function getAllLocationsInfo() {
   return fetch(`${backendUrl}/locations`).then((response) => response.json());
 }
-
-// export function getAllLocations() {
-//   return fetch(`${backendUrl}/getLocations`).then((response) =>
-//     response.json()
-//   );
-// }
 
 export function getLocationsName() {
   return fetch(`${backendUrl}/locations-names`).then((response) =>
