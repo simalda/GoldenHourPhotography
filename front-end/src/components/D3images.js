@@ -9,8 +9,6 @@ class D3images extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      panorama: this.props.panorama.path,
-      image: this.props.panorama,
       markers: [],
     };
     this.divStyle = {
@@ -24,7 +22,7 @@ class D3images extends Component {
     this.viewer = new PhotosphereViewer.Viewer({
       navbar: false,
       container: document.querySelector("#viewer"),
-      panorama: this.state.panorama,
+      panorama: this.props.panorama.path,
 
       plugins: [
         [
@@ -51,7 +49,7 @@ class D3images extends Component {
           } latitude: ${data.latitude}`
         );
         const linker = new ImageLinker(
-          this.state.image.name,
+          this.props.panorama.name,
           "",
           "",
           data.latitude,
@@ -63,7 +61,7 @@ class D3images extends Component {
         const splitPath = marker.config.image.split("/");
         const imName = splitPath[splitPath.length - 1];
         const linker = new ImageLinker(
-          this.state.image.name,
+          this.props.panorama.name,
           imName,
           marker.config.image,
           marker.props.position.latitude,
@@ -90,7 +88,7 @@ class D3images extends Component {
   }
 
   componentDidUpdate() {
-    this.viewer.setPanorama(this.state.panorama, undefined, true);
+    this.viewer.setPanorama(this.props.panorama.path, undefined, true);
     this.viewer.plugins.markers.setMarkers(this.state.markers);
   }
 

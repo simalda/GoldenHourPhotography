@@ -23,7 +23,7 @@ def add_time_to_calendar():
     time_unit = TimeUnit(data["date"],data["dayOfWeek"],data["time"],data["isWeekly"] )
     return jsonify(tu_handler.add_time_to_calendar(time_unit))
 
-@bp.route('/delete-time-unit', methods=['DELETE'])
+@bp.route('/time-unit', methods=['DELETE'])
 def delete_time_from_calendar():
     ensure_admin()
     data = json.loads(request.stream.read())

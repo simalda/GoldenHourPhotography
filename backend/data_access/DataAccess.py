@@ -10,15 +10,15 @@ from Image import *
 from TimeUnit import *
 import datetime
 import time
-import ConfigProvider  
+from ConfigProvider import * 
 
 import hashlib
 from bson import ObjectId
 
 class DataAccess:
     def __init__(self):
-        self.client = MongoClient(ConfigProvider.DBURL) #DBURL
-        self.mydb = self.client[ConfigProvider.DBNAME] #DBNAME
+        self.client = MongoClient(DBURL) #DBURL
+        self.mydb = self.client[DBNAME] #DBNAME
     
 
     def check_user(self, user, psw):
@@ -89,5 +89,11 @@ class DataAccess:
             return True
         except:
             return False
+
+
+    def add_location_type(self, location_type):
+        self.collection = self.mydb['locationTypes']
+        self.collection.insert_one({"name" : location_type})
+        return True
 
 

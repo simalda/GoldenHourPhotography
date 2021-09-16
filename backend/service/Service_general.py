@@ -34,7 +34,7 @@ app.register_blueprint(service.Calendar_service.bp)
 app.register_blueprint(service.Images_service.bp)
 app.register_blueprint(service.Locations_service.bp)
 app.register_blueprint(service.Orders_service.bp)
- 
+
 
 
 app.debug = True
@@ -56,13 +56,13 @@ def ckeck_token():
     db = DataAccess()
     sessions = db.get_all_sessions()
     g.isAdmin = token in sessions
-    
+
 
 def allowed_file_extensions(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ConfigProvider.ALLOWED_EXTENSIONS
 
-@app.route('/image-file', methods=['POST'])
+@app.route('/image-files', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
         return redirect(request.url)
@@ -75,7 +75,7 @@ def upload_file():
         resp = make_response(jsonify("Saved", 200))
         return resp
 
-@app.route('/image-file/<fileName>', methods=['GET'])
+@app.route('/image-files/<fileName>', methods=['GET'])
 def get_image_file(fileName):
     return send_from_directory(UPLOAD_FOLDER, fileName,as_attachment=False)
 
@@ -91,12 +91,12 @@ def check_user(user, password):
         resp = make_response(jsonify(result["guid"]), 200)
         return resp     
 
-@app.route('/image-types') 
+@app.route('/image-types')
 def get_all_image_types():
     db = DataAccess()
     return jsonify(db.get_all_image_types())
 
-@app.route('/event-types') 
+@app.route('/event-types')
 def get_all_event_types():
     db = DataAccess()
     return jsonify(db.get_all_event_types()) 
@@ -121,6 +121,14 @@ def delete_location_type():
     loc_info_handler = LocationHandler(db)
     return jsonify(loc_info_handler.delete_location_type(data))
 
+@app.route('/location-types', methods=['POST'])
+def add_location_type():
+    ensure_admin()
+    location_type = json.loads(request.stream.read())
+    loc_DB = DataAccess()
+    loc_handler = LocationHandler(loc_DB)       
+    return  jsonify(loc_handler.add_location_type(location_type))
+
 @app.route('/send-mail', methods=['POST'])
 def send_mail():
     data = json.loads(request.stream.read())
@@ -129,5 +137,4 @@ def send_mail():
 
 if __name__ == "__main__":
     app.run(port=5000)
-
 

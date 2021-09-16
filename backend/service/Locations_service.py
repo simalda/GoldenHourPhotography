@@ -20,13 +20,7 @@ logger = logging.getLogger(__name__)
 
 bp = Blueprint('locations_page', __name__, template_folder='templates')
 
-@bp.route('/delete-location-type', methods=['POST'])
-def delete_location_type():
-    ensure_admin()
-    data = json.loads(request.stream.read())
-    db = DataAccessLocation()
-    loc_handler = LocationHandler(db)
-    return jsonify(loc_handler.delete_location_type(data))
+
 
 @bp.route('/locations')
 def get_locations_info():
@@ -34,7 +28,7 @@ def get_locations_info():
     loc_info_handler = LocationHandler(db)
     return jsonify(loc_info_handler.get_all_locations_info())
 
-@bp.route('/location', methods=['POST'])
+@bp.route('/locations', methods=['POST'])
 def add_location():
     ensure_admin()
     data = json.loads(request.stream.read())
@@ -48,37 +42,3 @@ def add_location():
     im_handler = ImageHandler(im_DB)
     im_handler.add_image(image)
     return '200'
-
-@bp.route('/location-types', methods=['POST'])
-def add_location_type():
-    ensure_admin()
-    location_type = json.loads(request.stream.read())
-    loc_DB = DataAccessLocation()
-    loc_handler = LocationHandler(loc_DB)       
-    return  jsonify(loc_handler.add_location_type(location_type))
-
-@bp.route('/upsert-link', methods=['POST'])
-def upsert_link():
-    ensure_admin()
-    data = json.loads(request.stream.read())
-    db = DataAccessLocation()
-    link_handler = ImageLinkerHandler(db)
-    link =  ImageLinker(data["origin"], data["destination"], data["latitude"], data["longitude"])
-    return jsonify(link_handler.upsert_link(link))
-
-@bp.route('/links-to-image', methods=['POST'])
-def get_links():
-    data = json.loads(request.stream.read())
-    db = DataAccessLocation()
-    link_handler = ImageLinkerHandler(db)
-    image = Image(data["id"], data["name"],data["imageType"],data["eventType"],data["location"])
-    return jsonify(link_handler.get_links_for_image(image))
-
-@bp.route('/delete-link', methods=['POST'])
-def delete_link():
-    ensure_admin()
-    data = json.loads(request.stream.read())
-    db = DataAccessLocation()
-    link_handler = ImageLinkerHandler(db)
-    link =  ImageLinker(data["origin"], data["destination"], data["latitude"], data["longitude"])
-    return jsonify(link_handler.delete_link(link))

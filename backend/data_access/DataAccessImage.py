@@ -46,3 +46,37 @@ class DataAccessImage(DataAccess):
         }, self.collection.find()))
         
   
+
+
+    def upsert_link(self, link):
+        self.collection = self.mydb['imageLinker']
+        count_documents = self.collection.count_documents({"origin" : link.origin, "destination": link.destination})
+        if count_documents:
+            myquery = {"origin" : link.origin, "destination": link.destination}
+            newvalues = { "$set": {"origin" : link.origin, "destination": link.destination, "latitude": link.latitude,"longitude": link.longitude} }
+
+            query = self.collection.update_one(myquery, newvalues)
+            logger.info('In FUNCTION %s number of modified rows: %s\n', 'edit_image', query.modified_count)
+        else:
+            self.collection.insert_one({"origin" : link.origin, "destination": link.destination, "latitude": link.latitude,"longitude": link.longitude})
+            return True
+         
+
+    def get_links_for_image(self, imageName):
+        self.collection = self.mydb['imageLinker']
+        result = self.collection.find({ "origin" : imageName } )
+        links = list(map(lambda link: {
+            "origin":link["origin"],
+            "destination" : link["destination"],
+            "destinationImagePath":PHOTOS_BASE_URL+link["destination"],
+            "latitude" :link["latitude"],
+            "longitude": link["longitude"]
+        },result)) 
+        return links
+
+    def delete_link(self, link):
+        self.collection = self.mydb['imageLinker']
+        myquery = { "origin": link.origin, "destination":link.destination}
+        self.collection.delete_one(myquery)
+        return True
+

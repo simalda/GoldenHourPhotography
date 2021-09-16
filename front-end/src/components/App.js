@@ -221,6 +221,8 @@ class App extends Component {
       locationDescription: location,
     });
     history.push("/location");
+    // const Atlit = "Atlit";
+    // history.push("/location/" + Atlit);
   }
   updateOrderState(order) {
     this.setState({

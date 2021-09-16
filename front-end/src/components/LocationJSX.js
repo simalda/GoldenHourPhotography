@@ -14,6 +14,7 @@ class Location extends React.Component {
       pathList: this.createPathList(),
       connections: [],
       isLoaded: false,
+      currentImage: 0,
     };
   }
 
@@ -44,6 +45,13 @@ class Location extends React.Component {
       (image) => image.path
     );
   }
+  goToNextImage() {
+    this.setState({
+      currentImage:
+        (this.state.currentImage + 1) %
+        this.props.locationDescription.sphereImageList.length,
+    });
+  }
   render() {
     let popup = <div></div>;
     if (this.state.popupTag) {
@@ -72,7 +80,11 @@ class Location extends React.Component {
           <D3images
             admin={this.props.admin}
             locationDescription={this.props.locationDescription}
-            panorama={this.props.locationDescription.sphereImageList[0]}
+            panorama={
+              this.props.locationDescription.sphereImageList[
+                this.state.currentImage
+              ]
+            }
             connections={this.state.connections}
           />
           <div className="D3banner">
@@ -81,8 +93,12 @@ class Location extends React.Component {
                 className="D3bannerArrow"
                 src={arrow}
                 alt={"arrow to next image"}
+                onClick={() => this.goToNextImage()}
               />
-              <span style={{ color: "#515151", opacity: 0.5 }}>הבא</span> 1/3{" "}
+              <span style={{ color: "#515151", opacity: 0.5 }}>הבא</span>
+              {"  "}
+              {this.state.currentImage + 1}/
+              {this.props.locationDescription.sphereImageList.length}
             </span>
             <span className="D3bannerRight">
               {this.props.locationDescription.name}

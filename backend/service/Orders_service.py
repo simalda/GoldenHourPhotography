@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 bp = Blueprint('orders_page', __name__, template_folder='templates')
 
-@bp.route('/order', methods=['DELETE'])
+@bp.route('/orders', methods=['DELETE'])
 def delete_order():
     ensure_admin()
     data = json.loads(request.stream.read())
@@ -29,7 +29,7 @@ def delete_order():
     except:
         return make_response("Something went wrong", 400)
 
-@bp.route('/update-order', methods=['POST'])
+@bp.route('/orders', methods=['PUT'])
 def update_order():
     ensure_admin()
     data = json.loads(request.stream.read())
@@ -38,7 +38,7 @@ def update_order():
     order = Order( data["date"], data["time"],data["name"],data["telefon"],data["email"],data["location"], data["eventType"],data["note"], data["id"])
     return jsonify(or_handler.update_order(order))
 
-@bp.route('/order', methods=['POST']) 
+@bp.route('/orders', methods=['POST']) 
 def add_order():
     ensure_admin()
     data = json.loads(request.stream.read())
